@@ -1,17 +1,19 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from main import models, forms
-from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth import logout, login, authenticate
+from main import models
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from pulp import *
 from .forms import ContactForm
 from django.core.mail import send_mail
-from django.template.loader import render_to_string
 import xlwt
-from io import StringIO,BytesIO
-import csv
+from io import BytesIO
 from django.conf import settings
+from django.contrib import messages
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
 # Create your views here.
 def is_admin(user):
     return user.is_superuser
@@ -122,53 +124,120 @@ def logout_view(request):
 
 @login_required(login_url='login/')
 def viewDetailFour(request,plan_Name):
-    optimizeFour(plan_Name)
-    detail = models.FourMonthPlan.objects.filter(planName=plan_Name).values()
-    for x in detail:
-        ntwH1 = x['hiredTemporary1']
-        ntwF1 = x['firedTemporary1']
-        ntwH2 = x['hiredTemporary2']
-        ntwF2 = x['firedTemporary2']
-        ntwH3 = x['hiredTemporary3']
-        ntwF3 = x['firedTemporary3']
-        ntwH4 = x['hiredTemporary4']
-        ntwF4 = x['firedTemporary4']
-        rd1 = x['demand1'] - (x['numPermanent1'] * x['prodPermanent1'])
-        if rd1 < 0:
-            rd1 = 0
-        hC1 = ntwH1 * x['costHiring1']
-        fC1 = ntwF1 * x['costFiring1']
-        ihc1 = x['costHoldingUnit1'] * x['inventoryMonth1']
-        rd2 = x['demand2'] - (x['numPermanent2'] * x['prodPermanent2'])
-        if rd2 < 0:
-            rd2 = 0
-        hC2 = ntwH2 * x['costHiring2']
-        fC2 = ntwF2 * x['costFiring2']
-        ihc2 = x['costHoldingUnit2'] * x['inventoryMonth2']
-        rd3 = x['demand3'] - (x['numPermanent3'] * x['prodPermanent3'])
-        if rd3 < 0:
-            rd3 = 0
-        hC3 = ntwH3 * x['costHiring3']
-        fC3 = ntwF3 * x['costFiring3']
-        ihc3 = x['costHoldingUnit3'] * x['inventoryMonth3']
-        rd4 = x['demand4'] - (x['numPermanent4'] * x['prodPermanent4'])
-        if rd4 < 0:
-            rd4 = 0
-        hC4 = ntwH4 * x['costHiring4']
-        fC4 = ntwF4 * x['costFiring4']
-        ihc4 = x['costHoldingUnit4'] * x['inventoryFinal']
-        ntw1 = ntwH1 - ntwF1 
-        ntw2 = ntwH1 - ntwF1 + ntwH2 - ntwF2 
-        ntw3 = ntwH1 - ntwF1 + ntwH2 - ntwF2 + ntwH3 - ntwF3 
-        ntw4 = ntwH1 - ntwF1 + ntwH2 - ntwF2 + ntwH3 - ntwF3 + ntwH4 - ntwF4
-        thC = hC1 + hC2 + hC3 + hC4
-        tfC = fC1 + fC2 + fC3 + fC4
-        tihC = ihc1 + ihc2 + ihc3 + ihc4
-        ei1 = x['inventoryMonth1']
-        ei2 = x['inventoryMonth2']
-        ei3 = x['inventoryMonth3']
-        ei4 = x['inventoryFinal']
-    return render(request, "main/Four/viewDetailFour.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
+    status = optimizeFour(plan_Name)
+    if status == 1:
+        detail = models.FourMonthPlan.objects.filter(planName=plan_Name).values()
+        for x in detail:
+            ntwH1 = x['hiredTemporary1']
+            ntwF1 = x['firedTemporary1']
+            ntwH2 = x['hiredTemporary2']
+            ntwF2 = x['firedTemporary2']
+            ntwH3 = x['hiredTemporary3']
+            ntwF3 = x['firedTemporary3']
+            ntwH4 = x['hiredTemporary4']
+            ntwF4 = x['firedTemporary4']
+            rd1 = x['demand1'] - (x['numPermanent1'] * x['prodPermanent1']) - x['inventoryInitial']
+            if rd1 < 0:
+                rd1 = 0
+            hC1 = ntwH1 * x['costHiring1']
+            fC1 = ntwF1 * x['costFiring1']
+            ihc1 = x['costHoldingUnit1'] * x['inventoryMonth1']
+            rd2 = x['demand2'] - (x['numPermanent2'] * x['prodPermanent2']) - x['inventoryMonth1']
+            if rd2 < 0:
+                rd2 = 0
+            hC2 = ntwH2 * x['costHiring2']
+            fC2 = ntwF2 * x['costFiring2']
+            ihc2 = x['costHoldingUnit2'] * x['inventoryMonth2']
+            rd3 = x['demand3'] - (x['numPermanent3'] * x['prodPermanent3']) - x['inventoryMonth2']
+            if rd3 < 0:
+                rd3 = 0
+            hC3 = ntwH3 * x['costHiring3']
+            fC3 = ntwF3 * x['costFiring3']
+            ihc3 = x['costHoldingUnit3'] * x['inventoryMonth3']
+            rd4 = x['demand4'] - (x['numPermanent4'] * x['prodPermanent4']) - x['inventoryMonth3']
+            if rd4 < 0:
+                rd4 = 0
+            hC4 = ntwH4 * x['costHiring4']
+            fC4 = ntwF4 * x['costFiring4']
+            ihc4 = x['costHoldingUnit4'] * x['inventoryFinal']
+            ntw1 = ntwH1 - ntwF1 
+            ntw2 = ntw1 + (ntwH2 - ntwF2) 
+            ntw3 = ntw2 + (ntwH3 - ntwF3) 
+            ntw4 = ntw3 + (ntwH4 - ntwF4)
+            thC = hC1 + hC2 + hC3 + hC4
+            tfC = fC1 + fC2 + fC3 + fC4
+            tihC = ihc1 + ihc2 + ihc3 + ihc4
+            ei1 = x['inventoryMonth1']
+            ei2 = x['inventoryMonth2']
+            ei3 = x['inventoryMonth3']
+            ei4 = x['inventoryFinal']
+            # FIGURES
+            
+            # Figure 1 : Total Cost Distribution (Malaysian Ringgit)
+            # Labels
+            labels = ['Inventory Holding Cost', 'Temp. Worker Hiring Cost', 'Temp. Worker Firing Cost']
+
+            # Data for each cost type
+            values = [tihC, thC, tfC]
+
+            # Custom color for each cost type
+            colors = ['#636efa', '#00cc96', '#ef553b']
+
+            # Create the Pie Chart
+            fig1 = go.Figure(data=[go.Pie(labels=labels, textinfo='label+percent', values=values, hole=0.3, marker=dict(colors=colors))])
+
+            # Update the layout
+            fig1.update_layout(title='Total Cost Distribution (Malaysian Ringgit)')
+            fig1.update_layout(showlegend=False)
+            
+            
+            # Figure 2 : Monthly Cost
+            # Data for x-axis (months)
+            months = ['Month 1', 'Month 2', 'Month 3', 'Month 4']
+
+            # Data for y-axis (costs)
+            cost_type_1 = [ihc1, ihc2, ihc3, ihc4]
+            cost_type_2 = [hC1, hC2, hC3, hC4]
+            cost_type_3 = [fC1, fC2, fC3, fC4]
+
+            # Create the Stacked Bar Chart
+            fig2 = go.Figure(data=[
+                go.Bar(name='Inventory Holding Cost', x=months, y=cost_type_1, marker=dict(color=colors[0])),
+                go.Bar(name='Hiring Cost', x=months, y=cost_type_2, marker=dict(color=colors[1])),
+                go.Bar(name='Firing Cost', x=months, y=cost_type_3, marker=dict(color=colors[2])),
+            ])
+
+            # Update the layout
+            fig2.update_layout(barmode='stack', 
+                            title='Monthly Cost (Malaysian Ringgit)',
+                            yaxis_title='Costs')
+            
+            
+            workerHired = [ntwH1, ntwH2, ntwH3, ntwH4]
+            workerFired = [ntwF1, ntwF2, ntwF3, ntwF4]
+            fig3 = go.Figure(data = [
+                go.Line(x = months, y = workerHired, name="Worker Hired"),
+                go.Line(x = months, y = workerFired, name="Worker Fired")
+            ])
+            fig3.update_layout(title='Monthly Temporary Worker Hired and Fired',
+                            yaxis_title='Number of Worker Hired/Fired')
+            
+            workerNumber = [ntw1, ntw2, ntw3, ntw4]
+            fig4 = go.Figure(data = [
+                go.Bar(x = months, y = workerNumber, name="Number of Temporary Worker")
+            ])
+            fig4.update_layout(title='Monthly Number of Temporary Worker',
+                            yaxis_title='Number of Worker Hired/Fired')
+        return render(request, "main/Four/viewDetailFour.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'thC': thC, 'tfC': tfC, 'tihC': tihC, 'fig1' : fig1.to_html(full_html=False), 'fig2' : fig2.to_html(full_html=False), 'fig3' : fig3.to_html(full_html=False), 'fig4' : fig4.to_html(full_html=False)})
+    elif status == 0:
+        messages.error(request, "PLAN COULD NOT BE SOLVED")
+    elif status == -1:
+        messages.error(request, "PLAN IS NOT FEASIBLE")
+    elif status == -2:
+        messages.error(request, "PLAN RESULTS IS UNBOUNDED")
+    elif status == -3:
+        messages.error(request, "PLAN RESULTS IS UNDEFINED")
+    return redirect(history)
 
 @login_required(login_url='login/')
 def viewDetailFive(request,plan_Name):
@@ -989,7 +1058,7 @@ def optimizeFour(inputPlanName):
     qs = models.FourMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
         inputInventoryInitial = int(x['inventoryInitial'])
-        inputInventoryFinal = x['inventoryFinal']
+        inputInventoryFinal = int(x['inventoryFinal'])
         
         inputDemand1 = int(x['demand1'])
         inputNumPermanent1 = int(x['numPermanent1'])
@@ -1021,26 +1090,34 @@ def optimizeFour(inputPlanName):
         inputProdTemporary4 = int(x['prodTemporary4'])
         inputCostHiring4 = float(x['costHiring4'])
         inputCostFiring4 = float(x['costFiring4'])
-        inputCostHoldingUnit4 = float(x['costHoldingUnit4'])
     model = LpProblem("Minimize Cost", LpMinimize)
     month = list(range(4))
+    month1 = list(range(3))
     ihcDict = LpVariable.dicts(
-        'IHC', month, lowBound=0, cat='Continuous')
-    ihcDict[3] = inputInventoryFinal
+        'IHC', month1, lowBound=0, cat='Integer')
     hcDict = LpVariable.dicts(
-        'HC', month, lowBound=0, cat='Continuous')
+        'HC', month, lowBound=0, cat='Integer')
     fcDict = LpVariable.dicts(
-        'FC', month, lowBound=0, cat='Continuous')
-    inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3, inputCostHoldingUnit4]
+        'FC', month, lowBound=0, cat='Integer')
+    ntwDict = LpVariable.dicts(
+        'NTW', month, lowBound=0, cat='Integer')
+    inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
     inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
     inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
-    model += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
-    model.addConstraint(inputInventoryInitial + inputProdTemporary1 * hcDict[0] - inputProdTemporary1 * fcDict[0] - ihcDict[0] == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1))
-    model.addConstraint(ihcDict[0] + inputProdTemporary2 * hcDict[0] - inputProdTemporary2*fcDict[0] + inputProdTemporary2*hcDict[1] - inputProdTemporary2*fcDict[1] - ihcDict[1] == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2))
-    model.addConstraint(ihcDict[1] + inputProdTemporary3 * hcDict[0] - inputProdTemporary3*fcDict[0] + inputProdTemporary3*hcDict[1] - inputProdTemporary3*fcDict[1] + inputProdTemporary3*hcDict[2] - inputProdTemporary3*fcDict[2] - ihcDict[2] == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3))
-    model.addConstraint(ihcDict[2] + inputProdTemporary4 * hcDict[0] - inputProdTemporary4*fcDict[0] + inputProdTemporary4*hcDict[1] - inputProdTemporary4*fcDict[1] + inputProdTemporary4*hcDict[2] - inputProdTemporary4*fcDict[2] + inputProdTemporary4*hcDict[3] - inputProdTemporary4*fcDict[3] - ihcDict[3] == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4))
+    model += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+    model.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0])
+    model.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1])
+    model.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2])
+    model.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal)
+    model.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0])
+    model.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]))
+    model.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]))
+    model.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]))
     model.solve()
+    o = [{'name':name,'shadow price':c.pi,'slack': c.slack} for name, c in model.constraints.items()]
+    print(pd.DataFrame(o))
     models.FourMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, optimalCost = value(model.objective))
+    return model.status
 
 
 def optimizeFive(inputPlanName):
