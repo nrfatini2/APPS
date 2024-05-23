@@ -17,19 +17,11 @@
   {% endcompress %}
   <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
   <link rel="icon" href="https://i.ibb.co/8gpyyg9/logo-App-Dev.png" type="image/x-icon">
-  <style>
-    table, tr, td{
-      border: solid black 1px;
-    }
-    input[type="number"] {
-      border: solid black 1px;
-    }
-  </style>
 </head>
 <body>
 
   <div class="container flex flex-wrap">
-  <aside class="fixed w-64 h-screen mr-2 rounded-r-lg bg-gradient-to-b from-sky-700 to-sky-900">
+  <aside class="fixed w-64 h-screen mr-2 bg-gradient-to-b from-sky-700 to-sky-900">
     <div class="px-6 pt-8">
 
       <div class="flex items-center justify-center pl-4">
@@ -39,10 +31,11 @@
       <div class="pt-6">
         <hr class="border-neutral-100">
       </div> 
-      {% if user.is_authenticated%}
+      {% if user.is_authenticated %}
+      
       <a href="{% url 'editprofile' user.id %}" >
       <div class="flex items-center p-2 pt-4 space-x-4">
-        <img src="https://source.unsplash.com/100x100/?portrait" alt="" class="w-12 h-12 rounded-full dark:bg-gray-500">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/240px-Default_pfp.svg.png"  alt="" class="w-12 h-12 rounded-full dark:bg-gray-500">
         <div>
           <h2 class="text-lg font-semibold text-white">{{ user.first_name }}&nbsp;{{ user.last_name }}</h2>
           <p class="text-sm font-semibold text-slate-300">Edit Profile</p>
