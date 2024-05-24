@@ -1105,16 +1105,18 @@ def optimizeFour(inputPlanName):
     inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
     inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
     model += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
-    model.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0])
-    model.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1])
-    model.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2])
-    model.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal)
-    model.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0])
-    model.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]))
-    model.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]))
-    model.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]))
+    model.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+    model.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+    model.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+    model.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+    model.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+    model.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+    model.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+    model.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
     model.solve()
-    o = [{'name':name,'shadow price':c.pi,'slack': c.slack} for name, c in model.constraints.items()]
+    for v in model.variables():
+        print(v.name, "=", v.varValue)
+    o = [{'name':name, 'constraint ':c,'shadow price':c.pi,'slack': c.slack} for name, c in model.constraints.items()]
     print(pd.DataFrame(o))
     models.FourMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, optimalCost = value(model.objective))
     return model.status
