@@ -11,8 +11,8 @@
 {% endif %}
 <body class="min-h-screen bg-neutral-100" style="min-height: 400px; margin-bottom: 100px; clear: both;">
   <div class='m-5 overflow-x-auto'>
-    <h1 class="block px-4 py-4 text-3xl font-black text-center text-transparent bg-clip-text bg-gradient-to-b from-sky-500 to-sky-900 ml-[320px] w-3/4">PLAN HISTORY PAGE</h1>
-    <table class="bg-gradient-to-br from-sky-600 to-sky-900 p-1 drop-shadow-lg ml-[320px] mt-[5px] font-[Poppins] overflow-hidden m-10 w-3/4 border-spacing-2 border-sky-700 border-separate rounded-[18px]">
+    <h1 class="block px-4 py-4 text-3xl font-black text-center text-transparent bg-clip-text bg-gradient-to-b from-cyan-700 to-cyan-900 ml-[320px] w-3/4">PLAN HISTORY PAGE</h1>
+    <table class="bg-gradient-to-br from-cyan-700 to-cyan-900 p-1 drop-shadow-lg ml-[320px] mt-[5px] font-[Poppins] overflow-hidden m-10 w-3/4 border-spacing-2 border-cyan-700 border-separate rounded-[18px]">
       <tr class="text-center text-white">
         <td class="px-6 py-4 text-sm font-semibold text-center uppercase ">Plan Name</td>
         <td class="px-6 py-4 text-sm font-semibold text-center uppercase ">Months</td>
@@ -27,12 +27,12 @@
           <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Four/4</td>
           <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
             <div class="flex flex-wrap justify-center">
-              <a href={% url 'demandFour' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
-              <a href={% url 'inventoryInitialFinal' 'Four' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
-              <a href={% url 'costHoldingUnitFour' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
-              <a href={% url 'numPermanentFour' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
-              <a href={% url 'costHiringFour' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
-              <a href={% url 'costFiringFour' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
+              <a href={% url 'demandFour' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-cyan-800 to-cyan-900 drop-shadow-lg hover:-translate-y-1 hover:from-blue-800 hover:to-blue-900">Demand</a>
+              <a href={% url 'inventoryInitialFinal' 'Four' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-cyan-800 to-cyan-900 drop-shadow-lg hover:-translate-y-1 hover:from-blue-800 hover:to-blue-900">Starting & Ending Inventory Level</a><br><br>
+              <a href={% url 'costHoldingUnitFour' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-cyan-800 to-cyan-900 drop-shadow-lg hover:-translate-y-1 hover:from-blue-800 hover:to-blue-900">Holding Cost Per Unit</a><br><br>
+              <a href={% url 'numPermanentFour' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-cyan-800 to-cyan-900 drop-shadow-lg hover:-translate-y-1 hover:from-blue-800 hover:to-blue-900">Number of Permanent Workers</a><br><br>
+              <a href={% url 'costHiringFour' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-cyan-800 to-cyan-900 drop-shadow-lg hover:-translate-y-1 hover:from-blue-800 hover:to-blue-900">Temporary Worker Hiring Cost</a>
+              <a href={% url 'costFiringFour' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-cyan-800 to-cyan-900 drop-shadow-lg hover:-translate-y-1 hover:from-blue-800 hover:to-blue-900">Temporary Worker Firing Cost</a>
               <a href={% url 'prodPermanentFour' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
               <a href={% url 'prodTemporaryFour' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
             </div>
@@ -285,7 +285,7 @@
         <tr class="text-center text-white">
           <td class="w-full p-2 text-sm font-semibold text-center text-black bg-white rounded-md" colspan="4">
             <div class="flex flex-wrap justify-center">
-              <h1 class="block w-full px-4 py-4 text-lg font-black text-center text-transparent bg-clip-text bg-gradient-to-b from-sky-500 to-sky-900">No Plans Made Yet!</h1>
+              <h1 class="block w-full px-4 py-4 text-lg font-black text-center text-transparent bg-clip-text bg-gradient-to-b from-cyan-500 to-cyan-900">No Plans Made Yet!</h1>
               <a href={% url 'home' %} class="content-center p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
             </div>
           </td>

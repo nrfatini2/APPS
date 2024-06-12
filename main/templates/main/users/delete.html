@@ -10,7 +10,7 @@
     {% csrf_token %}
 
     <label class="block mb-2 text-sm font-bold text-gray-600">Are you sure you want to delete</label>
-    <p class="px-4 py-4 text-3xl block text-center bg-clip-text text-transparent bg-gradient-to-b from-sky-700 to-sky-900 font-black">{{ userData.first_name }} {{ userData.last_name }} ?</p>
+    <p class="px-4 py-4 text-3xl block text-center bg-clip-text text-transparent bg-gradient-to-b from-cyan-700 to-cyan-900 font-black">{{ userData.first_name }} {{ userData.last_name }} ?</p>
     <p class="block mb text-lg font-bold text-gray-600">USER ID 0{{ userData.id }}</p><br>
     <button type="submit" class="bg-orange-500 text-white py-2 w-full rounded-md drop-shadow-lg transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-red-500 hover:text-white font-bold">Confirm</button>
     <br><br>

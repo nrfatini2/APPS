@@ -10,10 +10,7 @@ import xlwt
 from io import BytesIO
 from django.conf import settings
 from django.contrib import messages
-import numpy as np
-import pandas as pd
 import plotly.graph_objects as go
-import plotly.express as px
 # Create your views here.
 def is_admin(user):
     return user.is_superuser
@@ -99,7 +96,7 @@ def index(request):
             return redirect('login')
     return render(request, 'main/index.html')
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def history(request):
     historyListFour = models.FourMonthPlan.objects.all().values
     historyListFive = models.FiveMonthPlan.objects.all().values
@@ -112,17 +109,15 @@ def history(request):
     historyListTwelve = models.TwelveMonthPlan.objects.all().values
     return render(request, "main/history.html", {'historyListFour': historyListFour, 'historyListFive': historyListFive, 'historyListSix': historyListSix, 'historyListSeven': historyListSeven, 'historyListEight': historyListEight, 'historyListNine': historyListNine, 'historyListTen': historyListTen, 'historyListEleven': historyListEleven, 'historyListTwelve': historyListTwelve})
 
-@login_required(login_url='login/')
-def formula(request):
-
-    return render(request, "main/formula.html")
+def about(request):
+    return render(request, "main/about.html")
 
 
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def viewDetailFour(request,plan_Name):
     status = optimizeFour(plan_Name)
     if status == 1:
@@ -239,7 +234,7 @@ def viewDetailFour(request,plan_Name):
         messages.error(request, "PLAN RESULTS IS UNDEFINED")
     return redirect(history)
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def viewDetailFive(request,plan_Name):
     optimizeFive(plan_Name)
     detail = models.FiveMonthPlan.objects.filter(planName=plan_Name).values()
@@ -299,7 +294,7 @@ def viewDetailFive(request,plan_Name):
         ei5 = x['inventoryFinal']
     return render(request, "main/Five/viewDetailFive.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def viewDetailSix(request,plan_Name):
     optimizeSix(plan_Name)
     detail = models.SixMonthPlan.objects.filter(planName=plan_Name).values()
@@ -369,7 +364,7 @@ def viewDetailSix(request,plan_Name):
         ei6 = x['inventoryFinal']
     return render(request, "main/Six/viewDetailSix.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6,'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6,'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6,'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6,'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6,'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6,'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6,'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6,'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def viewDetailSeven(request,plan_Name):
     optimizeSeven(plan_Name)
     detail = models.SevenMonthPlan.objects.filter(planName=plan_Name).values()
@@ -449,7 +444,7 @@ def viewDetailSeven(request,plan_Name):
         ei7 = x['inventoryFinal']
     return render(request, "main/Seven/viewDetailSeven.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6, 'rd7': rd7, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6, 'ntw7': ntw7, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6, 'ihc7': ihc7, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6, 'ntwH7':ntwH7, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6, 'ntwF7':ntwF7, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6, 'hC7': hC7, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6, 'fC7': fC7, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6, 'ei7': ei7, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def viewDetailEight(request,plan_Name):
     optimizeEight(plan_Name)
     detail = models.EightMonthPlan.objects.filter(planName=plan_Name).values()
@@ -539,7 +534,7 @@ def viewDetailEight(request,plan_Name):
         ei8 = x['inventoryFinal']
     return render(request, "main/Eight/viewDetailEight.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6, 'rd7': rd7, 'rd8': rd8, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6, 'ntw7': ntw7, 'ntw8': ntw8, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6, 'ihc7': ihc7, 'ihc8': ihc8, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6, 'ntwH7':ntwH7, 'ntwH8':ntwH8, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6, 'ntwF7':ntwF7, 'ntwF8':ntwF8, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6, 'hC7': hC7, 'hC8': hC8, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6, 'fC7': fC7, 'fC8': fC8, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6, 'ei7': ei7, 'ei8': ei8, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def viewDetailNine(request,plan_Name):
     optimizeNine(plan_Name)
     detail = models.NineMonthPlan.objects.filter(planName=plan_Name).values()
@@ -639,7 +634,7 @@ def viewDetailNine(request,plan_Name):
         ei9 = x['inventoryFinal']
     return render(request, "main/Nine/viewDetailNine.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6, 'rd7': rd7, 'rd8': rd8, 'rd9': rd9,'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6, 'ntw7': ntw7, 'ntw8': ntw8, 'ntw9': ntw9,'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6, 'ihc7': ihc7, 'ihc8': ihc8, 'ihc9': ihc9,'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6, 'ntwH7':ntwH7, 'ntwH8':ntwH8, 'ntwH9':ntwH9,'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6, 'ntwF7':ntwF7, 'ntwF8':ntwF8, 'ntwF9':ntwF9,'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6, 'hC7': hC7, 'hC8': hC8, 'hC9': hC9,'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6, 'fC7': fC7, 'fC8': fC8, 'fC9': fC9,'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6, 'ei7': ei7, 'ei8': ei8, 'ei9': ei9,'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def viewDetailTen(request,plan_Name):
     optimizeTen(plan_Name)
     detail = models.TenMonthPlan.objects.filter(planName=plan_Name).values()
@@ -749,7 +744,7 @@ def viewDetailTen(request,plan_Name):
         ei10 = x['inventoryFinal']
     return render(request, "main/Ten/viewDetailTen.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6, 'rd7': rd7, 'rd8': rd8, 'rd9': rd9, 'rd10': rd10, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6, 'ntw7': ntw7, 'ntw8': ntw8, 'ntw9': ntw9, 'ntw10': ntw10, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6, 'ihc7': ihc7, 'ihc8': ihc8, 'ihc9': ihc9, 'ihc10': ihc10, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6, 'ntwH7':ntwH7, 'ntwH8':ntwH8, 'ntwH9':ntwH9, 'ntwH10':ntwH10, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6, 'ntwF7':ntwF7, 'ntwF8':ntwF8, 'ntwF9':ntwF9, 'ntwF10':ntwF10, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6, 'hC7': hC7, 'hC8': hC8, 'hC9': hC9, 'hC10': hC10, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6, 'fC7': fC7, 'fC8': fC8, 'fC9': fC9, 'fC10': fC10, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6, 'ei7': ei7, 'ei8': ei8, 'ei9': ei9, 'ei10': ei10, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def viewDetailEleven(request,plan_Name):
     optimizeEleven(plan_Name)
     detail = models.ElevenMonthPlan.objects.filter(planName=plan_Name).values()
@@ -869,7 +864,7 @@ def viewDetailEleven(request,plan_Name):
         ei11 = x['inventoryFinal']
     return render(request, "main/Eleven/viewDetailEleven.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6, 'rd7': rd7, 'rd8': rd8, 'rd9': rd9, 'rd10': rd10, 'rd11': rd11, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6, 'ntw7': ntw7, 'ntw8': ntw8, 'ntw9': ntw9, 'ntw10': ntw10, 'ntw11': ntw11, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6, 'ihc7': ihc7, 'ihc8': ihc8, 'ihc9': ihc9, 'ihc10': ihc10, 'ihc11': ihc11, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6, 'ntwH7':ntwH7, 'ntwH8':ntwH8, 'ntwH9':ntwH9, 'ntwH10':ntwH10, 'ntwH11':ntwH11, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6, 'ntwF7':ntwF7, 'ntwF8':ntwF8, 'ntwF9':ntwF9, 'ntwF10':ntwF10, 'ntwF11':ntwF11, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6, 'hC7': hC7, 'hC8': hC8, 'hC9': hC9, 'hC10': hC10, 'hC11': hC11, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6, 'fC7': fC7, 'fC8': fC8, 'fC9': fC9, 'fC10': fC10, 'fC11': fC11, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6, 'ei7': ei7, 'ei8': ei8, 'ei9': ei9, 'ei10': ei10, 'ei11': ei11, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def viewDetailTwelve(request,plan_Name):
     optimizeTwelve(plan_Name)
     detail = models.TwelveMonthPlan.objects.filter(planName=plan_Name).values()
@@ -999,61 +994,61 @@ def viewDetailTwelve(request,plan_Name):
         ei12 = x['inventoryFinal']
     return render(request, "main/Twelve/viewDetailTwelve.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6, 'rd7': rd7, 'rd8': rd8, 'rd9': rd9, 'rd10': rd10, 'rd11': rd11, 'rd12': rd12, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6, 'ntw7': ntw7, 'ntw8': ntw8, 'ntw9': ntw9, 'ntw10': ntw10, 'ntw11': ntw11, 'ntw12': ntw12, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6, 'ihc7': ihc7, 'ihc8': ihc8, 'ihc9': ihc9, 'ihc10': ihc10, 'ihc11': ihc11, 'ihc12': ihc12, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6, 'ntwH7':ntwH7, 'ntwH8':ntwH8, 'ntwH9':ntwH9, 'ntwH10':ntwH10, 'ntwH11':ntwH11, 'ntwH12':ntwH12, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6, 'ntwF7':ntwF7, 'ntwF8':ntwF8, 'ntwF9':ntwF9, 'ntwF10':ntwF10, 'ntwF11':ntwF11, 'ntwF12':ntwF12, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6, 'hC7': hC7, 'hC8': hC8, 'hC9': hC9, 'hC10': hC10, 'hC11': hC11, 'hC12': hC12, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6, 'fC7': fC7, 'fC8': fC8, 'fC9': fC9, 'fC10': fC10, 'fC11': fC11, 'fC12': fC12, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6, 'ei7': ei7, 'ei8': ei8, 'ei9': ei9, 'ei10': ei10, 'ei11': ei11, 'ei12': ei12, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-
+@login_required(login_url='/login/')
 def deleteDetailFour(request,plan_Name):
     detail = models.FourMonthPlan.objects.filter(planName=plan_Name)
     detail.delete()
     return redirect(history)
 
-
+@login_required(login_url='/login/')
 def deleteDetailFive(request,plan_Name):
     detail = models.FiveMonthPlan.objects.filter(planName=plan_Name)
     detail.delete()
     return redirect(history)
 
-
+@login_required(login_url='/login/')
 def deleteDetailSix(request,plan_Name):
     detail = models.SixMonthPlan.objects.filter(planName=plan_Name)
     detail.delete()
     return redirect(history)
 
-
+@login_required(login_url='/login/')
 def deleteDetailSeven(request,plan_Name):
     detail = models.SevenMonthPlan.objects.filter(planName=plan_Name)
     detail.delete()
     return redirect(history)
 
-
+@login_required(login_url='/login/')
 def deleteDetailEight(request,plan_Name):
     detail = models.EightMonthPlan.objects.filter(planName=plan_Name)
     detail.delete()
     return redirect(history)
 
-
+@login_required(login_url='/login/')
 def deleteDetailNine(request,plan_Name):
     detail = models.NineMonthPlan.objects.filter(planName=plan_Name)
     detail.delete()
     return redirect(history)
 
-
+@login_required(login_url='/login/')
 def deleteDetailTen(request,plan_Name):
     detail = models.TenMonthPlan.objects.filter(planName=plan_Name)
     detail.delete()
     return redirect(history)
 
-
+@login_required(login_url='/login/')
 def deleteDetailEleven(request,plan_Name):
     detail = models.ElevenMonthPlan.objects.filter(planName=plan_Name)
     detail.delete()
     return redirect(history)
 
-
+@login_required(login_url='/login/')
 def deleteDetailTwelve(request,plan_Name):
     detail = models.TwelveMonthPlan.objects.filter(planName=plan_Name)
     detail.delete()
     return redirect(history)
 
-
+@login_required(login_url='/login/')
 def optimizeFour(inputPlanName):
     qs = models.FourMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1113,15 +1108,224 @@ def optimizeFour(inputPlanName):
     model.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
     model.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
     model.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
-    model.solve()
-    for v in model.variables():
-        print(v.name, "=", v.varValue)
-    o = [{'name':name, 'constraint ':c,'shadow price':c.pi,'slack': c.slack} for name, c in model.constraints.items()]
-    print(pd.DataFrame(o))
+    model.solve(pulp.PULP_CBC_CMD(maxSeconds=5))
+    optimizationStatus = model.status
     models.FourMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, optimalCost = value(model.objective))
-    return model.status
+    original_cost = value(model.objective)
+    
+    # Choose the variable of interest
+    original_demand1 = value(inputDemand1)
 
+    # Define perturbation step size
+    step_size1 = 0
+    
+    if inputProdPermanent1 < inputProdTemporary1:
+        step_size1 = inputProdPermanent1
+    else:
+        step_size1 = inputProdTemporary1
 
+    # Initialize allowable increase and decrease
+    allowable_increase1 = 0
+    allowable_decrease1 = 0
+
+    # Set maximum number of iterations
+    max_iterations1 = 100
+
+    # Perform iterative perturbation
+    iteration1 = 0
+    while iteration1 < max_iterations1:
+        # Perturb the variable value (increase)
+        inputDemand1 += step_size1
+        
+        # Solve the modified LP problem
+        model1 = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        model1 += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        model1.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        model1.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        model1.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        model1.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        model1.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        model1.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        model1.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        model1.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        model1.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if model1.status == 1:
+            if value(model1.objective) != original_cost:
+                allowable_increase1 = step_size1 * iteration1
+                break
+        
+        iteration1 += 1
+
+    inputDemand1 = original_demand1
+
+    # Set maximum number of iterations
+    max_iterations2 = 100
+
+    # Perform iterative perturbation
+    iteration2 = 0
+    while iteration2 < max_iterations2:
+        # Perturb the variable value (decrease)
+        inputDemand1 -= step_size1  # Adjust it back to the original value first
+        
+        # Solve the modified LP problem
+        model2 = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        model2 += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        model2.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        model2.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        model2.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        model2.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        model2.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        model2.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        model2.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        model2.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        model2.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if model2.status == 1:
+            if value(model2.objective) != original_cost:
+                allowable_decrease1 = step_size1 * iteration2
+                break
+        
+        iteration2 += 1
+
+    # Choose the variable of interest
+    original_demand2 = value(inputDemand1)
+
+    # Define perturbation step size
+    step_size2 = 0
+    
+    if inputProdPermanent2 < inputProdTemporary2:
+        step_size2 = inputProdPermanent2
+    else:
+        step_size2 = inputProdTemporary2
+
+    # Initialize allowable increase and decrease
+    allowable_increase2 = 0
+    allowable_decrease2 = 0
+
+    # Set maximum number of iterations
+    max_iterations3 = 100
+
+    # Perform iterative perturbation
+    iteration3 = 0
+    while iteration3 < max_iterations3:
+        # Perturb the variable value (increase)
+        inputDemand2 += step_size2
+        
+        # Solve the modified LP problem
+        model3 = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        model3 += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        model3.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        model3.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        model3.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        model3.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        model3.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        model3.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        model3.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        model3.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        model3.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if model3.status == 1:
+            if value(model3.objective) != original_cost:
+                allowable_increase2 = step_size2 * iteration3
+                break
+        
+        iteration3 += 1
+
+    inputDemand2 = original_demand2
+
+    # Set maximum number of iterations
+    max_iterations4 = 100
+
+    # Perform iterative perturbation
+    iteration4 = 0
+    while iteration4 < max_iterations4:
+        # Perturb the variable value (decrease)
+        inputDemand2 -= step_size2  # Adjust it back to the original value first
+        
+        # Solve the modified LP problem
+        model4 = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        model4 += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        model4.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        model4.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        model4.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        model4.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        model4.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        model4.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        model4.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        model4.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        model4.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if model4.status == 1:
+            if value(model4.objective) != original_cost:
+                allowable_decrease2 = step_size2 * iteration4
+                break
+        
+        iteration4 += 1
+
+    print("Demand 1 Allowable Increase:", allowable_increase1)
+    print("Demand 1 Allowable Decrease:", allowable_decrease1)
+    print("Demand 2 Allowable Increase:", allowable_increase2)
+    print("Demand 2 Allowable Decrease:", allowable_decrease2)
+    return optimizationStatus
+
+@login_required(login_url='/login/')
 def optimizeFive(inputPlanName):
     qs = models.FiveMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1188,7 +1392,7 @@ def optimizeFive(inputPlanName):
     model.solve()
     models.FiveMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, optimalCost = value(model.objective))
 
-
+@login_required(login_url='/login/')
 def optimizeSix(inputPlanName):
     qs = models.SixMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1264,7 +1468,7 @@ def optimizeSix(inputPlanName):
     model.solve()
     models.SixMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, optimalCost = value(model.objective))
 
-
+@login_required(login_url='/login/')
 def optimizeSeven(inputPlanName):
     qs = models.SevenMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1349,7 +1553,7 @@ def optimizeSeven(inputPlanName):
     model.solve()
     models.SevenMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, inventoryMonth6 = ihcDict[5].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, hiredTemporary7 = hcDict[6].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, firedTemporary7 = fcDict[6].varValue, optimalCost = value(model.objective))
 
-
+@login_required(login_url='/login/')
 def optimizeEight(inputPlanName):
     qs = models.EightMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1443,7 +1647,7 @@ def optimizeEight(inputPlanName):
     model.solve()
     models.EightMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, inventoryMonth6 = ihcDict[5].varValue, inventoryMonth7 = ihcDict[6].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, hiredTemporary7 = hcDict[6].varValue, hiredTemporary8 = hcDict[7].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, firedTemporary7 = fcDict[6].varValue, firedTemporary8 = fcDict[7].varValue, optimalCost = value(model.objective))
 
-
+@login_required(login_url='/login/')
 def optimizeNine(inputPlanName):
     qs = models.NineMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1546,7 +1750,7 @@ def optimizeNine(inputPlanName):
     model.solve()
     models.NineMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, inventoryMonth6 = ihcDict[5].varValue, inventoryMonth7 = ihcDict[6].varValue, inventoryMonth8 = ihcDict[7].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, hiredTemporary7 = hcDict[6].varValue, hiredTemporary8 = hcDict[7].varValue, hiredTemporary9 = hcDict[8].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, firedTemporary7 = fcDict[6].varValue, firedTemporary8 = fcDict[7].varValue, firedTemporary9 = fcDict[8].varValue, optimalCost = value(model.objective))
 
-
+@login_required(login_url='/login/')
 def optimizeTen(inputPlanName):
     qs = models.TenMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1658,7 +1862,7 @@ def optimizeTen(inputPlanName):
     model.solve()
     models.TenMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, inventoryMonth6 = ihcDict[5].varValue, inventoryMonth7 = ihcDict[6].varValue, inventoryMonth8 = ihcDict[7].varValue, inventoryMonth9 = ihcDict[8].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, hiredTemporary7 = hcDict[6].varValue, hiredTemporary8 = hcDict[7].varValue, hiredTemporary9 = hcDict[8].varValue, hiredTemporary10 = hcDict[9].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, firedTemporary7 = fcDict[6].varValue, firedTemporary8 = fcDict[7].varValue, firedTemporary9 = fcDict[8].varValue, firedTemporary10 = fcDict[9].varValue, optimalCost = value(model.objective))
 
-
+@login_required(login_url='/login/')
 def optimizeEleven(inputPlanName):
     qs = models.ElevenMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1779,7 +1983,7 @@ def optimizeEleven(inputPlanName):
     model.solve()
     models.ElevenMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, inventoryMonth6 = ihcDict[5].varValue, inventoryMonth7 = ihcDict[6].varValue, inventoryMonth8 = ihcDict[7].varValue, inventoryMonth9 = ihcDict[8].varValue, inventoryMonth10 = ihcDict[9].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, hiredTemporary7 = hcDict[6].varValue, hiredTemporary8 = hcDict[7].varValue, hiredTemporary9 = hcDict[8].varValue, hiredTemporary10 = hcDict[9].varValue, hiredTemporary11 = hcDict[10].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, firedTemporary7 = fcDict[6].varValue, firedTemporary8 = fcDict[7].varValue, firedTemporary9 = fcDict[8].varValue, firedTemporary10 = fcDict[9].varValue, firedTemporary11 = fcDict[10].varValue, optimalCost = value(model.objective))
 
-
+@login_required(login_url='/login/')
 def optimizeTwelve(inputPlanName):
     qs = models.TwelveMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1909,7 +2113,7 @@ def optimizeTwelve(inputPlanName):
     model.solve()
     models.TwelveMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, inventoryMonth6 = ihcDict[5].varValue, inventoryMonth7 = ihcDict[6].varValue, inventoryMonth8 = ihcDict[7].varValue, inventoryMonth9 = ihcDict[8].varValue, inventoryMonth10 = ihcDict[9].varValue, inventoryMonth11 = ihcDict[10].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, hiredTemporary7 = hcDict[6].varValue, hiredTemporary8 = hcDict[7].varValue, hiredTemporary9 = hcDict[8].varValue, hiredTemporary10 = hcDict[9].varValue, hiredTemporary11 = hcDict[10].varValue, hiredTemporary12 = hcDict[11].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, firedTemporary7 = fcDict[6].varValue, firedTemporary8 = fcDict[7].varValue, firedTemporary9 = fcDict[8].varValue, firedTemporary10 = fcDict[9].varValue, firedTemporary11 = fcDict[10].varValue, firedTemporary12 = fcDict[11].varValue, optimalCost = value(model.objective))
 
-
+@login_required(login_url='/login/')
 def demandFour(request, plan_Name):
     if request.method == "POST":
         inputDemand1 = request.POST.get('demand1')
@@ -1926,7 +2130,7 @@ def demandFour(request, plan_Name):
         detail = models.FourMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Four/demandFour.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def numPermanentFour(request, plan_Name):
     if request.method == "POST":
         inputNumPermanent1 = request.POST.get('numPermanent1')
@@ -1943,7 +2147,7 @@ def numPermanentFour(request, plan_Name):
         detail = models.FourMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Four/numPermanentFour.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodPermanentFour(request, plan_Name):
     if request.method == "POST":
         inputProdPermanent1 = request.POST.get('prodPermanent1')
@@ -1960,7 +2164,7 @@ def prodPermanentFour(request, plan_Name):
         detail = models.FourMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Four/prodPermanentFour.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodTemporaryFour(request, plan_Name):
     if request.method == "POST":
         inputProdTemporary1 = request.POST.get('prodTemporary1')
@@ -1977,7 +2181,7 @@ def prodTemporaryFour(request, plan_Name):
         detail = models.FourMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Four/prodTemporaryFour.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHiringFour(request, plan_Name):
     if request.method == "POST":
         inputCostHiring1 = request.POST.get('costHiring1')
@@ -1994,7 +2198,7 @@ def costHiringFour(request, plan_Name):
         detail = models.FourMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Four/costHiringFour.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costFiringFour(request, plan_Name):
     if request.method == "POST":
         inputCostFiring1 = request.POST.get('costFiring1')
@@ -2011,7 +2215,7 @@ def costFiringFour(request, plan_Name):
         detail = models.FourMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Four/costFiringFour.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHoldingUnitFour(request, plan_Name):
     if request.method == "POST":
         inputCostHoldingUnit1 = request.POST.get('costHoldingUnit1')
@@ -2028,7 +2232,7 @@ def costHoldingUnitFour(request, plan_Name):
         detail = models.FourMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Four/costHoldingUnitFour.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def demandFive(request, plan_Name):
     if request.method == "POST":
         inputDemand1 = request.POST.get('demand1')
@@ -2047,7 +2251,7 @@ def demandFive(request, plan_Name):
         detail = models.FiveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Five/demandFive.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def numPermanentFive(request, plan_Name):
     if request.method == "POST":
         inputNumPermanent1 = request.POST.get('numPermanent1')
@@ -2066,7 +2270,7 @@ def numPermanentFive(request, plan_Name):
         detail = models.FiveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Five/numPermanentFive.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodPermanentFive(request, plan_Name):
     if request.method == "POST":
         inputProdPermanent1 = request.POST.get('prodPermanent1')
@@ -2085,7 +2289,7 @@ def prodPermanentFive(request, plan_Name):
         detail = models.FiveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Five/prodPermanentFive.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodTemporaryFive(request, plan_Name):
     if request.method == "POST":
         inputProdTemporary1 = request.POST.get('prodTemporary1')
@@ -2104,7 +2308,7 @@ def prodTemporaryFive(request, plan_Name):
         detail = models.FiveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Five/prodTemporaryFive.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHiringFive(request, plan_Name):
     if request.method == "POST":
         inputCostHiring1 = request.POST.get('costHiring1')
@@ -2123,7 +2327,7 @@ def costHiringFive(request, plan_Name):
         detail = models.FiveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Five/costHiringFive.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costFiringFive(request, plan_Name):
     if request.method == "POST":
         inputCostFiring1 = request.POST.get('costFiring1')
@@ -2142,7 +2346,7 @@ def costFiringFive(request, plan_Name):
         detail = models.FiveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Five/costFiringFive.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHoldingUnitFive(request, plan_Name):
     if request.method == "POST":
         inputCostHoldingUnit1 = request.POST.get('costHoldingUnit1')
@@ -2161,7 +2365,7 @@ def costHoldingUnitFive(request, plan_Name):
         detail = models.FiveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Five/costHoldingUnitFive.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def demandSix(request, plan_Name):
     if request.method == "POST":
         inputDemand1 = request.POST.get('demand1')
@@ -2182,7 +2386,7 @@ def demandSix(request, plan_Name):
         detail = models.SixMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Six/demandSix.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def numPermanentSix(request, plan_Name):
     if request.method == "POST":
         inputNumPermanent1 = request.POST.get('numPermanent1')
@@ -2203,7 +2407,7 @@ def numPermanentSix(request, plan_Name):
         detail = models.SixMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Six/numPermanentSix.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodPermanentSix(request, plan_Name):
     if request.method == "POST":
         inputProdPermanent1 = request.POST.get('prodPermanent1')
@@ -2224,7 +2428,7 @@ def prodPermanentSix(request, plan_Name):
         detail = models.SixMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Six/prodPermanentSix.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodTemporarySix(request, plan_Name):
     if request.method == "POST":
         inputProdTemporary1 = request.POST.get('prodTemporary1')
@@ -2245,7 +2449,7 @@ def prodTemporarySix(request, plan_Name):
         detail = models.SixMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Six/prodTemporarySix.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHiringSix(request, plan_Name):
     if request.method == "POST":
         inputCostHiring1 = request.POST.get('costHiring1')
@@ -2266,7 +2470,7 @@ def costHiringSix(request, plan_Name):
         detail = models.SixMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Six/costHiringSix.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costFiringSix(request, plan_Name):
     if request.method == "POST":
         inputCostFiring1 = request.POST.get('costFiring1')
@@ -2287,7 +2491,7 @@ def costFiringSix(request, plan_Name):
         detail = models.SixMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Six/costFiringSix.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHoldingUnitSix(request, plan_Name):
     if request.method == "POST":
         inputCostHoldingUnit1 = request.POST.get('costHoldingUnit1')
@@ -2308,7 +2512,7 @@ def costHoldingUnitSix(request, plan_Name):
         detail = models.SixMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Six/costHoldingUnitSix.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def demandSeven(request, plan_Name):
     if request.method == "POST":
         inputDemand1 = request.POST.get('demand1')
@@ -2331,7 +2535,7 @@ def demandSeven(request, plan_Name):
         detail = models.SevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Seven/demandSeven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def numPermanentSeven(request, plan_Name):
     if request.method == "POST":
         inputNumPermanent1 = request.POST.get('numPermanent1')
@@ -2354,7 +2558,7 @@ def numPermanentSeven(request, plan_Name):
         detail = models.SevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Seven/numPermanentSeven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodPermanentSeven(request, plan_Name):
     if request.method == "POST":
         inputProdPermanent1 = request.POST.get('prodPermanent1')
@@ -2377,7 +2581,7 @@ def prodPermanentSeven(request, plan_Name):
         detail = models.SevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Seven/prodPermanentSeven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodTemporarySeven(request, plan_Name):
     if request.method == "POST":
         inputProdTemporary1 = request.POST.get('prodTemporary1')
@@ -2400,7 +2604,7 @@ def prodTemporarySeven(request, plan_Name):
         detail = models.SevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Seven/prodTemporarySeven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHiringSeven(request, plan_Name):
     if request.method == "POST":
         inputCostHiring1 = request.POST.get('costHiring1')
@@ -2423,7 +2627,7 @@ def costHiringSeven(request, plan_Name):
         detail = models.SevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Seven/costHiringSeven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costFiringSeven(request, plan_Name):
     if request.method == "POST":
         inputCostFiring1 = request.POST.get('costFiring1')
@@ -2446,7 +2650,7 @@ def costFiringSeven(request, plan_Name):
         detail = models.SevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Seven/costFiringSeven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHoldingUnitSeven(request, plan_Name):
     if request.method == "POST":
         inputCostHoldingUnit1 = request.POST.get('costHoldingUnit1')
@@ -2469,7 +2673,7 @@ def costHoldingUnitSeven(request, plan_Name):
         detail = models.SevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Seven/costHoldingUnitSeven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def demandEight(request, plan_Name):
     if request.method == "POST":
         inputDemand1 = request.POST.get('demand1')
@@ -2494,7 +2698,7 @@ def demandEight(request, plan_Name):
         detail = models.EightMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eight/demandEight.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def numPermanentEight(request, plan_Name):
     if request.method == "POST":
         inputNumPermanent1 = request.POST.get('numPermanent1')
@@ -2519,7 +2723,7 @@ def numPermanentEight(request, plan_Name):
         detail = models.EightMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eight/numPermanentEight.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodPermanentEight(request, plan_Name):
     if request.method == "POST":
         inputProdPermanent1 = request.POST.get('prodPermanent1')
@@ -2544,7 +2748,7 @@ def prodPermanentEight(request, plan_Name):
         detail = models.EightMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eight/prodPermanentEight.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodTemporaryEight(request, plan_Name):
     if request.method == "POST":
         inputProdTemporary1 = request.POST.get('prodTemporary1')
@@ -2569,7 +2773,7 @@ def prodTemporaryEight(request, plan_Name):
         detail = models.EightMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eight/prodTemporaryEight.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHiringEight(request, plan_Name):
     if request.method == "POST":
         inputCostHiring1 = request.POST.get('costHiring1')
@@ -2594,7 +2798,7 @@ def costHiringEight(request, plan_Name):
         detail = models.EightMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eight/costHiringEight.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costFiringEight(request, plan_Name):
     if request.method == "POST":
         inputCostFiring1 = request.POST.get('costFiring1')
@@ -2619,7 +2823,7 @@ def costFiringEight(request, plan_Name):
         detail = models.EightMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eight/costFiringEight.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHoldingUnitEight(request, plan_Name):
     if request.method == "POST":
         inputCostHoldingUnit1 = request.POST.get('costHoldingUnit1')
@@ -2644,7 +2848,7 @@ def costHoldingUnitEight(request, plan_Name):
         detail = models.EightMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eight/costHoldingUnitEight.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def demandNine(request, plan_Name):
     if request.method == "POST":
         inputDemand1 = request.POST.get('demand1')
@@ -2671,7 +2875,7 @@ def demandNine(request, plan_Name):
         detail = models.NineMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Nine/demandNine.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def numPermanentNine(request, plan_Name):
     if request.method == "POST":
         inputNumPermanent1 = request.POST.get('numPermanent1')
@@ -2698,7 +2902,7 @@ def numPermanentNine(request, plan_Name):
         detail = models.NineMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Nine/numPermanentNine.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodPermanentNine(request, plan_Name):
     if request.method == "POST":
         inputProdPermanent1 = request.POST.get('prodPermanent1')
@@ -2725,7 +2929,7 @@ def prodPermanentNine(request, plan_Name):
         detail = models.NineMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Nine/prodPermanentNine.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodTemporaryNine(request, plan_Name):
     if request.method == "POST":
         inputProdTemporary1 = request.POST.get('prodTemporary1')
@@ -2752,7 +2956,7 @@ def prodTemporaryNine(request, plan_Name):
         detail = models.NineMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Nine/prodTemporaryNine.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHiringNine(request, plan_Name):
     if request.method == "POST":
         inputCostHiring1 = request.POST.get('costHiring1')
@@ -2779,7 +2983,7 @@ def costHiringNine(request, plan_Name):
         detail = models.NineMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Nine/costHiringNine.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costFiringNine(request, plan_Name):
     if request.method == "POST":
         inputCostFiring1 = request.POST.get('costFiring1')
@@ -2806,7 +3010,7 @@ def costFiringNine(request, plan_Name):
         detail = models.NineMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Nine/costFiringNine.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHoldingUnitNine(request, plan_Name):
     if request.method == "POST":
         inputCostHoldingUnit1 = request.POST.get('costHoldingUnit1')
@@ -2833,7 +3037,7 @@ def costHoldingUnitNine(request, plan_Name):
         detail = models.NineMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Nine/costHoldingUnitNine.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def demandTen(request, plan_Name):
     if request.method == "POST":
         inputDemand1 = request.POST.get('demand1')
@@ -2862,7 +3066,7 @@ def demandTen(request, plan_Name):
         detail = models.TenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Ten/demandTen.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def numPermanentTen(request, plan_Name):
     if request.method == "POST":
         inputNumPermanent1 = request.POST.get('numPermanent1')
@@ -2891,7 +3095,7 @@ def numPermanentTen(request, plan_Name):
         detail = models.TenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Ten/numPermanentTen.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodPermanentTen(request, plan_Name):
     if request.method == "POST":
         inputProdPermanent1 = request.POST.get('prodPermanent1')
@@ -2920,7 +3124,7 @@ def prodPermanentTen(request, plan_Name):
         detail = models.TenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Ten/prodPermanentTen.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodTemporaryTen(request, plan_Name):
     if request.method == "POST":
         inputProdTemporary1 = request.POST.get('prodTemporary1')
@@ -2949,7 +3153,7 @@ def prodTemporaryTen(request, plan_Name):
         detail = models.TenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Ten/prodTemporaryTen.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHiringTen(request, plan_Name):
     if request.method == "POST":
         inputCostHiring1 = request.POST.get('costHiring1')
@@ -2978,7 +3182,7 @@ def costHiringTen(request, plan_Name):
         detail = models.TenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Ten/costHiringTen.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costFiringTen(request, plan_Name):
     if request.method == "POST":
         inputCostFiring1 = request.POST.get('costFiring1')
@@ -3007,7 +3211,7 @@ def costFiringTen(request, plan_Name):
         detail = models.TenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Ten/costFiringTen.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHoldingUnitTen(request, plan_Name):
     if request.method == "POST":
         inputCostHoldingUnit1 = request.POST.get('costHoldingUnit1')
@@ -3036,7 +3240,7 @@ def costHoldingUnitTen(request, plan_Name):
         detail = models.TenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Ten/costHoldingUnitTen.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def demandEleven(request, plan_Name):
     if request.method == "POST":
         inputDemand1 = request.POST.get('demand1')
@@ -3067,7 +3271,7 @@ def demandEleven(request, plan_Name):
         detail = models.ElevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eleven/demandEleven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def numPermanentEleven(request, plan_Name):
     if request.method == "POST":
         inputNumPermanent1 = request.POST.get('numPermanent1')
@@ -3098,7 +3302,7 @@ def numPermanentEleven(request, plan_Name):
         detail = models.ElevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eleven/numPermanentEleven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodPermanentEleven(request, plan_Name):
     if request.method == "POST":
         inputProdPermanent1 = request.POST.get('prodPermanent1')
@@ -3129,7 +3333,7 @@ def prodPermanentEleven(request, plan_Name):
         detail = models.ElevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eleven/prodPermanentEleven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodTemporaryEleven(request, plan_Name):
     if request.method == "POST":
         inputProdTemporary1 = request.POST.get('prodTemporary1')
@@ -3160,7 +3364,7 @@ def prodTemporaryEleven(request, plan_Name):
         detail = models.ElevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eleven/prodTemporaryEleven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHiringEleven(request, plan_Name):
     if request.method == "POST":
         inputCostHiring1 = request.POST.get('costHiring1')
@@ -3191,7 +3395,7 @@ def costHiringEleven(request, plan_Name):
         detail = models.ElevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eleven/costHiringEleven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costFiringEleven(request, plan_Name):
     if request.method == "POST":
         inputCostFiring1 = request.POST.get('costFiring1')
@@ -3222,7 +3426,7 @@ def costFiringEleven(request, plan_Name):
         detail = models.ElevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eleven/costFiringEleven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHoldingUnitEleven(request, plan_Name):
     if request.method == "POST":
         inputCostHoldingUnit1 = request.POST.get('costHoldingUnit1')
@@ -3253,7 +3457,7 @@ def costHoldingUnitEleven(request, plan_Name):
         detail = models.ElevenMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Eleven/costHoldingUnitEleven.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def demandTwelve(request, plan_Name):
     if request.method == "POST":
         inputDemand1 = request.POST.get('demand1')
@@ -3286,7 +3490,7 @@ def demandTwelve(request, plan_Name):
         detail = models.TwelveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Twelve/demandTwelve.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def numPermanentTwelve(request, plan_Name):
     if request.method == "POST":
         inputNumPermanent1 = request.POST.get('numPermanent1')
@@ -3319,7 +3523,7 @@ def numPermanentTwelve(request, plan_Name):
         detail = models.TwelveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Twelve/numPermanentTwelve.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodPermanentTwelve(request, plan_Name):
     if request.method == "POST":
         inputProdPermanent1 = request.POST.get('prodPermanent1')
@@ -3352,7 +3556,7 @@ def prodPermanentTwelve(request, plan_Name):
         detail = models.TwelveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Twelve/prodPermanentTwelve.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def prodTemporaryTwelve(request, plan_Name):
     if request.method == "POST":
         inputProdTemporary1 = request.POST.get('prodTemporary1')
@@ -3385,7 +3589,7 @@ def prodTemporaryTwelve(request, plan_Name):
         detail = models.TwelveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Twelve/prodTemporaryTwelve.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHiringTwelve(request, plan_Name):
     if request.method == "POST":
         inputCostHiring1 = request.POST.get('costHiring1')
@@ -3418,7 +3622,7 @@ def costHiringTwelve(request, plan_Name):
         detail = models.TwelveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Twelve/costHiringTwelve.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costFiringTwelve(request, plan_Name):
     if request.method == "POST":
         inputCostFiring1 = request.POST.get('costFiring1')
@@ -3451,7 +3655,7 @@ def costFiringTwelve(request, plan_Name):
         detail = models.TwelveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Twelve/costFiringTwelve.html',{'detail' : detail})
 
-
+@login_required(login_url='/login/')
 def costHoldingUnitTwelve(request, plan_Name):
     if request.method == "POST":
         inputCostHoldingUnit1 = request.POST.get('costHoldingUnit1')
@@ -3484,6 +3688,7 @@ def costHoldingUnitTwelve(request, plan_Name):
         detail = models.TwelveMonthPlan.objects.filter(planName = plan_Name).values()
     return render(request, 'main/Twelve/costHoldingUnitTwelve.html',{'detail' : detail})
 
+@login_required(login_url='/login/')
 def inventoryInitialFinal(request, month, plan_Name):
     if request.method == "POST":
         inputInventoryInitial = request.POST.get('inventoryInitial')
@@ -3574,6 +3779,7 @@ style_green = xlwt.easyxf(" pattern: fore-colour 0x11, pattern solid;")
 # Define a red color style.
 style_red = xlwt.easyxf(" pattern: fore-colour 0x0A, pattern solid;")
 
+@login_required(login_url='/login/')
 def downloadFour(request,plan_Name):
     response = HttpResponse(content_type='application/vnd.ms-excel') 
     response['Content-Disposition'] = 'attachment;filename=viewFour.xls'
@@ -3693,6 +3899,7 @@ def downloadFour(request,plan_Name):
 
     return response
 
+@login_required(login_url='/login/')
 def downloadFive(request,plan_Name):
     response = HttpResponse(content_type='application/vnd.ms-excel') 
     response['Content-Disposition'] = 'attachment;filename=viewFive.xls'
@@ -3831,7 +4038,7 @@ def downloadFive(request,plan_Name):
 
     return response
 
-
+@login_required(login_url='/login/')
 def downloadSix(request,plan_Name):
     response = HttpResponse(content_type='application/vnd.ms-excel') 
     response['Content-Disposition'] = 'attachment;filename=viewSix.xls'
@@ -3991,6 +4198,7 @@ def downloadSix(request,plan_Name):
 
     return response
 
+@login_required(login_url='/login/')
 def downloadSeven(request,plan_Name):
     response = HttpResponse(content_type='application/vnd.ms-excel') 
     response['Content-Disposition'] = 'attachment;filename=viewSeven.xls'
@@ -4171,6 +4379,7 @@ def downloadSeven(request,plan_Name):
 
     return response
 
+@login_required(login_url='/login/')
 def downloadEight(request,plan_Name):
     response = HttpResponse(content_type='application/vnd.ms-excel') 
     response['Content-Disposition'] = 'attachment;filename=viewEight.xls'
@@ -4371,6 +4580,7 @@ def downloadEight(request,plan_Name):
 
     return response
 
+@login_required(login_url='/login/')
 def downloadNine(request,plan_Name):
     response = HttpResponse(content_type='application/vnd.ms-excel') 
     response['Content-Disposition'] = 'attachment;filename=viewNine.xls'
@@ -4591,6 +4801,7 @@ def downloadNine(request,plan_Name):
 
     return response
 
+@login_required(login_url='/login/')
 def downloadTen(request,plan_Name):
     response = HttpResponse(content_type='application/vnd.ms-excel') 
     response['Content-Disposition'] = 'attachment;filename=viewTen.xls'
@@ -4831,14 +5042,12 @@ def downloadTen(request,plan_Name):
 
     return response
 
+@login_required(login_url='/login/')
 def downloadEleven(request,plan_Name):
     response = HttpResponse(content_type='application/vnd.ms-excel') 
     response['Content-Disposition'] = 'attachment;filename=viewEleven.xls'
     work_book = xlwt.Workbook(encoding = 'utf-8') 
     work_sheet = work_book.add_sheet(u'plan details')
-
-    
-     
     plan = models.ElevenMonthPlan.objects.filter(planName=plan_Name).values()
     for x in plan:
         ntwH1 = x['hiredTemporary1']
@@ -5091,14 +5300,12 @@ def downloadEleven(request,plan_Name):
 
     return response
 
+@login_required(login_url='/login/')
 def downloadTwelve(request,plan_Name):
     response = HttpResponse(content_type='application/vnd.ms-excel') 
     response['Content-Disposition'] = 'attachment;filename=viewTwelve.xls'
     work_book = xlwt.Workbook(encoding = 'utf-8') 
     work_sheet = work_book.add_sheet(u'plan details')
-
-    
-     
     plan = models.TwelveMonthPlan.objects.filter(planName=plan_Name).values()
     for x in plan:
         ntwH1 = x['hiredTemporary1']
@@ -5385,6 +5592,7 @@ def contact(request):
     context = {'form': form}
     return render(request, 'main/contact.html', context)
 
+@login_required(login_url='/login/')
 def create_user(request):
     if request.method == "POST":
         first_name = request.POST.get("first_name")
@@ -5411,13 +5619,14 @@ def signup(request):
         return redirect("login")
     return render(request, "main/signup.html")
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def read_user(request):
     # pk = request.user.id
     # user = models.User.objects.get(id=pk)
     userData = models.User.objects.all().values
     return render(request, 'main/users/read.html', {'userData': userData})
 
+@login_required(login_url='/login/')
 def update_user(request, id):
     # pk = request.user.id
     userData = models.User.objects.get(id=id)
@@ -5438,6 +5647,7 @@ def update_user(request, id):
         return redirect("read")
     return render(request, "main/users/update.html", {"userData": userData})
 
+@login_required(login_url='/login/')
 def editprofile(request, id):
     # pk = request.user.id
     userData = models.User.objects.get(id=id)
@@ -5450,6 +5660,7 @@ def editprofile(request, id):
         return redirect("/")
     return render(request, "main/editprofile.html", {"userData": userData})
 
+@login_required(login_url='/login/')
 def delete_user(request, id):
     # pk = request.user.id
     userData = models.User.objects.get(id=id)

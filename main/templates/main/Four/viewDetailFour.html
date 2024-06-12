@@ -7,79 +7,79 @@
 <body class="min-h-screen bg-neutral-100bg-neutral-100" style="min-height: 400px; margin-bottom: 100px;">
       <div class='my-16 overflow-x-auto ml-60'>
             <table class="mx-auto max-w-4xl drop-shadow-lg font-[Poppins] rounded-lg border-none w-full overflow-hidden">
-                  <thead class="px-6 py-4 text-sm font-semibold text-center uppercase bg-sky-700">
+                  <thead class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700">
                         {% for x in detail %}
                         <tr class="text-center text-white border-none">
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase border-b-2 border-white bg-sky-700" colspan="9">{{x.planName}}</th>
+                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase border-b-2 border-white bg-cyan-700" colspan="9">{{x.planName}}</th>
                         </tr> 
                         {% endfor %}
                   </thead>
                   <thead class="text-center text-white bg-white border-none">
                         <tr class="text-center text-white border-none">
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-sky-700 border-sky-700">Month</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-sky-700 border-sky-700">Remaining Demand</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-sky-700 border-sky-700">Ending Inventory Unit(s)</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-sky-700 border-sky-700">Number of Temporary Worker Hired</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-sky-700 border-sky-700">Number of Temporary Worker Fired</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-sky-700 border-sky-700">Number of Temporary Worker(s)</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-sky-700 border-sky-700">Hiring Cost</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-sky-700 border-sky-700">Firing Cost</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-sky-700 border-sky-700">Inventory Holding Cost</th>
+                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Month</th>
+                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Remaining Demand</th>
+                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Ending Inventory Unit(s)</th>
+                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Number of Temporary Worker Hired</th>
+                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Number of Temporary Worker Fired</th>
+                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Number of Temporary Worker(s)</th>
+                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Hiring Cost</th>
+                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Firing Cost</th>
+                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Inventory Holding Cost</th>
                         </tr> 
                   </thead> 
                   <tbody class="text-center text-gray-900 bg-white border-none">
                         <tr class="border-none">
-                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-r-2 whitespace-nowrap border-sky-700">Month 1</th>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ rd1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ei1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntwH1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntwF1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntw1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">RM{{ hC1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">RM{{ fC1 }}</td>
+                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-r-2 whitespace-nowrap border-cyan-700">Month 1</th>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ rd1 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ei1 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwH1 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwF1 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntw1 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ hC1 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ fC1 }}</td>
                               <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-none whitespace-nowrap">RM{{ ihc1 }}</td>
                         </tr>
                         <tr class="bg-white border-none ">
-                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-r-2 whitespace-nowrap border-sky-700">Month 2</th>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ rd2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ei2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntwH2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntwF2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntw2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">RM{{ hC2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">RM{{ fC2 }}</td>
+                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-r-2 whitespace-nowrap border-cyan-700">Month 2</th>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ rd2 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ei2 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwH2 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwF2 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntw2 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ hC2 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ fC2 }}</td>
                               <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-none whitespace-nowrap">RM{{ ihc2 }}</td>
                         </tr>
                         <tr class="bg-white border-none ">
-                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-r-2 whitespace-nowrap border-sky-700">Month 3</th>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ rd3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ei3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntwH3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntwF3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntw3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">RM{{ hC3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-sky-700">RM{{ fC3 }}</td>
+                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-r-2 whitespace-nowrap border-cyan-700">Month 3</th>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ rd3 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ei3 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwH3 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwF3 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntw3 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ hC3 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ fC3 }}</td>
                               <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-none whitespace-nowrap">RM{{ ihc3 }}</td>
                         </tr>
                         <tr class="bg-white border-none ">
-                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-b-2 border-r-2 whitespace-nowrap border-sky-700">Month 4</th>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ rd4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ei4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntwH4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntwF4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-sky-700">{{ ntw4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-sky-700">RM{{ hC4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-sky-700">RM{{ fC4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-0 whitespace-nowrap border-sky-700">RM{{ ihc4 }}</td>
+                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-b-2 border-r-2 whitespace-nowrap border-cyan-700">Month 4</th>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ rd4 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ei4 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwH4 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwF4 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntw4 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ hC4 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ fC4 }}</td>
+                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-0 whitespace-nowrap border-cyan-700">RM{{ ihc4 }}</td>
                         </tr>
                         <tr class="bg-white border-none ">
-                              <th class="px-6 py-4 text-sm font-semibold text-center text-black uppercase border-t-0 border-l-0 border-r-2 border-sky-700" colspan="6">Total Individual Costs</th>
+                              <th class="px-6 py-4 text-sm font-semibold text-center text-black uppercase border-t-0 border-l-0 border-r-2 border-cyan-700" colspan="6">Total Individual Costs</th>
                               <td class="text-sm font-semibold text-center border-none whitespace-nowrap">RM{{ thC }}</td>
                               <td class="text-sm font-semibold text-center border-none whitespace-nowrap">RM{{ tfC }}</td>
                               <td class="text-sm font-semibold text-center border-none whitespace-nowrap">RM{{ tihC }}</td>
                         </tr>
                         {% for x in detail %}
-                        <tr class="px-6 py-4 text-sm font-bold text-center text-white uppercase border-none bg-sky-700">
+                        <tr class="px-6 py-4 text-sm font-bold text-center text-white uppercase border-none bg-cyan-700">
                               <th class="px-6 py-4 text-sm font-semibold text-center uppercase border-none " colspan="6">Optimized Final Cost for Multi-Period Planning</th>
                               <td class="font-bold border-none whitespace-nowrap" colspan="3">RM{{ x.optimalCost }}</td>
                         </tr>

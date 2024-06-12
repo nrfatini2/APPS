@@ -10,18 +10,18 @@
 <body class="min-h-screen bg-neutral-100" style="min-height: 400px; margin-bottom: 5px; clear: both">
 
   <form method="POST" class="bg-white p-6 drop-shadow-lg rounded-[18px] ml-[635px] mr-[400px] mt-[15px] font-[Poppins] w-[24rem] overflow-hidden m-10">
-    <h1 class="block px-4 py-4 text-3xl font-black text-center text-transparent bg-clip-text bg-gradient-to-b from-sky-700 to-sky-900">Feel Free to Provide Us with Your Feedback</h1>
+    <h1 class="block px-4 py-4 text-3xl font-black text-center text-transparent bg-clip-text bg-gradient-to-b from-cyan-800 to-cyan-900">Feel Free to Provide Us with Your Feedback</h1>
     {% csrf_token %}
     <div class="p-6">
 
       <label for="email" class="block mb-2 text-sm font-bold text-gray-600">Email Address:</label>
-      {% render_field form.email placeholder="xxxx@gmail.com" class="block w-full px-3 py-2 mt-1 mb-6 text-center bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm focus:ring-1"%}
+      {% render_field form.email placeholder="xxxx@gmail.com" class="block w-full px-3 py-2 mt-1 mb-6 text-center bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm focus:ring-1"%}
       
       <label for="subject" class="block mb-2 text-sm font-bold text-gray-600">Subject:</label>
-      {% render_field form.subject placeholder="Subject" class="block w-full px-3 py-2 mt-1 mb-6 text-center bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm focus:ring-1"%}
+      {% render_field form.subject placeholder="Subject" class="block w-full px-3 py-2 mt-1 mb-6 text-center bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm focus:ring-1"%}
 
        <label for="content" class="block mb-2 text-sm font-bold text-gray-600">Content:</label>
-       {% render_field form.content placeholder="Content" class="block w-full px-3 py-2 mt-1 mb-6 text-center bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm focus:ring-1"%}
+       {% render_field form.content placeholder="Content" class="block w-full px-3 py-2 mt-1 mb-6 text-center bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm focus:ring-1"%}
 
        
        <div class="flex justify-center pt-3 space-x-2">

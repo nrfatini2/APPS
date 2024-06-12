@@ -6,23 +6,23 @@
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet"/>
 <script src="http://cdn.tailwindcss.com"></script>
 <body class="min-h-screen bg-neutral-100" style="min-height: 400px; margin-bottom: 5px; clear: both; text-align: center">
-   <h1 class="font-[Poppins] text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-sky-700 to-sky-900 font-black mt-[50px] ml-[10px]">User Management</h1><br>
+   <h1 class="font-[Poppins] text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-cyan-700 to-cyan-900 font-black mt-[50px] ml-[10px]">User Management</h1><br>
    <a href="{% url 'create' %}" class="text-sm bg-orange-500 text-white p-2 w-full rounded-md drop-shadow-md transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-red-500 hover:text-white font-bold">&nbsp;Create New User&nbsp;&nbsp;<i class="fa-solid fa-user-plus"></i></a>
    <form method="POST" class="ml-[550px]">
       <table class="bg-white p-6 drop-shadow-lg rounded-[18px] font-[Poppins] w-[24rem] overflow-hidden m-10">
          {% for userData in userData %}
          <tr class="text-white text-center">
-            <td class="font-semibold text-sm uppercase px-6 py-4 bg-sky-700 text-center border-sky-700">
+            <td class="font-semibold text-sm uppercase px-6 py-4 bg-cyan-700 text-center border-cyan-700">
                <p>UID</p>
                <p>0{{ userData.id }}</p>
             </td>
-            <td class="text-black text-sm px-6 py-4 text-left border-sky-700">
+            <td class="text-black text-sm px-6 py-4 text-left border-cyan-700">
                <p>FirstName</p>
                <p>LastName</p>
                <p>Username</p>
                <p>Email</p>
             </td>
-            <td class="text-black text-sm px-6 py-4 text-left border-sky-700">
+            <td class="text-black text-sm px-6 py-4 text-left border-cyan-700">
                <p>{{ userData.first_name }}</p>
                <p>{{ userData.last_name }}</p>
                <p>{{ userData.username }}</p>

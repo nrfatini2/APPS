@@ -19,129 +19,75 @@
   <link rel="icon" href="https://i.ibb.co/8gpyyg9/logo-App-Dev.png" type="image/x-icon">
 </head>
 <body>
+  
 
-  <div class="container flex flex-wrap">
-  <aside class="fixed w-64 h-screen mr-2 bg-gradient-to-b from-sky-700 to-sky-900">
-    <div class="px-6 pt-8">
-
-      <div class="flex items-center justify-center pl-4">
-      <a href="/" class="block text-gray-700 rounded hover:underline md:mr-6 hover:bg-transparent md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-transparent dark:hover:text-white md:dark:hover:bg-transparent"><img class="w-42" src="https://i.ibb.co/xzd0dBy/App-Dev-Logo-2.png"></a>
-      </div>
-      
-      <div class="pt-6">
-        <hr class="border-neutral-100">
-      </div> 
-      {% if user.is_authenticated %}
-      
-      <a href="{% url 'editprofile' user.id %}" >
-      <div class="flex items-center p-2 pt-4 space-x-4">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/240px-Default_pfp.svg.png"  alt="" class="w-12 h-12 rounded-full dark:bg-gray-500">
-        <div>
-          <h2 class="text-lg font-semibold text-white">{{ user.first_name }}&nbsp;{{ user.last_name }}</h2>
-          <p class="text-sm font-semibold text-slate-300">Edit Profile</p>
-        </div>
-      </div>
+<nav class="fixed top-0 z-20 w-full border-b border-gray-200 bg-cyan-900 start-0">
+  <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
+    <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img src="https://i.ibb.co/8gpyyg9/logo-App-Dev.png" class="h-8" alt="APPS Logo" />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">APPS</span>
     </a>
-
-      <div class="pt-2 ">
-        <hr class="border-neutral-100">
-      </div>
-      {% endif %}
-        <div class="pt-4">
-      {% if user.is_authenticated%}
-      {% comment %} <button class="inline-block text-sm leading-none text-white border-none rounded hover:border-transparent hover:text-white hover:bg-blue-500 "> {% endcomment %}
-        <a href="{% url 'history' %}" class="flex items-center p-2 font-semibold transition-colors rounded-md text-neutral-100 dark:text-bold hover:bg-neutral-100 dark:hover:bg-neutral-100 hover:text-sky-700 dark:hover:text-sky-700"
-        :class="{'bg-indigo-100 dark:bg-indigo-600': isActive || open}"
-        role="button"
-        aria-haspopup="true"
-        :aria-expanded="(open || isActive) ? 'true' : 'false'"
-    >History</a>
-        {% comment %} </button> {% endcomment %}
-
-      {% comment %} <button class="inline-block m-4 text-sm leading-none text-white border border-white rounded hover:border-transparent hover:text-white hover:bg-blue-500 "> {% endcomment %}
-        <a href="{% url 'formula' %}" class="flex items-center p-2 font-semibold transition-colors rounded-md text-neutral-100 dark:text-bold hover:bg-neutral-100 dark:hover:bg-neutral-100 hover:text-sky-700 dark:hover:text-sky-700"
-        :class="{'bg-indigo-100 dark:bg-indigo-600': isActive || open}"
-        role="button"
-        aria-haspopup="true"
-        :aria-expanded="(open || isActive) ? 'true' : 'false'"
-    >About Us</a>
-    
-    {% comment %} <button class="inline-block text-sm leading-none text-white border-none rounded hover:border-transparent hover:text-white hover:bg-blue-500 "> {% endcomment %}
-      <a href="{% url 'read' %}" class="flex items-center p-2 font-semibold transition-colors rounded-md text-neutral-100 dark:text-bold hover:bg-neutral-100 dark:hover:bg-neutral-100 hover:text-sky-700 dark:hover:text-sky-700"
-      :class="{'bg-indigo-100 dark:bg-indigo-600': isActive || open}"
-      role="button"
-      aria-haspopup="true"
-      :aria-expanded="(open || isActive) ? 'true' : 'false'"
-  >Manage User</a>
-      {% comment %} </button> {% endcomment %}
-    
-    <a href="{% url 'contact' %}" class="flex items-center p-2 font-semibold transition-colors rounded-md text-neutral-100 dark:text-bold hover:bg-neutral-100 dark:hover:bg-neutral-100 hover:text-sky-700 dark:hover:text-sky-700"
-    :class="{'bg-indigo-100 dark:bg-indigo-600': isActive || open}"
-    role="button"
-    aria-haspopup="true"
-    :aria-expanded="(open || isActive) ? 'true' : 'false'"
->Feedback</a>
-    {% comment %} </button> {% endcomment %}
-
-        {% comment %} <button class="inline-block m-4 text-sm leading-none text-white border border-white rounded hover:border-transparent hover:text-white hover:bg-blue-500 "> {% endcomment %}
-          <a href="{% url 'logout' %}" class="flex items-center p-2 font-semibold transition-colors rounded-md text-neutral-100 dark:text-bold hover:bg-neutral-100 dark:hover:bg-neutral-100 hover:text-sky-700 dark:hover:text-sky-700"
-          :class="{'bg-indigo-100 dark:bg-indigo-600': isActive || open}"
-          role="button"
-          aria-haspopup="true"
-          :aria-expanded="(open || isActive) ? 'true' : 'false'"
-      >Logout</a> 
-          {% comment %} </button> {% endcomment %}
-        {% else %} 
-        {% comment %} <button class="inline-block m-4 text-sm leading-none text-white border border-white rounded hover:border-transparent hover:text-white hover:bg-blue-500 "> {% endcomment %}
-          <a href="login/" class="flex items-center p-2 font-semibold transition-colors rounded-md text-neutral-100 dark:text-bold hover:bg-neutral-100 dark:hover:bg-neutral-100 hover:text-sky-700 dark:hover:text-sky-700"
-          :class="{'bg-indigo-100 dark:bg-indigo-600': isActive || open}"
-          role="button"
-          aria-haspopup="true"
-          :aria-expanded="(open || isActive) ? 'true' : 'false'"
-          >Sign in</a>
-          {% comment %} </button> {% endcomment %}
-      {% endif %}
-    </div>
-      
-
-      <!-- <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="relative flex items-center justify-end ml-auto text-white rounded focus:outline-none group">
-        <p class="px-4 font-bold"></p>
-        <span class="p-2 px-2 rounded hover:bg-blue-400">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-            <path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" ></path>
-            </svg>
-        </span>
-        {% comment %} <div id="dropdown" class="z-10 bg-white divide-y divide-gray-100 rounded shadow w-max dark:bg-white" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(327px, 70px, 0px);">
-          <ul class="text-left border rounded">
-            <li class="px-2 py-1 border-b">
-              <a href="{% url 'Calculate Inventory Holding Cost' %}" class="block py-2 pl-3 pr-4 font-bold text-blue-500 rounded md:mr-6 hover:bg-transparent md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-blue-800 md:dark:hover:text-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500 md:dark:hover:bg-transparent">Inventory Holding Cost</a>
-            </li>
-            <li class="px-2 py-1 border-b">
-              <a href="{% url 'Calculate Firing and Hiring Cost' %}" class="block py-2 pl-3 pr-4 font-bold text-blue-500 rounded md:mr-6 hover:bg-transparent md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-blue-800 md:dark:hover:text-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500 md:dark:hover:bg-transparent">Firing & Hiring Cost</a>
-            </li>
-            <li class="px-2 py-1 border-b">
-              <a href="{% url 'Calculate Monthly Inventory Constraints'%}" class="block py-2 pl-3 pr-4 font-bold text-blue-500 rounded md:mr-6 hover:bg-transparent md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-blue-800 md:dark:hover:text-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500 md:dark:hover:bg-transparent">Num. of Temp. Workers Monthly</a>
-            </li>
-            <li class="px-2 py-1 border-b">
-              <a href="{% url 'Calculate Remaining Demand Monthly'%}" class="block py-2 pl-3 pr-4 font-bold text-blue-500 rounded md:mr-6 hover:bg-transparent md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-blue-800 md:dark:hover:text-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500 md:dark:hover:bg-transparent">Remaining Demand Monthly</a>
-            </li>
-            <li class="px-2 py-1">
-              <a href="{% url 'Calculate Monthly Inventory Constraints'%}" class="block py-2 pl-3 pr-4 font-bold text-blue-500 rounded md:mr-6 hover:bg-transparent md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-blue-800 md:dark:hover:text-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500 md:dark:hover:bg-transparent">Monthly Inventory Constraints</a>
-            </li>
+    {% if user.is_authenticated %}  
+    <div class="flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+      <button type="button" class="flex text-sm rounded-full bg-cyan-900 md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+          <span class="sr-only">Open user menu</span>
+          <h2 class="px-3 text-lg font-semibold text-white border-2 border-gray-200 rounded-full">
+            {{ user.first_name }}&nbsp;{{ user.last_name }}
+          </h2>
+        </button>
+        <!-- Dropdown menu -->
+        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+          <ul class="py-2" aria-labelledby="user-menu-button">
+              <li>
+                <a href="{% url 'read' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Manage User</a>
+              </li>
+              <li>
+                <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+              </li>
           </ul>
-          
-        </div> {% endcomment %} -->
+        </div>
+        <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+          </svg>
       </button>
     </div>
+    {% else %}
+    <div class="flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+      <a href="{% url 'login' %}" class="flex text-sm rounded-full bg-cyan-900 md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false">
+        <span class="sr-only">Open user menu</span>
+        <h2 class="px-3 text-lg font-semibold text-white border-2 border-gray-200 rounded-full">
+          Sign In
+        </h2>
+      </a>
+    </div>
+    {% endif %}
+    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+      <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 bg-cyan-700 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-cyan-800 md:dark:bg-cyan-900 dark:border-cyan-700">
+        <li>
+          <a href="/" class="block px-3 py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</a>
+        </li>
+        {% if user.is_authenticated%}
+          <li>
+            <a href="{% url 'history' %}" class="block px-3 py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">History</a>
+          </li>
+          <li>
+            <a href="{% url 'contact' %}" class="block px-3 py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Feedback</a>
+          </li>
+        {% endif %}
+        <li>
+          <a href="{% url 'about' %}" class="block px-3 py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+  </nav>
 
-    <div class="absolute inset-x-0 bottom-0 h-16">
-      <span class="block text-sm font-bold text-white sm:text-center">© 2024 M4C1
-      </span></div>
-  </aside>
-</div> 
-
-  {% block content %}
-  {% endblock content %}
+  <div class="mt-20">
+    {% block content %}
+    {% endblock content %}
+  </div>
 
 </body>
 </html>

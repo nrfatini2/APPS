@@ -1,0 +1,174 @@
+{% extends 'main/navbar_footer.html' %}
+{% block title %}About Us{% endblock  %}
+{% load static %}
+{% block content %}
+
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+<script src="http://cdn.tailwindcss.com"></script>
+<body class="min-h-screen bg-neutral-100" style="min-height: 400px; margin-bottom: 25px; clear: both;">
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/6.5.95/css/materialdesignicons.min.css">
+
+<div class="flex items-center justify-center bg-white p-6 drop-shadow-lg rounded-[18px] ml-[290px] mt-[25px] font-[Poppins] w-[68rem] overflow-hidden m-10">
+    <div class="flex flex-col">
+        <div class="flex flex-col mt-8">
+            <div class="container px-4 max-w-7xl">
+                <div class="flex flex-wrap justify-center mb-12 text-center">
+                    <div class="w-full px-4 lg:w-6/12">
+                        <h1 class="mb-2 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-cyan-800 to-cyan-900">
+                            Developer
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Leader -->
+                <div class="flex flex-col items-center justify-center">
+                    <div class="w-[260px]">
+                        <!-- Avatar -->
+                        <a href="#" class="mx-auto">
+                            <img class="transition-all duration-200 delay-100 rounded-2xl drop-shadow-md hover:drop-shadow-xl"
+                            src="{% static 'img/iqbal_profile.png' %}">
+                        </a>
+
+                        <!-- Details -->
+                        <div class="mt-6 text-center">
+                            <!-- Name -->
+                            <h1 class="mb-1 text-xl font-bold text-gray-900">
+                                Muhammad Iqbal Habibie
+                            </h1>
+
+                            <!-- Title -->
+                            <div class="mb-2 font-light text-gray-700">
+                                Team Leader
+                            </div>
+
+                            <!-- Social Icons -->
+                            <div class="flex items-center justify-center transition-opacity duration-300 opacity-50 hover:opacity-100">
+                                <!-- Linkedin -->
+                                <a href="https://www.linkedin.com/in/muhammad-iqbal-habibie/" class="flex w-10 h-10 rounded-full hover:bg-indigo-50">
+                                    <i class="mx-auto mt-2 text-indigo-500 mdi mdi-linkedin"></i>
+                                </a>
+
+                                <!-- Instagram -->
+                                <a href="https://www.instagram.com/iqbal.habibie5" class="flex w-10 h-10 rounded-full hover:bg-orange-50">
+                                    <i class="mx-auto mt-2 text-orange-400 mdi mdi-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collaboration -->
+                <div class="flex flex-wrap justify-center my-12 text-center">
+                    <div class="w-full px-4">
+                        <h1 class="mb-8 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-cyan-800 to-cyan-900">
+                            Collaboration
+                        </h1>
+                        <p class="text-lg text-gray-700">
+                            In partnership with UTM's Faculty of Computing led by Dr. Noor Hidayah and UTM CIAM led by Dr. Zaitul, we're tackling the challenges faced by manufacturing companies through collaborative projects.
+                        </p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2">
+                <div class="flex flex-col items-center justify-center">
+                    <a href="#" class="w-[290px] ml-[60px] mx-auto">
+                        <img class="pb-8 transition-all duration-200 delay-100 rounded-2xl drop-shadow-md hover:drop-shadow-xl"
+                        src="{% static 'img/fc_logo.png' %}">
+                    </a>
+                    <div class="w-[260px]">
+                        <!-- Avatar -->
+                        <a href="#" class="mx-auto">
+                            <img class="transition-all duration-200 delay-100 rounded-2xl drop-shadow-md hover:drop-shadow-xl"
+                            src="{% static 'img/dr_noorhidayah_profile.png' %}">
+                        </a>
+
+                        <!-- Details -->
+                        <div class="mt-6 text-center">
+
+                            <!-- Name -->
+                            <h1 class="mb-1 text-xl font-bold text-gray-900">
+                            Dr. Noor Hidayah
+                            </h1>
+
+                            <!-- Title -->
+                            <div class="mb-2 font-light text-gray-700">
+                                Faculty of Computing
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <a href="#" class="w-[200px] mx-auto">
+                        <img class="pb-8 transition-all duration-200 delay-100 rounded-2xl drop-shadow-md hover:drop-shadow-xl"
+                        src="{% static 'img/utm_ciam_logo.png' %}">
+                    </a>
+                    <div class="w-[260px]">
+                        <!-- Avatar -->
+                        <a href="#" class="mx-auto">
+                            <img class="transition-all duration-200 delay-100 rounded-2xl drop-shadow-md hover:drop-shadow-xl"
+                            src="{% static 'img/dr_zaitulmarlizawati_profile.png' %}">
+                        </a>
+
+                        <!-- Details -->
+                        <div class="mt-6 text-center">
+
+                            <!-- Name -->
+                            <h1 class="mb-1 text-xl font-bold text-gray-900">
+                            Dr. Zaitul Marlizawati
+                            </h1>
+
+                            <!-- Title -->
+                            <div class="mb-2 font-light text-gray-700">
+                                UTM CIAM
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Project Document -->
+                <div class="flex flex-wrap justify-center my-12 text-center">
+                    <div class="w-full px-4">
+                        <h1 class="mb-8 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-cyan-800 to-cyan-900">
+                            Project Formulation
+                        </h1>
+                        <p class="text-lg text-gray-700">
+                            Advanced Production Planning System is a system to assist with production planning and resource management over a certain month period. The primary goal of the system is to minimize costs and meet production needs effectively, which will require careful consideration of hiring and firing decisions, as well as the ability to forecast demand and optimize production schedules.
+                        </p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3">
+                <div class="flex flex-col items-center justify-center">
+                    <div class="w-[360px]">
+                        <!-- PDF -->
+                        <a href="#" class="mx-auto">
+                            <img class="transition-all duration-200 delay-100 rounded-2xl drop-shadow-md hover:drop-shadow-xl"
+                            src="https://i.ibb.co/m55XhKT/Formula-1.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div class="w-[350px]">
+                        <!-- PDF -->
+                        <a href="#" class="mx-auto">
+                            <img class="transition-all duration-200 delay-100 rounded-2xl drop-shadow-md hover:drop-shadow-xl"
+                            src="https://i.ibb.co/9GS6r07/Formula-2.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div class="w-[340px]">
+                        <!-- PDF -->
+                        <a href="#" class="mx-auto">
+                            <img class="transition-all duration-200 delay-100 rounded-2xl drop-shadow-md hover:drop-shadow-xl"
+                            src="https://i.ibb.co/LvKz7vk/Formula-3.png">
+                        </a>
+                    </div>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}
