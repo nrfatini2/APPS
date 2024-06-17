@@ -5,32 +5,33 @@
 {% load static %}
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
 <script src="http://cdn.tailwindcss.com"></script>
-<body class="min-h-screen bg-neutral-100" style="min-height: 400px; margin-bottom: 100px; clear: both;">
-   
-   <form method="POST" class="bg-white p-6 drop-shadow-lg rounded-[18px] font-[Poppins] overflow-hidden m-10">
-      <h1 class="block px-4 py-4 text-3xl font-black text-center text-transparent bg-clip-text bg-gradient-to-b from-cyan-700 to-cyan-900">Create a New Production Plan!</h1>
-      {% csrf_token %}
-      <div class="p-6">
-         <label for="planName" class="block mb-2 text-sm font-bold text-gray-600">Plan Name:</label>
-         <input required type="text" name="planName" id="planName" placeholder="Plan Name" class="block w-full px-3 py-2 mt-1 mb-6 text-center bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm focus:ring-1">
-
-         <label for="monthRange" class="block mb-2 text-sm font-bold text-gray-600">Range of Month:</label>
-         <select required name="monthRange" id="monthRange" class="block w-full px-3 py-2 mt-1 mb-6 text-center bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm focus:ring-1">
-            <option selected value='4'>4</option>
-            <option value='5'>5</option>
-            <option value='6'>6</option>
-            <option value='7'>7</option>
-            <option value='8'>8</option>
-            <option value='9'>9</option>
-            <option value='10'>10</option>
-            <option value='11'>11</option>
-            <option value='12'>12</option>
-         </select> 
-
-         <div class="flex justify-center pt-3 space-x-2">
-            <button type="submit" name="Submit" class="w-full py-2 font-bold text-white transition duration-300 ease-in-out rounded-md bg-cyan-800 drop-shadow-lg hover:-translate-y-1 hover:scale-110 hover:bg-cyan-900 hover:text-white">Create Plan</button>
-         </div>
+<body>
+   <div class="rounded-lg mt-14">
+      <div class="w-full max-w-2xl p-4 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+         <form method="POST" class="space-y-6">
+            <h5 class="text-xl font-medium text-gray-900 dark:text-white">Create a New Production Plan!</h5>
+            {% csrf_token %}
+            <div>
+               <label for="planName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Production Plan Name</label>
+               <input type="text" name="planName" id="planName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Production Plan ABC" required />
+            </div>
+            <div>
+               <label for="monthRange" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Production Plan Period (Month)</label>
+               <select name="monthRange" id="monthRange" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                  <option selected value='4'>4</option>
+                  <option value='5'>5</option>
+                  <option value='6'>6</option>
+                  <option value='7'>7</option>
+                  <option value='8'>8</option>
+                  <option value='9'>9</option>
+                  <option value='10'>10</option>
+                  <option value='11'>11</option>
+                  <option value='12'>12</option>
+               </select>
+            </div>
+            <button type="submit" name="Submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Production Plan</button>
+         </form>
       </div>
-   </form>
+   </div>
 </body>
 {% endblock %}

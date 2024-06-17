@@ -117,7 +117,6 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-@login_required(login_url='/login/')
 def viewDetailFour(request,plan_Name):
     status = optimizeFour(plan_Name)
     if status == 1:
@@ -179,12 +178,16 @@ def viewDetailFour(request,plan_Name):
             colors = ['#636efa', '#00cc96', '#ef553b']
 
             # Create the Pie Chart
-            fig1 = go.Figure(data=[go.Pie(labels=labels, textinfo='label+percent', values=values, hole=0.3, marker=dict(colors=colors))])
+            fig1Light = go.Figure(data=[go.Pie(labels=labels, textinfo='label+percent', values=values, hole=0.3, marker=dict(colors=colors))])
 
             # Update the layout
-            fig1.update_layout(title='Total Cost Distribution (Malaysian Ringgit)')
-            fig1.update_layout(showlegend=False)
+            fig1Light.update_layout(title='Total Cost Distribution (Malaysian Ringgit)', showlegend=False)
             
+            # Create the Pie Chart
+            fig1Dark = go.Figure(data=[go.Pie(labels=labels, textinfo='label+percent', values=values, hole=0.3, marker=dict(colors=colors))])
+
+            # Update the layout
+            fig1Dark.update_layout(title='Total Cost Distribution (Malaysian Ringgit)', showlegend=False, template='plotly_dark')
             
             # Figure 2 : Monthly Cost
             # Data for x-axis (months)
@@ -196,17 +199,29 @@ def viewDetailFour(request,plan_Name):
             cost_type_3 = [fC1, fC2, fC3, fC4]
 
             # Create the Stacked Bar Chart
-            fig2 = go.Figure(data=[
+            fig2Light = go.Figure(data=[
                 go.Bar(name='Inventory Holding Cost', x=months, y=cost_type_1, marker=dict(color=colors[0])),
                 go.Bar(name='Hiring Cost', x=months, y=cost_type_2, marker=dict(color=colors[1])),
                 go.Bar(name='Firing Cost', x=months, y=cost_type_3, marker=dict(color=colors[2])),
             ])
 
             # Update the layout
-            fig2.update_layout(barmode='stack', 
+            fig2Light.update_layout(barmode='stack', 
                             title='Monthly Cost (Malaysian Ringgit)',
                             yaxis_title='Costs')
-            
+
+            # Create the Stacked Bar Chart
+            fig2Dark = go.Figure(data=[
+                go.Bar(name='Inventory Holding Cost', x=months, y=cost_type_1, marker=dict(color=colors[0])),
+                go.Bar(name='Hiring Cost', x=months, y=cost_type_2, marker=dict(color=colors[1])),
+                go.Bar(name='Firing Cost', x=months, y=cost_type_3, marker=dict(color=colors[2])),
+            ])
+
+            # Update the layout
+            fig2Dark.update_layout(barmode='stack', 
+                            title='Monthly Cost (Malaysian Ringgit)',
+                            yaxis_title='Costs',
+                            template='plotly_dark')
             
             workerHired = [ntwH1, ntwH2, ntwH3, ntwH4]
             workerFired = [ntwF1, ntwF2, ntwF3, ntwF4]
@@ -223,7 +238,7 @@ def viewDetailFour(request,plan_Name):
             ])
             fig4.update_layout(title='Monthly Number of Temporary Worker',
                             yaxis_title='Number of Worker Hired/Fired')
-        return render(request, "main/Four/viewDetailFour.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'thC': thC, 'tfC': tfC, 'tihC': tihC, 'fig1' : fig1.to_html(full_html=False), 'fig2' : fig2.to_html(full_html=False), 'fig3' : fig3.to_html(full_html=False), 'fig4' : fig4.to_html(full_html=False)})
+        return render(request, "main/Four/viewDetailFour.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'thC': thC, 'tfC': tfC, 'tihC': tihC, 'fig1Light' : fig1Light.to_html(full_html=False), 'fig1Dark' : fig1Dark.to_html(full_html=False), 'fig2Light' : fig2Light.to_html(full_html=False), 'fig2Dark' : fig2Dark.to_html(full_html=False), 'fig3' : fig3.to_html(full_html=False), 'fig4' : fig4.to_html(full_html=False)})
     elif status == 0:
         messages.error(request, "PLAN COULD NOT BE SOLVED")
     elif status == -1:
@@ -234,7 +249,6 @@ def viewDetailFour(request,plan_Name):
         messages.error(request, "PLAN RESULTS IS UNDEFINED")
     return redirect(history)
 
-@login_required(login_url='/login/')
 def viewDetailFive(request,plan_Name):
     optimizeFive(plan_Name)
     detail = models.FiveMonthPlan.objects.filter(planName=plan_Name).values()
@@ -294,7 +308,6 @@ def viewDetailFive(request,plan_Name):
         ei5 = x['inventoryFinal']
     return render(request, "main/Five/viewDetailFive.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='/login/')
 def viewDetailSix(request,plan_Name):
     optimizeSix(plan_Name)
     detail = models.SixMonthPlan.objects.filter(planName=plan_Name).values()
@@ -364,7 +377,6 @@ def viewDetailSix(request,plan_Name):
         ei6 = x['inventoryFinal']
     return render(request, "main/Six/viewDetailSix.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6,'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6,'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6,'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6,'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6,'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6,'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6,'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6,'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='/login/')
 def viewDetailSeven(request,plan_Name):
     optimizeSeven(plan_Name)
     detail = models.SevenMonthPlan.objects.filter(planName=plan_Name).values()
@@ -444,7 +456,6 @@ def viewDetailSeven(request,plan_Name):
         ei7 = x['inventoryFinal']
     return render(request, "main/Seven/viewDetailSeven.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6, 'rd7': rd7, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6, 'ntw7': ntw7, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6, 'ihc7': ihc7, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6, 'ntwH7':ntwH7, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6, 'ntwF7':ntwF7, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6, 'hC7': hC7, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6, 'fC7': fC7, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6, 'ei7': ei7, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='/login/')
 def viewDetailEight(request,plan_Name):
     optimizeEight(plan_Name)
     detail = models.EightMonthPlan.objects.filter(planName=plan_Name).values()
@@ -534,7 +545,6 @@ def viewDetailEight(request,plan_Name):
         ei8 = x['inventoryFinal']
     return render(request, "main/Eight/viewDetailEight.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6, 'rd7': rd7, 'rd8': rd8, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6, 'ntw7': ntw7, 'ntw8': ntw8, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6, 'ihc7': ihc7, 'ihc8': ihc8, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6, 'ntwH7':ntwH7, 'ntwH8':ntwH8, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6, 'ntwF7':ntwF7, 'ntwF8':ntwF8, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6, 'hC7': hC7, 'hC8': hC8, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6, 'fC7': fC7, 'fC8': fC8, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6, 'ei7': ei7, 'ei8': ei8, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='/login/')
 def viewDetailNine(request,plan_Name):
     optimizeNine(plan_Name)
     detail = models.NineMonthPlan.objects.filter(planName=plan_Name).values()
@@ -634,7 +644,6 @@ def viewDetailNine(request,plan_Name):
         ei9 = x['inventoryFinal']
     return render(request, "main/Nine/viewDetailNine.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6, 'rd7': rd7, 'rd8': rd8, 'rd9': rd9,'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6, 'ntw7': ntw7, 'ntw8': ntw8, 'ntw9': ntw9,'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6, 'ihc7': ihc7, 'ihc8': ihc8, 'ihc9': ihc9,'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6, 'ntwH7':ntwH7, 'ntwH8':ntwH8, 'ntwH9':ntwH9,'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6, 'ntwF7':ntwF7, 'ntwF8':ntwF8, 'ntwF9':ntwF9,'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6, 'hC7': hC7, 'hC8': hC8, 'hC9': hC9,'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6, 'fC7': fC7, 'fC8': fC8, 'fC9': fC9,'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6, 'ei7': ei7, 'ei8': ei8, 'ei9': ei9,'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='/login/')
 def viewDetailTen(request,plan_Name):
     optimizeTen(plan_Name)
     detail = models.TenMonthPlan.objects.filter(planName=plan_Name).values()
@@ -744,7 +753,6 @@ def viewDetailTen(request,plan_Name):
         ei10 = x['inventoryFinal']
     return render(request, "main/Ten/viewDetailTen.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6, 'rd7': rd7, 'rd8': rd8, 'rd9': rd9, 'rd10': rd10, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6, 'ntw7': ntw7, 'ntw8': ntw8, 'ntw9': ntw9, 'ntw10': ntw10, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6, 'ihc7': ihc7, 'ihc8': ihc8, 'ihc9': ihc9, 'ihc10': ihc10, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6, 'ntwH7':ntwH7, 'ntwH8':ntwH8, 'ntwH9':ntwH9, 'ntwH10':ntwH10, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6, 'ntwF7':ntwF7, 'ntwF8':ntwF8, 'ntwF9':ntwF9, 'ntwF10':ntwF10, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6, 'hC7': hC7, 'hC8': hC8, 'hC9': hC9, 'hC10': hC10, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6, 'fC7': fC7, 'fC8': fC8, 'fC9': fC9, 'fC10': fC10, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6, 'ei7': ei7, 'ei8': ei8, 'ei9': ei9, 'ei10': ei10, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='/login/')
 def viewDetailEleven(request,plan_Name):
     optimizeEleven(plan_Name)
     detail = models.ElevenMonthPlan.objects.filter(planName=plan_Name).values()
@@ -864,7 +872,6 @@ def viewDetailEleven(request,plan_Name):
         ei11 = x['inventoryFinal']
     return render(request, "main/Eleven/viewDetailEleven.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'rd5': rd5, 'rd6': rd6, 'rd7': rd7, 'rd8': rd8, 'rd9': rd9, 'rd10': rd10, 'rd11': rd11, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ntw5': ntw5, 'ntw6': ntw6, 'ntw7': ntw7, 'ntw8': ntw8, 'ntw9': ntw9, 'ntw10': ntw10, 'ntw11': ntw11, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ihc5': ihc5, 'ihc6': ihc6, 'ihc7': ihc7, 'ihc8': ihc8, 'ihc9': ihc9, 'ihc10': ihc10, 'ihc11': ihc11, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwH5':ntwH5, 'ntwH6':ntwH6, 'ntwH7':ntwH7, 'ntwH8':ntwH8, 'ntwH9':ntwH9, 'ntwH10':ntwH10, 'ntwH11':ntwH11, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'ntwF5':ntwF5, 'ntwF6':ntwF6, 'ntwF7':ntwF7, 'ntwF8':ntwF8, 'ntwF9':ntwF9, 'ntwF10':ntwF10, 'ntwF11':ntwF11, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'hC5': hC5, 'hC6': hC6, 'hC7': hC7, 'hC8': hC8, 'hC9': hC9, 'hC10': hC10, 'hC11': hC11, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'fC5': fC5, 'fC6': fC6, 'fC7': fC7, 'fC8': fC8, 'fC9': fC9, 'fC10': fC10, 'fC11': fC11, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'ei5': ei5, 'ei6': ei6, 'ei7': ei7, 'ei8': ei8, 'ei9': ei9, 'ei10': ei10, 'ei11': ei11, 'thC': thC, 'tfC': tfC, 'tihC': tihC})
 
-@login_required(login_url='/login/')
 def viewDetailTwelve(request,plan_Name):
     optimizeTwelve(plan_Name)
     detail = models.TwelveMonthPlan.objects.filter(planName=plan_Name).values()
@@ -1048,7 +1055,6 @@ def deleteDetailTwelve(request,plan_Name):
     detail.delete()
     return redirect(history)
 
-@login_required(login_url='/login/')
 def optimizeFour(inputPlanName):
     qs = models.FourMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1111,34 +1117,36 @@ def optimizeFour(inputPlanName):
     model.solve(pulp.PULP_CBC_CMD(maxSeconds=5))
     optimizationStatus = model.status
     models.FourMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, optimalCost = value(model.objective))
+    
+    # SENSITIVITY ANALYSIS START
+    
+    # Save Original Cost
     original_cost = value(model.objective)
     
+    # SA Demand 1
     # Choose the variable of interest
     original_demand1 = value(inputDemand1)
 
     # Define perturbation step size
-    step_size1 = 0
+    step_size = 0
     
     if inputProdPermanent1 < inputProdTemporary1:
-        step_size1 = inputProdPermanent1
+        step_size = inputProdPermanent1
     else:
-        step_size1 = inputProdTemporary1
+        step_size = inputProdTemporary1
 
     # Initialize allowable increase and decrease
-    allowable_increase1 = 0
-    allowable_decrease1 = 0
-
-    # Set maximum number of iterations
-    max_iterations1 = 100
+    aiDemand1 = 0
+    adDemand1 = 0
 
     # Perform iterative perturbation
-    iteration1 = 0
-    while iteration1 < max_iterations1:
+    iteration = 0
+    while iteration < 100:
         # Perturb the variable value (increase)
-        inputDemand1 += step_size1
+        inputDemand1 += step_size
         
         # Solve the modified LP problem
-        model1 = LpProblem("Minimize Cost", LpMinimize)
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
         month = list(range(4))
         month1 = list(range(3))
         ihcDict = LpVariable.dicts(
@@ -1152,38 +1160,35 @@ def optimizeFour(inputPlanName):
         inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
         inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
         inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
-        model1 += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
-        model1.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
-        model1.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
-        model1.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
-        model1.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
-        model1.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
-        model1.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
-        model1.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
-        model1.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
-        model1.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
         
         # Check if the optimal solution changes
-        if model1.status == 1:
-            if value(model1.objective) != original_cost:
-                allowable_increase1 = step_size1 * iteration1
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                aiDemand1 = step_size * iteration
                 break
         
-        iteration1 += 1
+        iteration += 1
 
     inputDemand1 = original_demand1
 
-    # Set maximum number of iterations
-    max_iterations2 = 100
-
     # Perform iterative perturbation
-    iteration2 = 0
-    while iteration2 < max_iterations2:
+    iteration = 0
+    while iteration < 200:
         # Perturb the variable value (decrease)
-        inputDemand1 -= step_size1  # Adjust it back to the original value first
+        inputDemand1 -= step_size  # Adjust it back to the original value first
         
         # Solve the modified LP problem
-        model2 = LpProblem("Minimize Cost", LpMinimize)
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
         month = list(range(4))
         month1 = list(range(3))
         ihcDict = LpVariable.dicts(
@@ -1197,51 +1202,52 @@ def optimizeFour(inputPlanName):
         inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
         inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
         inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
-        model2 += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
-        model2.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
-        model2.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
-        model2.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
-        model2.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
-        model2.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
-        model2.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
-        model2.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
-        model2.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
-        model2.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
         
         # Check if the optimal solution changes
-        if model2.status == 1:
-            if value(model2.objective) != original_cost:
-                allowable_decrease1 = step_size1 * iteration2
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                adDemand1 = step_size * iteration
                 break
         
-        iteration2 += 1
+        iteration += 1
 
+    # Reset Demand 1
+    inputDemand1 = original_demand1
+
+    # SA Demand 2
     # Choose the variable of interest
-    original_demand2 = value(inputDemand1)
+    original_demand2 = value(inputDemand2)
 
     # Define perturbation step size
-    step_size2 = 0
+    step_size = 0
     
     if inputProdPermanent2 < inputProdTemporary2:
-        step_size2 = inputProdPermanent2
+        step_size = inputProdPermanent2
     else:
-        step_size2 = inputProdTemporary2
+        step_size = inputProdTemporary2
 
     # Initialize allowable increase and decrease
-    allowable_increase2 = 0
-    allowable_decrease2 = 0
-
-    # Set maximum number of iterations
-    max_iterations3 = 100
+    aiDemand2 = 0
+    adDemand2 = 0
 
     # Perform iterative perturbation
-    iteration3 = 0
-    while iteration3 < max_iterations3:
+    iteration = 0
+    while iteration < 100:
         # Perturb the variable value (increase)
-        inputDemand2 += step_size2
+        inputDemand2 += step_size
         
         # Solve the modified LP problem
-        model3 = LpProblem("Minimize Cost", LpMinimize)
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
         month = list(range(4))
         month1 = list(range(3))
         ihcDict = LpVariable.dicts(
@@ -1255,38 +1261,35 @@ def optimizeFour(inputPlanName):
         inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
         inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
         inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
-        model3 += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
-        model3.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
-        model3.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
-        model3.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
-        model3.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
-        model3.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
-        model3.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
-        model3.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
-        model3.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
-        model3.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
         
         # Check if the optimal solution changes
-        if model3.status == 1:
-            if value(model3.objective) != original_cost:
-                allowable_increase2 = step_size2 * iteration3
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                aiDemand2 = step_size * iteration
                 break
         
-        iteration3 += 1
+        iteration += 1
 
     inputDemand2 = original_demand2
 
-    # Set maximum number of iterations
-    max_iterations4 = 100
-
     # Perform iterative perturbation
-    iteration4 = 0
-    while iteration4 < max_iterations4:
+    iteration = 0
+    while iteration < 200:
         # Perturb the variable value (decrease)
-        inputDemand2 -= step_size2  # Adjust it back to the original value first
+        inputDemand2 -= step_size  # Adjust it back to the original value first
         
         # Solve the modified LP problem
-        model4 = LpProblem("Minimize Cost", LpMinimize)
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
         month = list(range(4))
         month1 = list(range(3))
         ihcDict = LpVariable.dicts(
@@ -1300,32 +1303,446 @@ def optimizeFour(inputPlanName):
         inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
         inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
         inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
-        model4 += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
-        model4.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
-        model4.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
-        model4.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
-        model4.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
-        model4.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
-        model4.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
-        model4.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
-        model4.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
-        model4.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
         
         # Check if the optimal solution changes
-        if model4.status == 1:
-            if value(model4.objective) != original_cost:
-                allowable_decrease2 = step_size2 * iteration4
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                adDemand2 = step_size * iteration
                 break
         
-        iteration4 += 1
+        iteration += 1
 
-    print("Demand 1 Allowable Increase:", allowable_increase1)
-    print("Demand 1 Allowable Decrease:", allowable_decrease1)
-    print("Demand 2 Allowable Increase:", allowable_increase2)
-    print("Demand 2 Allowable Decrease:", allowable_decrease2)
+    # Reset Demand 2
+    inputDemand2 = original_demand2
+    
+    # SA Demand 3
+    # Choose the variable of interest
+    original_demand3 = value(inputDemand3)
+
+    # Define perturbation step size
+    step_size = 0
+    
+    if inputProdPermanent3 < inputProdTemporary3:
+        step_size = inputProdPermanent3
+    else:
+        step_size = inputProdTemporary3
+
+    # Initialize allowable increase and decrease
+    aiDemand3 = 0
+    adDemand3 = 0
+
+    # Perform iterative perturbation
+    iteration = 0
+    while iteration < 100:
+        # Perturb the variable value (increase)
+        inputDemand3 += step_size
+        
+        # Solve the modified LP problem
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                aiDemand3 = step_size * iteration
+                break
+        
+        iteration += 1
+
+    inputDemand3 = original_demand3
+
+    # Perform iterative perturbation
+    iteration = 0
+    while iteration < 200:
+        # Perturb the variable value (decrease)
+        inputDemand3 -= step_size  # Adjust it back to the original value first
+        
+        # Solve the modified LP problem
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                adDemand3 = step_size * iteration
+                break
+        
+        iteration += 1
+
+    # Reset Demand 3
+    inputDemand3 = original_demand3
+    
+    # SA Demand 4
+    # Choose the variable of interest
+    original_demand4 = value(inputDemand4)
+
+    # Define perturbation step size
+    step_size = 0
+    
+    if inputProdPermanent4 < inputProdTemporary4:
+        step_size = inputProdPermanent4
+    else:
+        step_size = inputProdTemporary4
+
+    # Initialize allowable increase and decrease
+    aiDemand4 = 0
+    adDemand4 = 0
+
+    # Perform iterative perturbation
+    iteration = 0
+    while iteration < 100:
+        # Perturb the variable value (increase)
+        inputDemand4 += step_size
+        
+        # Solve the modified LP problem
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                aiDemand4 = step_size * iteration
+                break
+        
+        iteration += 1
+
+    inputDemand4 = original_demand4
+
+    # Perform iterative perturbation
+    iteration = 0
+    while iteration < 200:
+        # Perturb the variable value (decrease)
+        inputDemand4 -= step_size  # Adjust it back to the original value first
+        
+        # Solve the modified LP problem
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                adDemand4 = step_size * iteration
+                break
+        
+        iteration += 1
+
+    # Reset Demand 4
+    inputDemand4 = original_demand4
+    
+    # SA Starting Inventory
+    # Choose the variable of interest
+    original_InventoryInitial = value(inputInventoryInitial)
+
+    # Define perturbation step size
+    step_size = 0
+    
+    if inputProdPermanent1 < inputProdTemporary1:
+        step_size = inputProdPermanent1
+    else:
+        step_size = inputProdTemporary1
+
+    # Initialize allowable increase and decrease
+    aiInventoryInitial = 0
+    adInventoryInitial = 0
+
+    # Perform iterative perturbation
+    iteration = 0
+    while iteration < 100:
+        # Perturb the variable value (increase)
+        inputInventoryInitial += step_size
+        
+        # Solve the modified LP problem
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                aiInventoryInitial = step_size * iteration
+                break
+        
+        iteration += 1
+
+    inputInventoryInitial = original_InventoryInitial
+
+    # Perform iterative perturbation
+    iteration = 0
+    while iteration < 200:
+        # Perturb the variable value (decrease)
+        inputInventoryInitial -= step_size  # Adjust it back to the original value first
+        
+        # Solve the modified LP problem
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                adInventoryInitial = step_size * iteration
+                break
+        
+        iteration += 1
+
+    # Reset Starting Inventory
+    inputInventoryInitial = original_InventoryInitial
+    
+    # SA Ending Inventory
+    # Choose the variable of interest
+    original_InventoryFinal = value(inputInventoryFinal)
+
+    # Define perturbation step size
+    step_size = 0
+    
+    if inputProdPermanent4 < inputProdTemporary4:
+        step_size = inputProdPermanent4
+    else:
+        step_size = inputProdTemporary4
+
+    # Initialize allowable increase and decrease
+    aiInventoryFinal = 0
+    adInventoryFinal = 0
+
+    # Perform iterative perturbation
+    iteration = 0
+    while iteration < 100:
+        # Perturb the variable value (increase)
+        inputInventoryFinal += step_size
+        
+        # Solve the modified LP problem
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                aiInventoryFinal = step_size * iteration
+                break
+        
+        iteration += 1
+
+    inputInventoryFinal = original_InventoryFinal
+
+    # Perform iterative perturbation
+    iteration = 0
+    while iteration < 200:
+        # Perturb the variable value (decrease)
+        inputInventoryFinal -= step_size  # Adjust it back to the original value first
+        
+        # Solve the modified LP problem
+        modelSA = LpProblem("Minimize Cost", LpMinimize)
+        month = list(range(4))
+        month1 = list(range(3))
+        ihcDict = LpVariable.dicts(
+            'IHC', month1, lowBound=0, cat='Integer')
+        hcDict = LpVariable.dicts(
+            'HC', month, lowBound=0, cat='Integer')
+        fcDict = LpVariable.dicts(
+            'FC', month, lowBound=0, cat='Integer')
+        ntwDict = LpVariable.dicts(
+            'NTW', month, lowBound=0, cat='Integer')
+        inputCostHoldingUnitDict = [inputCostHoldingUnit1, inputCostHoldingUnit2, inputCostHoldingUnit3]
+        inputCostHiringDict = [inputCostHiring1, inputCostHiring2, inputCostHiring3, inputCostHiring4]
+        inputCostFiringDict = [inputCostFiring1, inputCostFiring2, inputCostFiring3, inputCostFiring4]
+        modelSA += lpSum([inputCostHoldingUnitDict[i] * ihcDict[i] for i in month1]) + lpSum([inputCostHiringDict[i] * hcDict[i] for i in month]) + lpSum([inputCostFiringDict[i] * fcDict[i] for i in month])
+        modelSA.addConstraint(inputInventoryInitial + (inputProdTemporary1 * ntwDict[0]) == inputDemand1 - (inputNumPermanent1 * inputProdPermanent1) + ihcDict[0], name='Constraint 1')
+        modelSA.addConstraint(ihcDict[0] + (inputProdTemporary2 * ntwDict[1]) == inputDemand2 - (inputNumPermanent2 * inputProdPermanent2) + ihcDict[1], name='Constraint 2')
+        modelSA.addConstraint(ihcDict[1] + (inputProdTemporary3 * ntwDict[2]) == inputDemand3 - (inputNumPermanent3 * inputProdPermanent3) + ihcDict[2], name='Constraint 3')
+        modelSA.addConstraint(ihcDict[2] + (inputProdTemporary4 * ntwDict[3]) == inputDemand4 - (inputNumPermanent4 * inputProdPermanent4) + inputInventoryFinal, name='Constraint 4')
+        modelSA.addConstraint(ntwDict[0] == hcDict[0] - fcDict[0], name='Constraint 5')
+        modelSA.addConstraint(ntwDict[1] == ntwDict[0] + (hcDict[1] - fcDict[1]), name='Constraint 6')
+        modelSA.addConstraint(ntwDict[2] == ntwDict[1] + (hcDict[2] - fcDict[2]), name='Constraint 7')
+        modelSA.addConstraint(ntwDict[3] == ntwDict[2] + (hcDict[3] - fcDict[3]), name='Constraint 8')
+        modelSA.solve(pulp.PULP_CBC_CMD(maxSeconds=1))
+        
+        # Check if the optimal solution changes
+        if modelSA.status == 1:
+            if value(modelSA.objective) != original_cost:
+                adInventoryFinal = step_size * iteration
+                break
+        
+        iteration += 1
+
+    # Reset Ending Inventory
+    inputInventoryFinal = original_InventoryFinal
+
+    print("Demand 1 Allowable Increase:", aiDemand1)
+    print("Demand 1 Allowable Decrease:", adDemand1)
+    print("Demand 2 Allowable Increase:", aiDemand2)
+    print("Demand 2 Allowable Decrease:", adDemand2)
+    print("Demand 3 Allowable Increase:", aiDemand3)
+    print("Demand 3 Allowable Decrease:", adDemand3)
+    print("Demand 4 Allowable Increase:", aiDemand4)
+    print("Demand 4 Allowable Decrease:", adDemand4)
+    print("Starting Inventory Allowable Increase:", aiInventoryInitial)
+    print("Starting Inventory Allowable Decrease:", adInventoryInitial)
+    print("Ending Inventory Allowable Increase:", aiInventoryFinal)
+    print("Ending Inventory Allowable Decrease:", adInventoryFinal)
     return optimizationStatus
 
-@login_required(login_url='/login/')
 def optimizeFive(inputPlanName):
     qs = models.FiveMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1392,7 +1809,6 @@ def optimizeFive(inputPlanName):
     model.solve()
     models.FiveMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, optimalCost = value(model.objective))
 
-@login_required(login_url='/login/')
 def optimizeSix(inputPlanName):
     qs = models.SixMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1468,7 +1884,6 @@ def optimizeSix(inputPlanName):
     model.solve()
     models.SixMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, optimalCost = value(model.objective))
 
-@login_required(login_url='/login/')
 def optimizeSeven(inputPlanName):
     qs = models.SevenMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1553,7 +1968,6 @@ def optimizeSeven(inputPlanName):
     model.solve()
     models.SevenMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, inventoryMonth6 = ihcDict[5].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, hiredTemporary7 = hcDict[6].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, firedTemporary7 = fcDict[6].varValue, optimalCost = value(model.objective))
 
-@login_required(login_url='/login/')
 def optimizeEight(inputPlanName):
     qs = models.EightMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1647,7 +2061,6 @@ def optimizeEight(inputPlanName):
     model.solve()
     models.EightMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, inventoryMonth6 = ihcDict[5].varValue, inventoryMonth7 = ihcDict[6].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, hiredTemporary7 = hcDict[6].varValue, hiredTemporary8 = hcDict[7].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, firedTemporary7 = fcDict[6].varValue, firedTemporary8 = fcDict[7].varValue, optimalCost = value(model.objective))
 
-@login_required(login_url='/login/')
 def optimizeNine(inputPlanName):
     qs = models.NineMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1750,7 +2163,6 @@ def optimizeNine(inputPlanName):
     model.solve()
     models.NineMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, inventoryMonth6 = ihcDict[5].varValue, inventoryMonth7 = ihcDict[6].varValue, inventoryMonth8 = ihcDict[7].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, hiredTemporary7 = hcDict[6].varValue, hiredTemporary8 = hcDict[7].varValue, hiredTemporary9 = hcDict[8].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, firedTemporary7 = fcDict[6].varValue, firedTemporary8 = fcDict[7].varValue, firedTemporary9 = fcDict[8].varValue, optimalCost = value(model.objective))
 
-@login_required(login_url='/login/')
 def optimizeTen(inputPlanName):
     qs = models.TenMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1862,7 +2274,6 @@ def optimizeTen(inputPlanName):
     model.solve()
     models.TenMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, inventoryMonth6 = ihcDict[5].varValue, inventoryMonth7 = ihcDict[6].varValue, inventoryMonth8 = ihcDict[7].varValue, inventoryMonth9 = ihcDict[8].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, hiredTemporary7 = hcDict[6].varValue, hiredTemporary8 = hcDict[7].varValue, hiredTemporary9 = hcDict[8].varValue, hiredTemporary10 = hcDict[9].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, firedTemporary7 = fcDict[6].varValue, firedTemporary8 = fcDict[7].varValue, firedTemporary9 = fcDict[8].varValue, firedTemporary10 = fcDict[9].varValue, optimalCost = value(model.objective))
 
-@login_required(login_url='/login/')
 def optimizeEleven(inputPlanName):
     qs = models.ElevenMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:
@@ -1983,7 +2394,6 @@ def optimizeEleven(inputPlanName):
     model.solve()
     models.ElevenMonthPlan.objects.filter(planName = inputPlanName).update(inventoryInitial = inputInventoryInitial, inventoryFinal = inputInventoryFinal,inventoryMonth1 = ihcDict[0].varValue, inventoryMonth2 = ihcDict[1].varValue, inventoryMonth3 = ihcDict[2].varValue, inventoryMonth4 = ihcDict[3].varValue, inventoryMonth5 = ihcDict[4].varValue, inventoryMonth6 = ihcDict[5].varValue, inventoryMonth7 = ihcDict[6].varValue, inventoryMonth8 = ihcDict[7].varValue, inventoryMonth9 = ihcDict[8].varValue, inventoryMonth10 = ihcDict[9].varValue, hiredTemporary1 = hcDict[0].varValue, hiredTemporary2 = hcDict[1].varValue, hiredTemporary3 = hcDict[2].varValue, hiredTemporary4 = hcDict[3].varValue, hiredTemporary5 = hcDict[4].varValue, hiredTemporary6 = hcDict[5].varValue, hiredTemporary7 = hcDict[6].varValue, hiredTemporary8 = hcDict[7].varValue, hiredTemporary9 = hcDict[8].varValue, hiredTemporary10 = hcDict[9].varValue, hiredTemporary11 = hcDict[10].varValue, firedTemporary1 = fcDict[0].varValue, firedTemporary2 = fcDict[1].varValue, firedTemporary3 = fcDict[2].varValue, firedTemporary4 = fcDict[3].varValue, firedTemporary5 = fcDict[4].varValue, firedTemporary6 = fcDict[5].varValue, firedTemporary7 = fcDict[6].varValue, firedTemporary8 = fcDict[7].varValue, firedTemporary9 = fcDict[8].varValue, firedTemporary10 = fcDict[9].varValue, firedTemporary11 = fcDict[10].varValue, optimalCost = value(model.objective))
 
-@login_required(login_url='/login/')
 def optimizeTwelve(inputPlanName):
     qs = models.TwelveMonthPlan.objects.filter(planName=inputPlanName).values()
     for x in qs:

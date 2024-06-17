@@ -9,23 +9,23 @@
 <script src="http://cdn.tailwindcss.com"></script>
 <body class="min-h-screen bg-neutral-100" style="min-height: 400px; margin-bottom: 5px; clear: both">
 
-  <form method="POST" class="bg-white p-6 drop-shadow-lg rounded-[18px] ml-[635px] mr-[400px] mt-[15px] font-[Poppins] w-[24rem] overflow-hidden m-10">
+  <form method="POST" class="w-full max-w-2xl p-4 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mt-14">
     <h1 class="block px-4 py-4 text-3xl font-black text-center text-transparent bg-clip-text bg-gradient-to-b from-cyan-800 to-cyan-900">Feel Free to Provide Us with Your Feedback</h1>
     {% csrf_token %}
     <div class="p-6">
 
-      <label for="email" class="block mb-2 text-sm font-bold text-gray-600">Email Address:</label>
-      {% render_field form.email placeholder="xxxx@gmail.com" class="block w-full px-3 py-2 mt-1 mb-6 text-center bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm focus:ring-1"%}
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address:</label>
+      {% render_field form.email placeholder="xxxx@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"%}
       
-      <label for="subject" class="block mb-2 text-sm font-bold text-gray-600">Subject:</label>
-      {% render_field form.subject placeholder="Subject" class="block w-full px-3 py-2 mt-1 mb-6 text-center bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm focus:ring-1"%}
+      <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subject:</label>
+      {% render_field form.subject placeholder="Subject" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"%}
 
-       <label for="content" class="block mb-2 text-sm font-bold text-gray-600">Content:</label>
-       {% render_field form.content placeholder="Content" class="block w-full px-3 py-2 mt-1 mb-6 text-center bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm focus:ring-1"%}
+       <label for="content" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Content:</label>
+       {% render_field form.content placeholder="Content" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"%}
 
        
        <div class="flex justify-center pt-3 space-x-2">
-          <button type="submit" name="FHCSubmit" class="w-full py-2 font-bold text-white transition duration-300 ease-in-out bg-orange-500 rounded-md drop-shadow-lg hover:-translate-y-1 hover:scale-110 hover:bg-red-500 hover:text-white">Submit</button>
+          <button type="submit" name="FHCSubmit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
        </div>
     </div>
   </form>

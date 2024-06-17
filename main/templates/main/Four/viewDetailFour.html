@@ -4,111 +4,125 @@
 
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
 <script src="http://cdn.tailwindcss.com"></script>
-<body class="min-h-screen bg-neutral-100bg-neutral-100" style="min-height: 400px; margin-bottom: 100px;">
-      <div class='my-16 overflow-x-auto ml-60'>
-            <table class="mx-auto max-w-4xl drop-shadow-lg font-[Poppins] rounded-lg border-none w-full overflow-hidden">
-                  <thead class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700">
-                        {% for x in detail %}
-                        <tr class="text-center text-white border-none">
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase border-b-2 border-white bg-cyan-700" colspan="9">{{x.planName}}</th>
-                        </tr> 
-                        {% endfor %}
-                  </thead>
-                  <thead class="text-center text-white bg-white border-none">
-                        <tr class="text-center text-white border-none">
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Month</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Remaining Demand</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Ending Inventory Unit(s)</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Number of Temporary Worker Hired</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Number of Temporary Worker Fired</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Number of Temporary Worker(s)</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Hiring Cost</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Firing Cost</th>
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase bg-cyan-700 border-cyan-700">Inventory Holding Cost</th>
-                        </tr> 
-                  </thead> 
-                  <tbody class="text-center text-gray-900 bg-white border-none">
-                        <tr class="border-none">
-                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-r-2 whitespace-nowrap border-cyan-700">Month 1</th>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ rd1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ei1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwH1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwF1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntw1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ hC1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ fC1 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-none whitespace-nowrap">RM{{ ihc1 }}</td>
-                        </tr>
-                        <tr class="bg-white border-none ">
-                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-r-2 whitespace-nowrap border-cyan-700">Month 2</th>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ rd2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ei2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwH2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwF2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntw2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ hC2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ fC2 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-none whitespace-nowrap">RM{{ ihc2 }}</td>
-                        </tr>
-                        <tr class="bg-white border-none ">
-                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-r-2 whitespace-nowrap border-cyan-700">Month 3</th>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ rd3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ei3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwH3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwF3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntw3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ hC3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-0 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ fC3 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-none whitespace-nowrap">RM{{ ihc3 }}</td>
-                        </tr>
-                        <tr class="bg-white border-none ">
-                              <th class="p-5 text-sm font-semibold text-center text-black uppercase bg-white border-b-2 border-r-2 whitespace-nowrap border-cyan-700">Month 4</th>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ rd4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ei4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwH4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntwF4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">{{ ntw4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ hC4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-2 whitespace-nowrap border-cyan-700">RM{{ fC4 }}</td>
-                              <td class="p-5 text-sm font-medium text-center text-black uppercase bg-white border-t-0 border-b-2 border-l-0 border-r-0 whitespace-nowrap border-cyan-700">RM{{ ihc4 }}</td>
-                        </tr>
-                        <tr class="bg-white border-none ">
-                              <th class="px-6 py-4 text-sm font-semibold text-center text-black uppercase border-t-0 border-l-0 border-r-2 border-cyan-700" colspan="6">Total Individual Costs</th>
-                              <td class="text-sm font-semibold text-center border-none whitespace-nowrap">RM{{ thC }}</td>
-                              <td class="text-sm font-semibold text-center border-none whitespace-nowrap">RM{{ tfC }}</td>
-                              <td class="text-sm font-semibold text-center border-none whitespace-nowrap">RM{{ tihC }}</td>
-                        </tr>
-                        {% for x in detail %}
-                        <tr class="px-6 py-4 text-sm font-bold text-center text-white uppercase border-none bg-cyan-700">
-                              <th class="px-6 py-4 text-sm font-semibold text-center uppercase border-none " colspan="6">Optimized Final Cost for Multi-Period Planning</th>
-                              <td class="font-bold border-none whitespace-nowrap" colspan="3">RM{{ x.optimalCost }}</td>
-                        </tr>
-                        {% endfor %}
-                  </tbody>
-            </table>
-            <!-- <div class="mx-auto my-10 max-w-4xl font-[Poppins] border-none w-full overflow-hidden">
-                  {% autoescape off %}
-                  {% endautoescape %}
-            </div> -->
-            <div class="mx-auto max-w-6xl font-[Poppins] border-none w-full overflow-hidden flex justify-center">
-                  {% autoescape off %}
-                  <div style="width: 40%;">
-                        {{ fig1 }}
+<body>
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
+            <div class="w-full p-4 mx-auto space-y-6 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+                  <table class="w-full text-sm text-center text-gray-500 rtl:text-right dark:text-gray-300">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+                              {% for x in detail %}
+                              <tr>
+                                    <td scope="col" class="px-6 py-3" colspan="9">{{x.planName}}</td>
+                              </tr> 
+                              {% endfor %}
+                        </thead>
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+                              <tr>
+                                    <td scope="col" class="px-6 py-3">Month</td>
+                                    <td scope="col" class="px-6 py-3">Remaining Demand</td>
+                                    <td scope="col" class="px-6 py-3">Ending Inventory Unit(s)</td>
+                                    <td scope="col" class="px-6 py-3">Number of Temporary Worker Hired</td>
+                                    <td scope="col" class="px-6 py-3">Number of Temporary Worker Fired</td>
+                                    <td scope="col" class="px-6 py-3">Number of Temporary Worker(s)</td>
+                                    <td scope="col" class="px-6 py-3">Hiring Cost</td>
+                                    <td scope="col" class="px-6 py-3">Firing Cost</td>
+                                    <td scope="col" class="px-6 py-3">Inventory Holding Cost</td>
+                              </tr> 
+                        </thead> 
+                        <tbody>
+                              <tr class="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 uppercase whitespace-nowrap dark:text-white">Month 1</th>
+                                    <td class="px-6 py-4">{{ rd1 }}</td>
+                                    <td class="px-6 py-4">{{ ei1 }}</td>
+                                    <td class="px-6 py-4">{{ ntwH1 }}</td>
+                                    <td class="px-6 py-4">{{ ntwF1 }}</td>
+                                    <td class="px-6 py-4">{{ ntw1 }}</td>
+                                    <td class="px-6 py-4">RM{{ hC1 }}</td>
+                                    <td class="px-6 py-4">RM{{ fC1 }}</td>
+                                    <td class="px-6 py-4">RM{{ ihc1 }}</td>
+                              </tr>
+                              <tr class="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 uppercase whitespace-nowrap dark:text-white">Month 2</th>
+                                    <td class="px-6 py-4">{{ rd2 }}</td>
+                                    <td class="px-6 py-4">{{ ei2 }}</td>
+                                    <td class="px-6 py-4">{{ ntwH2 }}</td>
+                                    <td class="px-6 py-4">{{ ntwF2 }}</td>
+                                    <td class="px-6 py-4">{{ ntw2 }}</td>
+                                    <td class="px-6 py-4">RM{{ hC2 }}</td>
+                                    <td class="px-6 py-4">RM{{ fC2 }}</td>
+                                    <td class="px-6 py-4">RM{{ ihc2 }}</td>
+                              </tr>
+                              <tr class="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 uppercase whitespace-nowrap dark:text-white">Month 3</th>
+                                    <td class="px-6 py-4">{{ rd3 }}</td>
+                                    <td class="px-6 py-4">{{ ei3 }}</td>
+                                    <td class="px-6 py-4">{{ ntwH3 }}</td>
+                                    <td class="px-6 py-4">{{ ntwF3 }}</td>
+                                    <td class="px-6 py-4">{{ ntw3 }}</td>
+                                    <td class="px-6 py-4">RM{{ hC3 }}</td>
+                                    <td class="px-6 py-4">RM{{ fC3 }}</td>
+                                    <td class="px-6 py-4">RM{{ ihc3 }}</td>
+                              </tr>
+                              <tr class="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 uppercase whitespace-nowrap dark:text-white">Month 4</th>
+                                    <td class="px-6 py-4">{{ rd4 }}</td>
+                                    <td class="px-6 py-4">{{ ei4 }}</td>
+                                    <td class="px-6 py-4">{{ ntwH4 }}</td>
+                                    <td class="px-6 py-4">{{ ntwF4 }}</td>
+                                    <td class="px-6 py-4">{{ ntw4 }}</td>
+                                    <td class="px-6 py-4">RM{{ hC4 }}</td>
+                                    <td class="px-6 py-4">RM{{ fC4 }}</td>
+                                    <td class="px-6 py-4">RM{{ ihc4 }}</td>
+                              </tr>
+                              <tr class="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 uppercase whitespace-nowrap dark:text-white" colspan="6">Total Individual Costs</th>
+                                    <td class="px-6 py-4 font-extrabold text-center border-none whitespace-nowrap">RM{{ thC }}</td>
+                                    <td class="px-6 py-4 font-extrabold text-center border-none whitespace-nowrap">RM{{ tfC }}</td>
+                                    <td class="px-6 py-4 font-extrabold text-center border-none whitespace-nowrap">RM{{ tihC }}</td>
+                              </tr>
+                              {% for x in detail %}
+                              <tfoot>
+                                    <tr class="font-extrabold text-gray-900 dark:text-white">
+                                          <th scope="row" class="px-6 py-3 text-base" colspan="6">Optimized Final Cost for Multi-Period Planning</th>
+                                          <td class="px-6 py-3" colspan="3">RM{{ x.optimalCost }}</td>
+                                    </tr>
+                              </tfoot>
+                              {% endfor %}
+                        </tbody>
+                  </table>
+                  <!-- <div class="mx-auto my-10 max-w-4xl font-[Poppins] border-none w-full overflow-hidden">
+                        {% autoescape off %}
+                        {% endautoescape %}
+                  </div> -->
+                  <div class="mx-auto max-w-6xl font-[Poppins] border-none w-full overflow-hidden flex justify-center">
+                        {% autoescape off %}
+                        <div style="width: 40%;">
+                              <div class="dark:hidden">
+                                    {{ fig1Light }}
+                              </div>
+                              <div class="hidden dark:block">
+                                    {{ fig1Dark }}
+                              </div>
+                        </div>
+                        <div style="width: 60%;">
+                              <div class="dark:hidden">
+                                    {{ fig2Light }}
+                              </div>
+                              <div class="hidden dark:block">
+                                    {{ fig2Dark }}
+                              </div>
+                        </div>
+                        {% endautoescape %}
                   </div>
-                  <div style="width: 60%;">
-                        {{ fig2 }}
+                  <div class="mx-auto max-w-6xl font-[Poppins] border-none w-full overflow-hidden flex justify-center">
+                        {% autoescape off %}
+                        <div style="width: 50%;">
+                              {{ fig4 }}   
+                        </div>
+                        <div style="width: 50%;">
+                              {{ fig3 }}   
+                        </div>
+                        {% endautoescape %}
                   </div>
-                  {% endautoescape %}
-            </div>
-            <div class="mx-auto max-w-6xl font-[Poppins] border-none w-full overflow-hidden flex justify-center">
-                  {% autoescape off %}
-                  <div style="width: 50%;">
-                        {{ fig4 }}   
-                  </div>
-                  <div style="width: 50%;">
-                        {{ fig3 }}   
-                  </div>
-                  {% endautoescape %}
             </div>
       </div>
 </body>
