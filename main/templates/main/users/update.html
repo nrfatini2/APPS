@@ -6,40 +6,45 @@
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
 <script src="http://cdn.tailwindcss.com"></script>
 <body>
-   <form method="POST" class="bg-white p-6 drop-shadow-lg rounded-[18px] mt-[70px] font-[Poppins] w-[24rem] overflow-hidden m-10">
-    {% csrf_token %}
-    <h1 class="text-xl font-medium text-gray-900 dark:text-white">Update User ID 0{{ userData.id }}</h1><br>
-
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name:</label>
-    <input required type="text" name="first_name" id="fname" value="{{ userData.first_name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
-
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name:</label>
-    <input required type="text" name="last_name" id="lname" value="{{ userData.last_name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
-
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username:</label>
-    <input required type="text" name="username" id="username" value="{{ userData.username }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
-    
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email:</label>
-    <input required type="email" name="email" id="email" value="{{ userData.email }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
-    
-    <div class="flex justify-center">
-        <div class="form-check form-check-inline">
-            <input class="form-check-input appearance-none border border-gray-300 rounded-sm bg-white checked:bg-cyan-700 checked:border-cyan-700 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" name="is_active" {% if userData.is_active %}checked{% endif %}>
-            <label class="form-check-label text-sm font-bold text-gray-600">Active&nbsp;&nbsp;</label>
-        </div>
-    
-        <div class="form-check form-check-inline">
-            <input class="form-check-input appearance-none border border-gray-300 rounded-sm bg-white checked:bg-cyan-700 checked:border-cyan-700 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" name="is_staff" {% if userData.is_staff %}checked{% endif %}>
-            <label class="form-check-label text-sm font-bold text-gray-600">Staff Status&nbsp;&nbsp;</label>
-        </div>
-
-        <div class="form-check form-check-inline">
-            <input class="form-check-input appearance-none border border-gray-300 rounded-sm bg-white checked:bg-cyan-700 checked:border-cyan-700 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" name="is_superuser" {% if userData.is_superuser %}checked{% endif %}>
-            <label class="form-check-label text-sm font-bold text-gray-600">Superuser Status&nbsp;&nbsp;</label>
-        </div>
+    <div class="w-1/2 p-4 mx-auto space-y-6 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+            <h1 class="text-xl font-extrabold text-gray-900 uppercase dark:text-white">Update User ID 0{{ userData.id }}</h1><br>
+            <div class="grid grid-cols-2 gap-2">
+                <label class="block m-auto text-sm font-medium text-gray-900 dark:text-white">First Name:</label>
+                <input required type="text" name="first_name" id="fname" value="{{ userData.first_name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+        
+                <label class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Last Name:</label>
+                <input required type="text" name="last_name" id="lname" value="{{ userData.last_name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+        
+                <label class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Username:</label>
+                <input required type="text" name="username" id="username" value="{{ userData.username }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                
+                <label class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Email:</label>
+                <input required type="email" name="email" id="email" value="{{ userData.email }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+            </div>
+            <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                    <div class="flex items-center ps-3">
+                        <input type="checkbox" id="is_active" name="is_active" {% if userData.is_active %}checked{% endif %} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="is_active" class="w-full py-3 text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">Active</label>
+                    </div>
+                </li>
+                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                    <div class="flex items-center ps-3">
+                        <input  type="checkbox" id="is_staff" name="is_staff" {% if userData.is_staff %}checked{% endif %} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="is_staff" class="w-full py-3 text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">Staff Status</label>
+                    </div>
+                </li>
+                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                    <div class="flex items-center ps-3">
+                        <input type="checkbox" id="is_superuser" name="is_superuser" {% if userData.is_superuser %}checked{% endif %} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="is_superuser" class="w-full py-3 text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">Superuser Status</label>
+                    </div>
+                </li>
+            </ul>
+            <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
+        </form>
     </div>
-    <br>
-    <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
-</form>
 </body>
 {% endblock %}

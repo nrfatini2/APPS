@@ -181,13 +181,13 @@ def viewDetailFour(request,plan_Name):
             fig1Light = go.Figure(data=[go.Pie(labels=labels, textinfo='label+percent', values=values, hole=0.3, marker=dict(colors=colors))])
 
             # Update the layout
-            fig1Light.update_layout(title='Total Cost Distribution (Malaysian Ringgit)', showlegend=False)
+            fig1Light.update_layout(title='TOTAL COST DISTRIBUTION (RM)', showlegend=False)
             
             # Create the Pie Chart
             fig1Dark = go.Figure(data=[go.Pie(labels=labels, textinfo='label+percent', values=values, hole=0.3, marker=dict(colors=colors))])
 
             # Update the layout
-            fig1Dark.update_layout(title='Total Cost Distribution (Malaysian Ringgit)', showlegend=False, template='plotly_dark')
+            fig1Dark.update_layout(title='TOTAL COST DISTRIBUTION (RM)', showlegend=False, template='plotly_dark')
             
             # Figure 2 : Monthly Cost
             # Data for x-axis (months)
@@ -207,7 +207,7 @@ def viewDetailFour(request,plan_Name):
 
             # Update the layout
             fig2Light.update_layout(barmode='stack', 
-                            title='Monthly Cost (Malaysian Ringgit)',
+                            title='MONTHLY COST (RM)',
                             yaxis_title='Costs')
 
             # Create the Stacked Bar Chart
@@ -219,26 +219,43 @@ def viewDetailFour(request,plan_Name):
 
             # Update the layout
             fig2Dark.update_layout(barmode='stack', 
-                            title='Monthly Cost (Malaysian Ringgit)',
+                            title='MONTHLY COST (RM)',
                             yaxis_title='Costs',
                             template='plotly_dark')
             
             workerHired = [ntwH1, ntwH2, ntwH3, ntwH4]
             workerFired = [ntwF1, ntwF2, ntwF3, ntwF4]
-            fig3 = go.Figure(data = [
+            
+            fig3Light = go.Figure(data = [
                 go.Line(x = months, y = workerHired, name="Worker Hired"),
                 go.Line(x = months, y = workerFired, name="Worker Fired")
             ])
-            fig3.update_layout(title='Monthly Temporary Worker Hired and Fired',
+            fig3Light.update_layout(title='Monthly Temporary Worker Hired and Fired',
                             yaxis_title='Number of Worker Hired/Fired')
             
+            fig3Dark = go.Figure(data = [
+                go.Line(x = months, y = workerHired, name="Worker Hired"),
+                go.Line(x = months, y = workerFired, name="Worker Fired")
+            ])
+            fig3Dark.update_layout(title='Monthly Temporary Worker Hired and Fired',
+                            yaxis_title='Number of Worker Hired/Fired', 
+                            template='plotly_dark')
+            
             workerNumber = [ntw1, ntw2, ntw3, ntw4]
-            fig4 = go.Figure(data = [
+            fig4Light = go.Figure(data = [
                 go.Bar(x = months, y = workerNumber, name="Number of Temporary Worker")
             ])
-            fig4.update_layout(title='Monthly Number of Temporary Worker',
+            fig4Light.update_layout(title='Monthly Number of Temporary Worker',
                             yaxis_title='Number of Worker Hired/Fired')
-        return render(request, "main/Four/viewDetailFour.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'thC': thC, 'tfC': tfC, 'tihC': tihC, 'fig1Light' : fig1Light.to_html(full_html=False), 'fig1Dark' : fig1Dark.to_html(full_html=False), 'fig2Light' : fig2Light.to_html(full_html=False), 'fig2Dark' : fig2Dark.to_html(full_html=False), 'fig3' : fig3.to_html(full_html=False), 'fig4' : fig4.to_html(full_html=False)})
+            
+            fig4Dark = go.Figure(data = [
+                go.Bar(x = months, y = workerNumber, name="Number of Temporary Worker")
+            ])
+            fig4Dark.update_layout(title='Monthly Number of Temporary Worker',
+                            yaxis_title='Number of Worker Hired/Fired',
+                            template='plotly_dark')
+            
+        return render(request, "main/Four/viewDetailFour.html", {'detail': detail, 'rd1': rd1, 'rd2': rd2, 'rd3': rd3, 'rd4': rd4, 'ntw1': ntw1, 'ntw2': ntw2, 'ntw3': ntw3, 'ntw4': ntw4, 'ihc1': ihc1, 'ihc2': ihc2, 'ihc3': ihc3, 'ihc4': ihc4, 'ntwH1':ntwH1, 'ntwH2':ntwH2, 'ntwH3':ntwH3, 'ntwH4':ntwH4, 'ntwF1':ntwF1, 'ntwF2':ntwF2, 'ntwF3':ntwF3, 'ntwF4':ntwF4, 'hC1': hC1, 'hC2': hC2, 'hC3': hC3, 'hC4': hC4, 'fC1': fC1, 'fC2': fC2, 'fC3': fC3, 'fC4': fC4, 'ei1': ei1, 'ei2': ei2, 'ei3': ei3, 'ei4': ei4, 'thC': thC, 'tfC': tfC, 'tihC': tihC, 'fig1Light' : fig1Light.to_html(full_html=False), 'fig1Dark' : fig1Dark.to_html(full_html=False), 'fig2Light' : fig2Light.to_html(full_html=False), 'fig2Dark' : fig2Dark.to_html(full_html=False), 'fig3Light' : fig3Light.to_html(full_html=False), 'fig3Dark' : fig3Dark.to_html(full_html=False), 'fig4Light' : fig4Light.to_html(full_html=False), 'fig4Dark' : fig4Dark.to_html(full_html=False)})
     elif status == 0:
         messages.error(request, "PLAN COULD NOT BE SOLVED")
     elif status == -1:
@@ -5989,7 +6006,7 @@ def downloadTwelve(request,plan_Name):
     return response
 
 
-def contact(request):
+def feedback(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -6000,7 +6017,7 @@ def contact(request):
             return redirect ("home")
     form = ContactForm()
     context = {'form': form}
-    return render(request, 'main/contact.html', context)
+    return render(request, 'main/feedback.html', context)
 
 @login_required(login_url='/login/')
 def create_user(request):
@@ -6074,7 +6091,5 @@ def editprofile(request, id):
 def delete_user(request, id):
     # pk = request.user.id
     userData = models.User.objects.get(id=id)
-    if request.method == "POST":
-        userData.delete()
-        return redirect("read")
-    return render(request, "main/users/delete.html", {"userData": userData})
+    userData.delete()
+    return redirect("read")

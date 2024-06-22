@@ -10,329 +10,357 @@
     {% endfor %}
 {% endif %}
 <body>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
-    <div class="w-full p-4 mx-auto space-y-6 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-      <h1 class="text-xl font-medium text-gray-900 dark:text-white">Production Plan List</h1>
-      <div>
-        <table class="w-full text-sm text-center text-gray-500 rtl:text-right dark:text-gray-300">
-          {% if historyListFour or historyListFive or historyListSix or historyListSeven or historyListEight or historyListNine or historyListTen or historyListEleven or historyListTwelve %}
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
-            <tr>
-              <td scope="col" class="px-6 py-3">Plan Name</td>
-              <td scope="col" class="px-6 py-3">Months</td>
-              <td scope="col" class="px-6 py-3">Input Monthly Variables</td>
-              <td scope="col" class="px-6 py-3">Action</td>
-            </tr>
-          </thead>
+  <div class="w-full p-4 mx-auto space-y-6 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <h1 class="text-xl font-extrabold text-gray-900 uppercase dark:text-white">Production Plan List</h1>
+    <div>
+      <table class="w-full text-sm text-center text-gray-500 rtl:text-right dark:text-gray-300">
+        {% if historyListFour or historyListFive or historyListSix or historyListSeven or historyListEight or historyListNine or historyListTen or historyListEleven or historyListTwelve %}
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+          <tr>
+            <td scope="col" class="px-6 py-3">Plan Name</td>
+            <td scope="col" class="px-6 py-3">Months</td>
+            <td scope="col" class="px-6 py-3">Input Monthly Variables</td>
+            <td scope="col" class="px-6 py-3">Action</td>
+          </tr>
+        </thead>
+        {% endif %}
+        <tbody>
+        {% comment %} Four Month Plans {% endcomment %}
+        {% if historyListFour %}
+          {% for list in historyListFour %}
+          {% if forloop.last %}
+          <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+          {% else %}
+          <tr class="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
           {% endif %}
-          <tbody>
-          {% comment %} Four Month Plans {% endcomment %}
-          {% if historyListFour %}
-            {% for list in historyListFour %}
-            {% if forloop.last %}
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
-            {% else %}
-            <tr class="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
-            {% endif %}
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{list.planName}}</th>
-              <td class="px-6 py-4">Four/4</td>
-              <td class="px-6 py-4">
-                <div class="grid grid-cols-3 gap-4 mb-4">
-                  <div class="flex items-center justify-center rounded">
-                    <a href={% url 'demandFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Demand</a>
-                  </div>
-                  <div class="flex items-center justify-center rounded">
-                    <a href={% url 'inventoryInitialFinal' 'Four' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Starting & Ending Inventory Level</a>
-                  </div>
-                  <div class="flex items-center justify-center rounded">
-                    <a href={% url 'costHoldingUnitFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Holding Cost Per Unit</a>
-                  </div>
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{list.planName}}</th>
+            <td class="px-6 py-4">Four/4</td>
+            <td class="px-6 py-4">
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'demandFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Demand</a>
                 </div>
-                <div class="grid grid-cols-3 gap-4 mb-4">
-                  <div class="flex items-center justify-center rounded">
-                    <a href={% url 'numPermanentFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Number of Permanent Workers</a>
-                  </div>
-                  <div class="flex items-center justify-center rounded">
-                    <a href={% url 'costHiringFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Temporary Worker Hiring Cost</a>
-                  </div>
-                  <div class="flex items-center justify-center rounded">
-                    <a href={% url 'costFiringFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Temporary Worker Firing Cost</a>
-                  </div>
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'inventoryInitialFinal' 'Four' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Starting & Ending Inventory Level</a>
                 </div>
-                <div class="grid grid-cols-2 gap-4">
-                  <div class="flex items-center justify-center rounded">
-                    <a href={% url 'prodPermanentFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Permanent Worker Production Rate</a>
-                  </div>
-                  <div class="flex items-center justify-center rounded">
-                    <a href={% url 'prodTemporaryFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Temporary Worker Production Rate</a>
-                  </div>
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'costHoldingUnitFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Holding Cost Per Unit</a>
                 </div>
-              </td>
-              <td class="px-6 py-4">
-                <div class="grid grid-cols-1 gap-4">
-                  <div class="flex items-center justify-center rounded">
-                    <a href={% url 'viewDetailFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Optimize Plan</a><br><br>
-                  </div>
-                  <div class="flex items-center justify-center rounded">
-                  <a href={% url 'deleteDetailFour' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Delete Plan</a>
-                  </div>
-                  <div class="flex items-center justify-center rounded">
-                    <a href={% url 'downloadFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Download Excel</a>
-                  </div>
+              </div>
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'numPermanentFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Number of Permanent Workers</a>
                 </div>
-              </td>
-            </tr> 
-            {% endfor %}
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'costHiringFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Temporary Worker Hiring Cost</a>
+                </div>
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'costFiringFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Temporary Worker Firing Cost</a>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'prodPermanentFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Permanent Worker Production Rate</a>
+                </div>
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'prodTemporaryFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Temporary Worker Production Rate</a>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4">
+              <div class="grid grid-cols-1 gap-4">
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'viewDetailFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Optimize Plan</a><br><br>
+                </div>
+                <div class="flex items-center justify-center rounded">
+                <a href={% url 'deleteDetailFour' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Delete Plan</a>
+                </div>
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'downloadFour' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Download Excel</a>
+                </div>
+              </div>
+            </td>
+          </tr> 
+          {% endfor %}
+        {% endif %}
+        
+        {% comment %} Five Month Plans {% endcomment %}
+        {% if historyListFive %}
+          {% for list in historyListFive %}
+          {% if forloop.last %}
+          <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+          {% else %}
+          <tr class="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
           {% endif %}
-          
-          {% comment %} Five Month Plans {% endcomment %}
-          {% if historyListFive %}
-            {% for list in historyListFive %}
-            <tr class="text-center text-white">
-              <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Five/5</td>
-              <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'demandFive' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
-                  <a href={% url 'inventoryInitialFinal' 'Five' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
-                  <a href={% url 'costHoldingUnitFive' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
-                  <a href={% url 'numPermanentFive' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
-                  <a href={% url 'costHiringFive' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
-                  <a href={% url 'costFiringFive' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
-                  <a href={% url 'prodPermanentFive' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
-                  <a href={% url 'prodTemporaryFive' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{list.planName}}</th>
+            <td class="px-6 py-4">Five/5</td>
+            <td class="px-6 py-4">
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'demandFive' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Demand</a>
                 </div>
-              </td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'viewDetailFive' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
-                  <a href={% url 'deleteDetailFive' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
-                  <a href={% url 'downloadFive' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'inventoryInitialFinal' 'Five' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Starting & Ending Inventory Level</a>
                 </div>
-              </td>
-            </tr> 
-            {% endfor %}
-          {% endif %}
-          
-          {% comment %} Six Month Plans {% endcomment %}
-          {% if historyListSix %}
-            {% for list in historyListSix %}
-            <tr class="text-center text-white">
-              <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Six/6</td>
-              <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'demandSix' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
-                  <a href={% url 'inventoryInitialFinal' 'Six' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
-                  <a href={% url 'costHoldingUnitSix' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
-                  <a href={% url 'numPermanentSix' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
-                  <a href={% url 'costHiringSix' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
-                  <a href={% url 'costFiringSix' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
-                  <a href={% url 'prodPermanentSix' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
-                  <a href={% url 'prodTemporarySix' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'costHoldingUnitFive' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Holding Cost Per Unit</a>
                 </div>
-              </td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'viewDetailSix' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
-                  <a href={% url 'deleteDetailSix' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
-                  <a href={% url 'downloadSix' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+              </div>
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'numPermanentFive' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Number of Permanent Workers</a>
                 </div>
-              </td>
-            </tr> 
-            {% endfor %}
-          {% endif %}
-          
-          {% comment %} Seven Month Plans {% endcomment %}
-          {% if historyListSeven %}
-            {% for list in historyListSeven %}
-            <tr class="text-center text-white">
-              <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Seven/7</td>
-              <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'demandSeven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
-                  <a href={% url 'inventoryInitialFinal' 'Seven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
-                  <a href={% url 'costHoldingUnitSeven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
-                  <a href={% url 'numPermanentSeven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
-                  <a href={% url 'costHiringSeven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
-                  <a href={% url 'costFiringSeven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
-                  <a href={% url 'prodPermanentSeven' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
-                  <a href={% url 'prodTemporarySeven' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'costHiringFive' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Temporary Worker Hiring Cost</a>
                 </div>
-              </td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'viewDetailSeven' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
-                  <a href={% url 'deleteDetailSeven' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
-                  <a href={% url 'downloadSeven' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'costFiringFive' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Temporary Worker Firing Cost</a>
                 </div>
-              </td>
-            </tr> 
-            {% endfor %}
-          {% endif %}
-          
-          {% comment %} Eight Month Plans {% endcomment %}
-          {% if historyListEight %}
-            {% for list in historyListEight %}
-            <tr class="text-center text-white">
-              <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Eight/8</td>
-              <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'demandEight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
-                  <a href={% url 'inventoryInitialFinal' 'Eight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
-                  <a href={% url 'costHoldingUnitEight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
-                  <a href={% url 'numPermanentEight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
-                  <a href={% url 'costHiringEight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
-                  <a href={% url 'costFiringEight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
-                  <a href={% url 'prodPermanentEight' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
-                  <a href={% url 'prodTemporaryEight' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'prodPermanentFive' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Permanent Worker Production Rate</a>
                 </div>
-              </td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'viewDetailEight' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
-                  <a href={% url 'deleteDetailEight' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
-                  <a href={% url 'downloadEight' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'prodTemporaryFive' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Temporary Worker Production Rate</a>
                 </div>
-              </td>
-            </tr> 
-            {% endfor %}
-          {% endif %}
-          
-          {% comment %} Nine Month Plans {% endcomment %}
-          {% if historyListNine %}
-            {% for list in historyListNine %}
-            <tr class="text-center text-white">
-              <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Nine/9</td>
-              <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'demandNine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
-                  <a href={% url 'inventoryInitialFinal' 'Nine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
-                  <a href={% url 'costHoldingUnitNine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
-                  <a href={% url 'numPermanentNine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
-                  <a href={% url 'costHiringNine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
-                  <a href={% url 'costFiringNine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
-                  <a href={% url 'prodPermanentNine' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
-                  <a href={% url 'prodTemporaryNine' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+              </div>
+            </td>
+            <td class="px-6 py-4">
+              <div class="grid grid-cols-1 gap-4">
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'viewDetailFive' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Optimize Plan</a><br><br>
                 </div>
-              </td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'viewDetailNine' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
-                  <a href={% url 'deleteDetailNine' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
-                  <a href={% url 'downloadNine' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+                <div class="flex items-center justify-center rounded">
+                <a href={% url 'deleteDetailFive' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Delete Plan</a>
                 </div>
-              </td>
-            </tr> 
-            {% endfor %}
-          {% endif %}
-          
-          {% comment %} Ten Month Plans {% endcomment %}
-          {% if historyListTen %}
-            {% for list in historyListTen %}
-            <tr class="text-center text-white">
-              <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Ten/10</td>
-              <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'demandTen' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
-                  <a href={% url 'inventoryInitialFinal' 'Ten' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
-                  <a href={% url 'costHoldingUnitTen' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
-                  <a href={% url 'numPermanentTen' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
-                  <a href={% url 'costHiringTen' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
-                  <a href={% url 'costFiringTen' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
-                  <a href={% url 'prodPermanentTen' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
-                  <a href={% url 'prodTemporaryTen' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+                <div class="flex items-center justify-center rounded">
+                  <a href={% url 'downloadFive' list.planName %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Download Excel</a>
                 </div>
-              </td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'viewDetailTen' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
-                  <a href={% url 'deleteDetailTen' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
-                  <a href={% url 'downloadTen' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
-                </div>
-              </td>
-            </tr> 
-            {% endfor %}
-          {% endif %}
-          
-          {% comment %} Eleven Month Plans {% endcomment %}
-          {% if historyListEleven %}
-            {% for list in historyListEleven %}
-            <tr class="text-center text-white">
-              <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Eleven/11</td>
-              <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'demandEleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
-                  <a href={% url 'inventoryInitialFinal' 'Eleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
-                  <a href={% url 'costHoldingUnitEleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
-                  <a href={% url 'numPermanentEleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
-                  <a href={% url 'costHiringEleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
-                  <a href={% url 'costFiringEleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
-                  <a href={% url 'prodPermanentEleven' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
-                  <a href={% url 'prodTemporaryEleven' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
-                </div>
-              </td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'viewDetailEleven' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
-                  <a href={% url 'deleteDetailEleven' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
-                  <a href={% url 'downloadEleven' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
-                </div>
-              </td>
-            </tr> 
-            {% endfor %}
-          {% endif %}
-          
-          {% comment %} Twelve Month Plans {% endcomment %}
-          {% if historyListTwelve %}
-            {% for list in historyListTwelve %}
-            <tr class="text-center text-white">
-              <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Twelve/12</td>
-              <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'demandTwelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
-                  <a href={% url 'inventoryInitialFinal' 'Twelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
-                  <a href={% url 'costHoldingUnitTwelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
-                  <a href={% url 'numPermanentTwelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
-                  <a href={% url 'costHiringTwelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
-                  <a href={% url 'costFiringTwelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
-                  <a href={% url 'prodPermanentTwelve' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
-                  <a href={% url 'prodTemporaryTwelve' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
-                </div>
-              </td>
-              <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
-                <div class="flex flex-wrap justify-center">
-                  <a href={% url 'viewDetailTwelve' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
-                  <a href={% url 'deleteDetailTwelve' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
-                  <a href={% url 'downloadTwelve' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
-                </div>
-              </td>
-            </tr> 
-            {% endfor %}
-          {% endif %}
-          
-          {% comment %} No Plans {% endcomment %}
-          {% if not historyListFour and not historyListFive and not historyListSix and not historyListSeven and not historyListEight and not historyListNine and not historyListTen and not historyListEleven and not historyListTwelve %}
-            <tr class="bg-white dark:bg-gray-800">
-              <td class="px-6 py-4" colspan="4">
-                <div class="flex flex-wrap justify-center">
-                  <h1 class="block w-full px-4 py-4 text-xl font-medium text-gray-900 dark:text-white">No Plans Made Yet!</h1>
-                  <a href={% url 'home' %} class="content-center p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Create a New Production Plan</a>
-                </div>
-              </td>
-            </tr>
-          {% endif %}
-          </tbody>
-          <!--end of table-->
-        </table>
-      </div>
+              </div>
+            </td>
+          </tr> 
+          {% endfor %}
+        {% endif %}
+        
+        {% comment %} Six Month Plans {% endcomment %}
+        {% if historyListSix %}
+          {% for list in historyListSix %}
+          <tr class="text-center text-white">
+            <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Six/6</td>
+            <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'demandSix' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
+                <a href={% url 'inventoryInitialFinal' 'Six' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
+                <a href={% url 'costHoldingUnitSix' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
+                <a href={% url 'numPermanentSix' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
+                <a href={% url 'costHiringSix' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
+                <a href={% url 'costFiringSix' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
+                <a href={% url 'prodPermanentSix' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
+                <a href={% url 'prodTemporarySix' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+              </div>
+            </td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'viewDetailSix' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
+                <a href={% url 'deleteDetailSix' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
+                <a href={% url 'downloadSix' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+              </div>
+            </td>
+          </tr> 
+          {% endfor %}
+        {% endif %}
+        
+        {% comment %} Seven Month Plans {% endcomment %}
+        {% if historyListSeven %}
+          {% for list in historyListSeven %}
+          <tr class="text-center text-white">
+            <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Seven/7</td>
+            <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'demandSeven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
+                <a href={% url 'inventoryInitialFinal' 'Seven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
+                <a href={% url 'costHoldingUnitSeven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
+                <a href={% url 'numPermanentSeven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
+                <a href={% url 'costHiringSeven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
+                <a href={% url 'costFiringSeven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
+                <a href={% url 'prodPermanentSeven' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
+                <a href={% url 'prodTemporarySeven' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+              </div>
+            </td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'viewDetailSeven' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
+                <a href={% url 'deleteDetailSeven' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
+                <a href={% url 'downloadSeven' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+              </div>
+            </td>
+          </tr> 
+          {% endfor %}
+        {% endif %}
+        
+        {% comment %} Eight Month Plans {% endcomment %}
+        {% if historyListEight %}
+          {% for list in historyListEight %}
+          <tr class="text-center text-white">
+            <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Eight/8</td>
+            <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'demandEight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
+                <a href={% url 'inventoryInitialFinal' 'Eight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
+                <a href={% url 'costHoldingUnitEight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
+                <a href={% url 'numPermanentEight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
+                <a href={% url 'costHiringEight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
+                <a href={% url 'costFiringEight' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
+                <a href={% url 'prodPermanentEight' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
+                <a href={% url 'prodTemporaryEight' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+              </div>
+            </td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'viewDetailEight' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
+                <a href={% url 'deleteDetailEight' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
+                <a href={% url 'downloadEight' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+              </div>
+            </td>
+          </tr> 
+          {% endfor %}
+        {% endif %}
+        
+        {% comment %} Nine Month Plans {% endcomment %}
+        {% if historyListNine %}
+          {% for list in historyListNine %}
+          <tr class="text-center text-white">
+            <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Nine/9</td>
+            <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'demandNine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
+                <a href={% url 'inventoryInitialFinal' 'Nine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
+                <a href={% url 'costHoldingUnitNine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
+                <a href={% url 'numPermanentNine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
+                <a href={% url 'costHiringNine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
+                <a href={% url 'costFiringNine' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
+                <a href={% url 'prodPermanentNine' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
+                <a href={% url 'prodTemporaryNine' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+              </div>
+            </td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'viewDetailNine' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
+                <a href={% url 'deleteDetailNine' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
+                <a href={% url 'downloadNine' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+              </div>
+            </td>
+          </tr> 
+          {% endfor %}
+        {% endif %}
+        
+        {% comment %} Ten Month Plans {% endcomment %}
+        {% if historyListTen %}
+          {% for list in historyListTen %}
+          <tr class="text-center text-white">
+            <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Ten/10</td>
+            <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'demandTen' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
+                <a href={% url 'inventoryInitialFinal' 'Ten' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
+                <a href={% url 'costHoldingUnitTen' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
+                <a href={% url 'numPermanentTen' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
+                <a href={% url 'costHiringTen' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
+                <a href={% url 'costFiringTen' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
+                <a href={% url 'prodPermanentTen' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
+                <a href={% url 'prodTemporaryTen' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+              </div>
+            </td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'viewDetailTen' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
+                <a href={% url 'deleteDetailTen' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
+                <a href={% url 'downloadTen' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+              </div>
+            </td>
+          </tr> 
+          {% endfor %}
+        {% endif %}
+        
+        {% comment %} Eleven Month Plans {% endcomment %}
+        {% if historyListEleven %}
+          {% for list in historyListEleven %}
+          <tr class="text-center text-white">
+            <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Eleven/11</td>
+            <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'demandEleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
+                <a href={% url 'inventoryInitialFinal' 'Eleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
+                <a href={% url 'costHoldingUnitEleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
+                <a href={% url 'numPermanentEleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
+                <a href={% url 'costHiringEleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
+                <a href={% url 'costFiringEleven' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
+                <a href={% url 'prodPermanentEleven' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
+                <a href={% url 'prodTemporaryEleven' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+              </div>
+            </td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'viewDetailEleven' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
+                <a href={% url 'deleteDetailEleven' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
+                <a href={% url 'downloadEleven' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+              </div>
+            </td>
+          </tr> 
+          {% endfor %}
+        {% endif %}
+        
+        {% comment %} Twelve Month Plans {% endcomment %}
+        {% if historyListTwelve %}
+          {% for list in historyListTwelve %}
+          <tr class="text-center text-white">
+            <td class="w-3/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">{{list.planName}}</td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">Twelve/12</td>
+            <td class="w-7/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'demandTwelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Demand</a>
+                <a href={% url 'inventoryInitialFinal' 'Twelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Starting & Ending Inventory Level</a><br><br>
+                <a href={% url 'costHoldingUnitTwelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Holding Cost Per Unit</a><br><br>
+                <a href={% url 'numPermanentTwelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Number of Permanent Workers</a><br><br>
+                <a href={% url 'costHiringTwelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Hiring Cost</a>
+                <a href={% url 'costFiringTwelve' list.planName %} class="content-center w-[31%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Firing Cost</a>
+                <a href={% url 'prodPermanentTwelve' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Permanent Worker Production Rate</a>
+                <a href={% url 'prodTemporaryTwelve' list.planName %} class="content-center w-[47%] h-auto p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Temporary Worker Production Rate</a>
+              </div>
+            </td>
+            <td class="w-1/12 p-2 text-sm font-semibold text-center text-black bg-white rounded-md">
+              <div class="flex flex-wrap justify-center">
+                <a href={% url 'viewDetailTwelve' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Optimize Plan</a><br><br>
+                <a href={% url 'deleteDetailTwelve' list.planName %} onclick="return confirm('Are you sure you want to delete {{ list.planName }}?')" class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Delete Plan</a>
+                <a href={% url 'downloadTwelve' list.planName %} class="content-center w-full p-3 m-1 font-bold text-white transition duration-300 ease-in-out rounded-md bg-gradient-to-br from-orange-500 to-orange-700 drop-shadow-lg hover:-translate-y-1 hover:from-red-500 hover:to-red-700 hover:text-white">Download Excel</a>
+              </div>
+            </td>
+          </tr> 
+          {% endfor %}
+        {% endif %}
+        
+        {% comment %} No Plans {% endcomment %}
+        {% if not historyListFour and not historyListFive and not historyListSix and not historyListSeven and not historyListEight and not historyListNine and not historyListTen and not historyListEleven and not historyListTwelve %}
+          <tr class="bg-white dark:bg-gray-800">
+            <td class="px-6 py-4" colspan="4">
+              <div class="flex flex-wrap justify-center">
+                <h1 class="block w-full px-4 py-4 text-xl font-extrabold text-gray-900 uppercase dark:text-white">No Plans Made Yet!</h1>
+                <a href={% url 'home' %} class="content-center p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Create a New Production Plan</a>
+              </div>
+            </td>
+          </tr>
+        {% endif %}
+        </tbody>
+        <!--end of table-->
+      </table>
     </div>
-    </div>
+  </div>
 </body>
 {% endblock  %} 

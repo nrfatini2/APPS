@@ -6,32 +6,30 @@
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
 <script src="http://cdn.tailwindcss.com"></script>
 <body>
-   <div class="rounded-lg mt-14">
-      <div class="w-full max-w-2xl p-4 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-         <form method="POST" class="space-y-6">
-            <h5 class="text-xl font-medium text-gray-900 dark:text-white">Create a New Production Plan!</h5>
-            {% csrf_token %}
-            <div>
-               <label for="planName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Production Plan Name</label>
-               <input type="text" name="planName" id="planName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Production Plan ABC" required />
-            </div>
-            <div>
-               <label for="monthRange" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Production Plan Period (Month)</label>
-               <select name="monthRange" id="monthRange" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
-                  <option selected value='4'>4</option>
-                  <option value='5'>5</option>
-                  <option value='6'>6</option>
-                  <option value='7'>7</option>
-                  <option value='8'>8</option>
-                  <option value='9'>9</option>
-                  <option value='10'>10</option>
-                  <option value='11'>11</option>
-                  <option value='12'>12</option>
-               </select>
-            </div>
-            <button type="submit" name="Submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Production Plan</button>
-         </form>
-      </div>
+   <div class="w-full max-w-2xl p-4 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <form method="POST" class="space-y-6">
+         <h1 class="text-xl font-extrabold text-gray-900 uppercase dark:text-white">Create a New Production Plan!</h5>
+         {% csrf_token %}
+         <div>
+            <label for="planName" class="block m-auto mb-2 text-sm font-medium text-gray-900 dark:text-white">Production Plan Name</label>
+            <input type="text" name="planName" id="planName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" placeholder="Production Plan ABC" required />
+         </div>
+         <div>
+            <label for="monthRange" class="block m-auto mb-2 text-sm font-medium text-gray-900 dark:text-white">Production Plan Period (Month)</label>
+            <select name="monthRange" id="monthRange" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" required>
+               <option selected value='4'>4</option>
+               <option value='5'>5</option>
+               <option value='6'>6</option>
+               <option value='7'>7</option>
+               <option value='8'>8</option>
+               <option value='9'>9</option>
+               <option value='10'>10</option>
+               <option value='11'>11</option>
+               <option value='12'>12</option>
+            </select>
+         </div>
+         <button type="submit" name="Submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Production Plan</button>
+      </form>
    </div>
 </body>
 {% endblock %}
