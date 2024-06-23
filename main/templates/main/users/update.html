@@ -6,10 +6,10 @@
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
 <script src="http://cdn.tailwindcss.com"></script>
 <body>
-    <div class="w-1/2 p-4 mx-auto space-y-6 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="w-1/2 p-4 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <h1 class="text-xl font-extrabold text-gray-900 uppercase dark:text-white">Update User ID 0{{ userData.id }}</h1><br>
         <form method="POST" class="space-y-6">
             {% csrf_token %}
-            <h1 class="text-xl font-extrabold text-gray-900 uppercase dark:text-white">Update User ID 0{{ userData.id }}</h1><br>
             <div class="grid grid-cols-2 gap-2">
                 <label class="block m-auto text-sm font-medium text-gray-900 dark:text-white">First Name:</label>
                 <input required type="text" name="first_name" id="fname" value="{{ userData.first_name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">

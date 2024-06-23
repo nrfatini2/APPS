@@ -11,6 +11,7 @@ from io import BytesIO
 from django.conf import settings
 from django.contrib import messages
 import plotly.graph_objects as go
+from django.core.mail import send_mail
 # Create your views here.
 def is_admin(user):
     return user.is_superuser
@@ -6005,15 +6006,14 @@ def downloadTwelve(request,plan_Name):
 
     return response
 
-
+@login_required(login_url='/login/')
 def feedback(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
             subject=form.cleaned_data['subject']
-            email=form.cleaned_data['email']
             content=form.cleaned_data['content']
-            send_mail(subject=subject, message=content,from_email=settings.EMAIL_HOST_USER,recipient_list=[settings.RECIPIENT_ADDRESS])
+            send_mail(subject, content , settings.EMAIL_HOST_USER, [settings.RECIPIENT_ADDRESS], True)
             return redirect ("home")
     form = ContactForm()
     context = {'form': form}
@@ -6060,12 +6060,14 @@ def update_user(request, id):
     if request.method == "POST":
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
+        username = request.POST.get("username")
         email = request.POST.get("email")
         is_active = request.POST.get("is_active")
         is_staff = request.POST.get("is_staff")
         is_superuser = request.POST.get("is_superuser")
         userData.first_name = first_name
         userData.last_name = last_name
+        userData.username = username
         userData.email = email
         userData.is_active = (is_active == 'on')
         userData.is_staff = (is_staff == 'on')
@@ -6081,8 +6083,10 @@ def editprofile(request, id):
     if request.method == "POST":
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
+        username = request.POST.get("username")
         userData.first_name = first_name
         userData.last_name = last_name
+        userData.username = username
         userData.save()
         return redirect("/")
     return render(request, "main/editprofile.html", {"userData": userData})

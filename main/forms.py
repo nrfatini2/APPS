@@ -15,7 +15,6 @@ class BossExtraForm(forms.ModelForm):
         fields = ['mobile', 'address']
 
 class ContactForm(forms.Form):
-    email=forms.EmailField()
     subject=forms.CharField(max_length=255)
     content=forms.CharField(widget=forms.Textarea)
     

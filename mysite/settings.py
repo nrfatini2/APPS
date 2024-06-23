@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -142,13 +141,13 @@ STATICFILES_FINDERS = [
 # # env=environ.Env()
 # # environ.Env.read_env()
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = env('EMAIL_HOST')
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-# EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-# RECIPIENT_ADDRESS = env('RECIPIENT_ADDRESS')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'multiperiodps@gmail.com'
+EMAIL_HOST_PASSWORD = 'rfmkjumulahafrhg'
+RECIPIENT_ADDRESS = 'multiperiodps@gmail.com'
 
 LOGIN_URL='login'
 
