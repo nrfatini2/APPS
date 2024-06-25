@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from pulp import *
 from .forms import ContactForm
-from django.core.mail import send_mail
 import xlwt
 from io import BytesIO
 from django.conf import settings
@@ -6027,9 +6026,17 @@ def create_user(request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
-        user = models.User.objects.create(
-            first_name=first_name, last_name=last_name, username=username, email=email, password=password
+        # Create a new user instance but do not save it yet
+        user = models.User(
+            first_name=first_name, 
+            last_name=last_name, 
+            username=username, 
+            email=email
         )
+        # Set the password (this will handle hashing)
+        user.set_password(password)
+        # Save the user to the database
+        user.save()
         return redirect("read")
     return render(request, "main/users/create.html")
 
@@ -6040,10 +6047,21 @@ def signup(request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
-        user = models.User.objects.create(
-            first_name=first_name, last_name=last_name, username=username, email=email, password=password
+        
+        # Create a new user instance but do not save it yet
+        user = models.User(
+            first_name=first_name, 
+            last_name=last_name, 
+            username=username, 
+            email=email
         )
+        # Set the password (this will handle hashing)
+        user.set_password(password)
+        # Save the user to the database
+        user.save()
+        
         return redirect("login")
+    
     return render(request, "main/signup.html")
 
 @login_required(login_url='/login/')
