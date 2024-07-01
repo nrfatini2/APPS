@@ -29,7 +29,7 @@
                     {% csrf_token %}
                     <div>
                         <label for="email" class="block m-auto mb-2 text-sm font-bold text-center text-gray-900 uppercase dark:text-white">Username</label>
-                        {% render_field form.username placeholder="Username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center"%}
+                        {% render_field form.username placeholder="Username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" pattern="^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$" %}
                     </div>
                     <div>
                         <label for="password" class="block m-auto mb-2 text-sm font-bold text-center text-gray-900 uppercase dark:text-white">Password</label>
