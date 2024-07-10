@@ -35,7 +35,7 @@ def planList(request):
     searchColumn = request.GET.get("column")
     searchWord = request.GET.get("search")
     if searchColumn == "name" and searchWord:
-        planList = ProductionPlan.objects.filter(username = request.user, name = searchWord).order_by('length')
+        planList = ProductionPlan.objects.filter(username = request.user, name__icontains = searchWord).order_by('length')
     elif searchColumn == "length" and searchWord:
         planList = ProductionPlan.objects.filter(username = request.user, length = searchWord).order_by('length')
     else:
@@ -834,10 +834,8 @@ def editprofile(request, id):
     if request.method == "POST":
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
-        username = request.POST.get("username")
         userData.first_name = first_name
         userData.last_name = last_name
-        userData.username = username
         userData.save()
         return redirect("/")
     return render(request, "main/editprofile.html", {"userData": userData})
