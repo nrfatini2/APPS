@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 from main import models
 from django.contrib.auth.decorators import login_required
@@ -31,8 +32,27 @@ def index(request):
 
 @login_required(login_url='/login/')
 def planList(request):
-    planList = ProductionPlan.objects.filter(username = request.user)
-    return render(request, "main/planList.html", {'planList': planList})
+    searchColumn = request.GET.get("column")
+    searchWord = request.GET.get("search")
+    if searchColumn == "name" and searchWord:
+        planList = ProductionPlan.objects.filter(username = request.user, name = searchWord).order_by('length')
+    elif searchColumn == "length" and searchWord:
+        planList = ProductionPlan.objects.filter(username = request.user, length = searchWord).order_by('length')
+    else:
+        planList = ProductionPlan.objects.filter(username = request.user).order_by('length')
+    paginator = Paginator(planList, 5)  # Show 25 contacts per page.
+
+    page_number = request.GET.get("page")
+    try:
+        page_obj = paginator.get_page(page_number)  # returns the desired page object
+    except PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if page is empty then return last page
+        page_obj = paginator.page(paginator.num_pages)
+    print(page_obj)
+    return render(request, "main/planList.html", {'page_obj': page_obj})
 
 def about(request):
     return render(request, "main/about.html")
@@ -133,22 +153,20 @@ def viewDetail(request, plan_ID, num_months):
                 
                 hC = x[f'hiredTemporary{month}'] * x['costHiring']
                 fC = x[f'firedTemporary{month}'] * x['costFiring']
-                if month == 12:
-                    ihc = x['costHoldingUnit'] * x['inventoryFinal']
-                else:
+                if month != num_months:
+                    
                     ihc = x['costHoldingUnit'] * x[f'inventoryMonth{month}']
+                    holding_costs.append(ihc)
+                    total_holding_cost += ihc
                 
                 hiring_costs.append(hC)
                 firing_costs.append(fC)
-                holding_costs.append(ihc)
 
                 total_hiring_cost += hC
                 total_firing_cost += fC
-                total_holding_cost += ihc
                 
                 worker_numbers.append(x[f'numberTemporary{month}'])
                 months.append(f'Month {month}')
-
             # FIGURES
             
             # Figure 1 : Total Cost Distribution (Malaysian Ringgit)
@@ -283,7 +301,7 @@ def sensitivity(request, plan_ID, num_months):
                     for i in range(1, num_months):
                         model.addConstraint(ntwDict[i] == ntwDict[i-1] + (hcDict[i] - fcDict[i]), name=f'ntwCons{i+1}')
                 
-                model.solve(pulp.PULP_CBC_CMD(maxSeconds=5))
+                model.solve(pulp.PULP_CBC_CMD(timeLimit=5))
                 
                 # Check if the optimal solution changes
                 if model.status == 1:
@@ -336,7 +354,7 @@ def sensitivity(request, plan_ID, num_months):
                     for i in range(1, num_months):
                         model.addConstraint(ntwDict[i] == ntwDict[i-1] + (hcDict[i] - fcDict[i]), name=f'ntwCons{i+1}')
                 
-                model.solve(pulp.PULP_CBC_CMD(maxSeconds=5))
+                model.solve(pulp.PULP_CBC_CMD(timeLimit=5))
                 
                 # Check if the optimal solution changes
                 if model.status == 1:
@@ -405,7 +423,7 @@ def optimize(plan_ID, num_months):
         for i in range(1, num_months):
             model.addConstraint(ntwDict[i] == ntwDict[i-1] + (hcDict[i] - fcDict[i]), name=f'ntwCons{i+1}')
     
-    model.solve(pulp.PULP_CBC_CMD(maxSeconds=5))
+    model.solve(pulp.PULP_CBC_CMD(timeLimit=5))
     optimizationStatus = model.status
     
     update_dict = {f'inventoryMonth{i+1}': ihcDict[i].varValue for i in range(num_months - 1)}
