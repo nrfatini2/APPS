@@ -1,18 +1,7 @@
 from django import forms
 from .import models
 from django.contrib.auth.models import User
-
-
-class BossUserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password']
-
-
-class BossExtraForm(forms.ModelForm):
-    class Meta:
-        model = models.BossExtra
-        fields = ['mobile', 'address']
+from django.utils.translation import gettext_lazy as _
 
 class ContactForm(forms.Form):
     subject=forms.CharField(max_length=255)

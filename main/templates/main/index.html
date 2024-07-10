@@ -11,13 +11,17 @@
          <h1 class="text-xl font-extrabold text-gray-900 uppercase dark:text-white">Create a New Production Plan!</h1>
          {% csrf_token %}
          <div>
-            <label for="planName" class="block m-auto mb-2 text-sm font-medium text-gray-900 dark:text-white">Production Plan Name</label>
-            <input type="text" name="planName" id="planName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" placeholder="Production Plan ABC" required />
+            <label for="name" class="block m-auto mb-2 text-sm font-medium text-gray-900 dark:text-white">Production Plan Name</label>
+            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" placeholder="Production Plan ABC" required />
          </div>
          <div>
-            <label for="monthRange" class="block m-auto mb-2 text-sm font-medium text-gray-900 dark:text-white">Production Plan Period (Month)</label>
-            <select name="monthRange" id="monthRange" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" required>
-               <option selected value='4'>4</option>
+            <label for="length" class="block m-auto mb-2 text-sm font-medium text-gray-900 dark:text-white">Production Plan Period (Month)</label>
+            <select name="length" id="length" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" required>
+               <option value='' disabled selected>Select your option</option>
+               <option value='1'>1</option>
+               <option value='2'>2</option>
+               <option value='3'>3</option>
+               <option value='4'>4</option>
                <option value='5'>5</option>
                <option value='6'>6</option>
                <option value='7'>7</option>
@@ -32,4 +36,5 @@
       </form>
    </div>
 </body>
+
 {% endblock %}

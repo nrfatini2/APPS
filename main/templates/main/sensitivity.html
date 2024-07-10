@@ -1,0 +1,131 @@
+{% extends 'main/navbar_footer.html' %}
+{% block title %}Details{% endblock  %}
+{% block content %}
+
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+<script src="http://cdn.tailwindcss.com"></script>
+<body>
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="w-full p-2 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-4 md:p-6 dark:bg-gray-800 dark:border-gray-700">
+                  {% for x in detail %}
+                  <h1 class="mb-6 text-xl font-extrabold text-black uppercase dark:text-white">
+                        Plan Name: {{x.name}}
+                  </h1>
+                  <div class="relative overflow-x-auto border border-gray-200 dark:border-gray-700">
+                        <table class="w-full text-sm text-center text-black rtl:text-right dark:text-white ">
+                              <thead class="text-xs font-medium text-black uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
+                                    <tr>
+                                          <td colspan="4" scope="col" class="p-2 text-sm font-extrabold border dark:border-gray-700">Sensitivity Analysis Results</td>
+                                    </tr> 
+                                    <tr>
+                                          <td scope="col" class="p-2">Month</td>
+                                          <td scope="col" class="p-2">Current Demand</td>
+                                          <td scope="col" class="p-2">Allowable Increase on Demand</td>
+                                          <td scope="col" class="p-2">Allowable Decrease on Demand</td>
+                                    </tr> 
+                              </thead> 
+                              <tbody>
+                                    {% if x.length >= 1 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">1</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand1 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.0 }} ({{ increasedDemands.0 }})</td>
+                                          <td class="p-2">{{ adDemands.0 }} ({{ decreasedDemands.0 }})</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 2 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">2</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand2 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.1 }} ({{ increasedDemands.1 }})</td>
+                                          <td class="p-2">{{ adDemands.1 }} ({{ decreasedDemands.1 }})</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 3 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">3</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand3 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.2 }} ({{ increasedDemands.2 }})</td>
+                                          <td class="p-2">{{ adDemands.2 }} ({{ decreasedDemands.2 }})</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 4 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">4</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand4 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.3 }} ({{ increasedDemands.3 }})</td>
+                                          <td class="p-2">{{ adDemands.3 }} ({{ decreasedDemands.3 }})</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 5 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">5</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand5 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.4 }} ({{ increasedDemands.4 }})</td>
+                                          <td class="p-2">{{ adDemands.4 }} ({{ decreasedDemands.4 }})</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 6 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">6</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand6 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.5 }} ({{ increasedDemands.5 }})</td>
+                                          <td class="p-2">{{ adDemands.5 }} ({{ decreasedDemands.5 }})</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 7 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">7</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand7 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.6 }} ({{ increasedDemands.6 }})</td>
+                                          <td class="p-2">{{ adDemands.6 }} ({{ decreasedDemands.6 }})</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 8 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">8</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand8 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.7 }} ({{ increasedDemands.7 }})</td>
+                                          <td class="p-2">{{ adDemands.7 }} ({{ decreasedDemands.7 }})</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 9 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">9</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand9 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.8 }} ({{ increasedDemands.8 }})</td>
+                                          <td class="p-2">{{ adDemands.8 }} ({{ decreasedDemands.8 }})</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 10 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">10</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand10 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.9 }} ({{ increasedDemands.9 }})</td>
+                                          <td class="p-2">{{ adDemands.9 }} ({{ decreasedDemands.9 }})</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 11 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">11</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand11 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.10 }} ({{ increasedDemands.10 }})</td>
+                                          <td class="p-2">{{ adDemands.10 }} ({{ decreasedDemands.10 }})</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length == 12 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">12</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand12 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ aiDemands.11 }} ({{ increasedDemands.11 }})</td>
+                                          <td class="p-2">{{ adDemands.11 }} ({{ decreasedDemands.11 }})</td>
+                                    </tr>
+                                    {% endif %}
+                              </tbody>
+                        </table>
+                  </div>
+                  {% endfor %}
+            </div>
+      </div>
+</body>
+{% endblock  %} 

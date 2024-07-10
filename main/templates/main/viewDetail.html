@@ -1,0 +1,390 @@
+{% extends 'main/navbar_footer.html' %}
+{% block title %}Details{% endblock  %}
+{% block content %}
+
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+<script src="http://cdn.tailwindcss.com"></script>
+<body>
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="w-full p-2 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-4 md:p-6 dark:bg-gray-800 dark:border-gray-700">
+                  {% for x in detail %}
+                  <h1 class="mb-6 text-xl font-extrabold text-black uppercase dark:text-white">
+                        Plan Name: {{x.name}}
+                  </h1>
+                  <div class="relative overflow-x-auto">
+                        <table class="w-full text-sm text-center text-black border border-gray-200 rtl:text-right dark:text-white dark:border-gray-700">
+                              <thead class="text-xs font-medium text-black uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
+                                    <tr>
+                                          <td colspan="6" scope="col" class="p-2 text-sm font-extrabold border dark:border-gray-700">Your Inputs</td>
+                                    </tr> 
+                                    <tr>
+                                          <td scope="col" class="p-2">Holding Fee</td>
+                                          <td scope="col" class="p-2">Hiring Fee</td>
+                                          <td scope="col" class="p-2">Firing Fee</td>
+                                          <td scope="col" class="p-2">Number of Permanent Workers</td>
+                                          <td scope="col" class="p-2">Permanent Worker Production Rate</td>
+                                          <td scope="col" class="p-2">Temporary Worker Production Rate</td>
+                                    </tr> 
+                              </thead> 
+                              <tbody>
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.costHoldingUnit }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.costHiring }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.costFiring }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numPermanent }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.prodPermanent }}</td>
+                                          <td class="p-2">{{ x.prodTemporary }}</td>
+                                    </tr>
+                              </tbody>
+                        </table>
+                        <table class="w-full mt-2 text-sm text-center text-black border border-gray-200 rtl:text-right dark:text-white dark:border-gray-700">
+                              <thead class="text-xs font-medium text-black uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
+                                    <tr>
+                                          <td colspan="10" scope="col" class="p-2 text-sm font-extrabold border dark:border-gray-700">Optimization Results</td>
+                                    </tr> 
+                                    <tr>
+                                          <td scope="col" class="p-2">Month</td>
+                                          <td scope="col" class="p-2">Demand</td>
+                                          <td scope="col" class="p-2">Remaining Demand</td>
+                                          <td scope="col" class="p-2">Ending Inventory Units</td>
+                                          <td scope="col" class="p-2">Number of Temporary Worker Hired</td>
+                                          <td scope="col" class="p-2">Number of Temporary Worker Fired</td>
+                                          <td scope="col" class="p-2">Net Number of Temporary Workers</td>
+                                          <td scope="col" class="p-2">Hiring Cost</td>
+                                          <td scope="col" class="p-2">Firing Cost</td>
+                                          <td scope="col" class="p-2">Inventory Holding Cost</td>
+                                    </tr> 
+                              </thead> 
+                              <tbody>
+                                    {% if x.length >= 1 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">1</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand1 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.0 }}</td>
+                                          {% if x.length > 1 %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth1 }}</td>
+                                          {% else %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          {% endif %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary1 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary1 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary1 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.0 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.0 }}</td>
+                                          {% if x.length > 1 %}
+                                          <td class="p-2 text-right">{{ holding_costs.0 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 2 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">2</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand2 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.1 }}</td>
+                                          {% if x.length > 2 %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth2 }}</td>
+                                          {% else %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          {% endif %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary2 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary2 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary2 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.1 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.1 }}</td>
+                                          {% if x.length > 2 %}
+                                          <td class="p-2 text-right">{{ holding_costs.1 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 3 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">3</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand3 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.2 }}</td>
+                                          {% if x.length > 3 %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth3 }}</td>
+                                          {% else %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          {% endif %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary3 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary3 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary3 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.2 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.2 }}</td>
+                                          {% if x.length > 3 %}
+                                          <td class="p-2 text-right">{{ holding_costs.2 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 4 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">4</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand4 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.3 }}</td>
+                                          {% if x.length > 4 %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth4 }}</td>
+                                          {% else %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          {% endif %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary4 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary4 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary4 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.3 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.3 }}</td>
+                                          {% if x.length > 4 %}
+                                          <td class="p-2 text-right">{{ holding_costs.3 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 5 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">5</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand5 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.4 }}</td>
+                                          {% if x.length > 5 %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth5 }}</td>
+                                          {% else %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          {% endif %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary5 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary5 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary5 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.4 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.4 }}</td>
+                                          {% if x.length > 5 %}
+                                          <td class="p-2 text-right">{{ holding_costs.4 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 6 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">6</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand6 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.5 }}</td>
+                                          {% if x.length > 6 %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth6 }}</td>
+                                          {% else %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          {% endif %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary6 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary6 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary6 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.5 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.5 }}</td>
+                                          {% if x.length > 6 %}
+                                          <td class="p-2 text-right">{{ holding_costs.5 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 7 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">7</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand7 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.6 }}</td>
+                                          {% if x.length > 7 %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth7 }}</td>
+                                          {% else %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          {% endif %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary7 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary7 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary7 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.6 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.6 }}</td>
+                                          {% if x.length > 7 %}
+                                          <td class="p-2 text-right">{{ holding_costs.6 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 8 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">8</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand8 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.7 }}</td>
+                                          {% if x.length > 8 %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth8 }}</td>
+                                          {% else %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          {% endif %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary8 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary8 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary8 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.7 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.7 }}</td>
+                                          {% if x.length > 8 %}
+                                          <td class="p-2 text-right">{{ holding_costs.7 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 9 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">9</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand9 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.8 }}</td>
+                                          {% if x.length > 9 %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth9 }}</td>
+                                          {% else %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          {% endif %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary9 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary9 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary9 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.8 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.8 }}</td>
+                                          {% if x.length > 9 %}
+                                          <td class="p-2 text-right">{{ holding_costs.8 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 10 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">10</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand10 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.9 }}</td>
+                                          {% if x.length > 10 %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth10 }}</td>
+                                          {% else %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          {% endif %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary10 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary10 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary10 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.9 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.9 }}</td>
+                                          {% if x.length > 10 %}
+                                          <td class="p-2 text-right">{{ holding_costs.9 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 11 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">11</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand11 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.10 }}</td>
+                                          {% if x.length > 11 %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth11 }}</td>
+                                          {% else %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          {% endif %}
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary11 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary11 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary11 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.10 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.10 }}</td>
+                                          {% if x.length > 11 %}
+                                          <td class="p-2 text-right">{{ holding_costs.10 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+                                    {% if x.length >= 12 %}
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">12</th>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand12 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.11 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary12 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary12 }}</td>
+                                          <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary12 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.11 }}</td>
+                                          <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.11 }}</td>
+                                          {% if x.length > 12 %}
+                                          <td class="p-2 text-right">{{ holding_costs.11 }}</td>
+                                          {% else %}
+                                          <td class="p-2 text-right"> - </td>
+                                          {% endif %}
+                                    </tr>
+                                    {% endif %}
+
+                                    <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 font-bold text-black uppercase whitespace-nowrap dark:text-white" colspan="7">Total Individual Costs</th>
+                                          <td class="p-2 font-bold text-right border border-gray-200 whitespace-nowrap dark:border-gray-700">{{ total_hiring_cost }}</td>
+                                          <td class="p-2 font-bold text-right border border-gray-200 whitespace-nowrap dark:border-gray-700">{{ total_firing_cost }}</td>
+                                          <td class="p-2 font-bold text-right border border-gray-200 whitespace-nowrap dark:border-gray-700">{{ total_holding_cost }}</td>
+                                    </tr>
+                              </tbody>
+                              <tfoot>
+                                    <tr class="font-extrabold uppercase border even:bg-white even:dark:bg-gray-900 odd:bg-gray-50 odd:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 text-base" colspan="7">Optimized Final Cost for Multi-Period Planning</th>
+                                          <td class="p-2" colspan="3">{{ x.optimalCost }}</td>
+                                    </tr>
+                                    <tr class="font-extrabold uppercase border even:bg-white even:dark:bg-gray-900 odd:bg-gray-50 odd:dark:bg-gray-800 dark:border-gray-700">
+                                          <th scope="row" class="p-2 text-base" colspan="13">
+                                                <div class="flex items-center justify-center rounded">
+                                                      <a href="{% url 'initiateSensitivity' x.id %}" class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Start Sensitivity Analysis on Demand Variables</a>
+                                                </div>                                           
+                                                <div class="flex items-center justify-center rounded">
+                                                      <a href={% url 'download' x.id %} class="content-center w-full h-full p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Download Optimization.xls (Microsoft Excel)</a>
+                                                </div>                                           
+                                          </th>
+                                    </tr>
+                              </tfoot>
+                        </table>
+                  </div>
+                  {% endfor %}
+                  <div class="flex dark:hidden">
+                        {% autoescape off %}
+                        <div style="width: 40%;">
+                              <div>
+                                    {{ fig1Light }}
+                              </div>
+                        </div>
+                        <div style="width: 60%;">
+                              <div >
+                                    {{ fig2Light }}
+                              </div>
+                        </div>
+                        {% endautoescape %}
+                  </div>
+                  <div class="hidden dark:flex">
+                        {% autoescape off %}
+                        <div style="width: 40%;">
+                              <div>
+                                    {{ fig1Dark }}
+                              </div>
+                        </div>
+                        <div style="width: 60%;">
+                              <div>
+                                    {{ fig2Dark }}
+                              </div>
+                        </div>
+                        {% endautoescape %}
+                  </div>
+                  <div class="flex">
+                        {% autoescape off %}
+                        <div style="width: 100%;">
+                              <div class="block dark:hidden">
+                                    {{ fig3Light }}
+                              </div>
+                              <div class="hidden dark:block">
+                                    {{ fig3Dark }}
+                              </div>
+                        </div>
+                        {% endautoescape %}
+                  </div>
+            </div>
+      </div>
+</body>
+
+{% endblock  %} 
