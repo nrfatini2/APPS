@@ -25,13 +25,13 @@ def index(request):
                 inputName = inputName+'_copy'
                 queryCheck = ProductionPlan.objects.filter(name=inputName).exists()
             ProductionPlan.objects.create(name=inputName, username=request.user, length=inputMonthRange)
-            return redirect('planList')
+            return redirect('get-plan-list')
         else:
             return redirect('login')
     return render(request, 'main/index.html')
 
 @login_required(login_url='/login/')
-def planList(request):
+def get_plan_list(request):
     searchColumn = request.GET.get("column")
     searchWord = request.GET.get("search")
     if searchColumn == "name" and searchWord:
@@ -57,27 +57,26 @@ def planList(request):
 def about(request):
     return render(request, "main/about.html")
 
-
-def logout_view(request):
+def logout(request):
     logout(request)
     return redirect('login')
 
 @login_required(login_url='/login/')
-def deletePlan(request,plan_ID):
+def delete_plan(request,plan_ID):
     plan = ProductionPlan.objects.filter(id=plan_ID, username=request.user)
     plan.delete()
-    return redirect(planList)
+    return redirect('get-plan-list')
 
-def initiateOptimize(request, plan_ID):
+def initiate_plan_optimize(request, plan_ID):
     plan = ProductionPlan.objects.filter(id = plan_ID).values()
-    return viewDetail(request, plan_ID, plan[0]["length"])
+    return view_plan_detail(request, plan_ID, plan[0]["length"])
 
-def initiateSensitivity(request, plan_ID):
+def initiate_sensitivity_analysis(request, plan_ID):
     plan = ProductionPlan.objects.filter(id = plan_ID).values()
-    return sensitivity(request, plan_ID, plan[0]["length"])
+    return sensitivity_analysis(request, plan_ID, plan[0]["length"])
 
 @login_required(login_url='/login/')
-def inputVariables(request, plan_ID):
+def input_plan_variables(request, plan_ID):
     if request.method == "POST":
         inputDemand1 = request.POST.get('demand1')
         inputDemand2 = request.POST.get('demand2')
@@ -122,13 +121,13 @@ def inputVariables(request, plan_ID):
             inventoryFinal = inputInventoryFinal,
             filled = True
         )
-        return redirect('planList')
+        return redirect('get-plan-list')
     else:
         plan = ProductionPlan.objects.filter(id=plan_ID).values()
     return render(request, 'main/inputVariables.html',{'plan' : plan})
 
-def viewDetail(request, plan_ID, num_months):
-    status = optimize(plan_ID, num_months)  # Assume there's a generalized optimize function
+def view_plan_detail(request, plan_ID, num_months):
+    status = optimize_plan(plan_ID, num_months)  # Assume there's a generalized optimize function
     if status == 1:
         detail = ProductionPlan.objects.filter(id=plan_ID).values()
         for x in detail:
@@ -225,9 +224,9 @@ def viewDetail(request, plan_ID, num_months):
         messages.error(request, "PLAN RESULTS IS UNBOUNDED")
     elif status == -3:
         messages.error(request, "PLAN RESULTS IS UNDEFINED")
-    return redirect(planList)
+    return redirect('get-plan-list')
 
-def sensitivity(request, plan_ID, num_months):
+def sensitivity_analysis(request, plan_ID, num_months):
     detail = ProductionPlan.objects.filter(id=plan_ID).values()
     adDemands = []
     aiDemands = []
@@ -376,7 +375,7 @@ def sensitivity(request, plan_ID, num_months):
             'increasedDemands': increasedDemands, 
             'decreasedDemands': decreasedDemands})
 
-def optimize(plan_ID, num_months):
+def optimize_plan(plan_ID, num_months):
     detail = ProductionPlan.objects.filter(id=plan_ID).values()
     for x in detail:
         inputDemands = [int(x[f'demand{i+1}']) for i in range(num_months)]  # Adjust the range as needed
@@ -536,7 +535,7 @@ style_green = xlwt.easyxf(" pattern: fore-colour 0x11, pattern solid;")
 style_red = xlwt.easyxf(" pattern: fore-colour 0x0A, pattern solid;")
 
 @login_required(login_url='/login/')
-def download(request,plan_ID):
+def generate_report(request,plan_ID):
     response = HttpResponse(content_type='application/vnd.ms-excel') 
     response['Content-Disposition'] = 'attachment;filename=viewOptimized.xls'
     work_book = xlwt.Workbook(encoding = 'utf-8') 
@@ -739,7 +738,7 @@ def download(request,plan_ID):
     return response
 
 @login_required(login_url='/login/')
-def feedback(request):
+def send_feedback(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -770,10 +769,10 @@ def create_user(request):
         user.set_password(password)
         # Save the user to the database
         user.save()
-        return redirect("read")
+        return redirect("read-user")
     return render(request, "main/users/create.html")
 
-def signup(request):
+def register(request):
     if request.method == "POST":
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
@@ -795,7 +794,7 @@ def signup(request):
         
         return redirect("login")
     
-    return render(request, "main/signup.html")
+    return render(request, "main/register.html")
 
 @login_required(login_url='/login/')
 def read_user(request):
@@ -824,11 +823,11 @@ def update_user(request, id):
         userData.is_staff = (is_staff == 'on')
         userData.is_superuser = (is_superuser == 'on')
         userData.save()
-        return redirect("read")
+        return redirect("read-user")
     return render(request, "main/users/update.html", {"userData": userData})
 
 @login_required(login_url='/login/')
-def editprofile(request, id):
+def edit_profile(request, id):
     # pk = request.user.id
     userData = User.objects.get(id=id)
     if request.method == "POST":
@@ -837,12 +836,12 @@ def editprofile(request, id):
         userData.first_name = first_name
         userData.last_name = last_name
         userData.save()
-        return redirect("/")
-    return render(request, "main/editprofile.html", {"userData": userData})
+        return redirect("home")
+    return render(request, "main/edit_profile.html", {"userData": userData})
 
 @login_required(login_url='/login/')
 def delete_user(request, id):
     # pk = request.user.id
     userData = User.objects.get(id=id)
     userData.delete()
-    return redirect("read")
+    return redirect("read-user")

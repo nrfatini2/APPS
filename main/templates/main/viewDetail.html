@@ -332,10 +332,10 @@
                                     <tr class="font-extrabold uppercase border even:bg-white even:dark:bg-gray-900 odd:bg-gray-50 odd:dark:bg-gray-800 dark:border-gray-700">
                                           <th scope="row" class="p-2 text-base" colspan="13">
                                                 <div class="flex items-center justify-center rounded">
-                                                      <a href="{% url 'initiateSensitivity' x.id %}" class="content-center w-full rounded-lg h-full p-2 m-1 text-sm font-medium text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:ring-[#3b5998]/50 dark:focus:ring-[#3b5998]/55">Start Sensitivity Analysis on Demand Variables</a>
+                                                      <a href="{% url 'initiate_sensitivity_analysis' x.id %}" class="content-center w-full rounded-lg h-full p-2 m-1 text-sm font-medium text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:ring-[#3b5998]/50 dark:focus:ring-[#3b5998]/55">Start Sensitivity Analysis on Demand Variables</a>
                                                 </div>                                           
                                                 <div class="flex items-center justify-center rounded">
-                                                      <a href={% url 'download' x.id %} class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Download Optimization.xls (Microsoft Excel)</a>
+                                                      <a href={% url 'generate_report' x.id %} class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Download Optimization.xls (Microsoft Excel)</a>
                                                 </div>                                           
                                           </th>
                                     </tr>

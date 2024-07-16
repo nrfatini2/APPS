@@ -54,11 +54,11 @@
             <td class="px-6 py-4">
               <div class="grid grid-cols-3 gap-1">
                 <div class="flex items-center justify-center rounded">
-                  <a href={% url 'inputVariables' list.id %} class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Change Plan Input Variables</a>
+                  <a href={% url 'input_plan_variables' list.id %} class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Change Plan Input Variables</a>
                 </div>
                 <div class="flex items-center justify-center rounded">
                   {% if list.filled %}
-                  <a data-tooltip-placement="bottom" href={% url 'initiateOptimize' list.id %} class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Start Plan Optimization</a><br><br>                  
+                  <a data-tooltip-placement="bottom" href={% url 'initiate_plan_optimize' list.id %} class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Start Plan Optimization</a><br><br>                  
                   {% else %}
                   <button data-tooltip-target="tooltip-default" data-tooltip-placement="bottom" class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-gray-900 rounded-lg cursor-not-allowed dark:bg-gray-700" disabled>Start Plan Optimization</button><br><br>                  
                   <div id="tooltip-default" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip dark:bg-white dark:text-black">
@@ -69,7 +69,7 @@
                   {% endif %}
                 </div>
                 <div class="flex items-center justify-center rounded">
-                  <a href={% url 'deletePlan' list.id %} onclick="return confirm('Are you sure you want to delete plan {{ list.name }}?')"  class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Delete Plan Record</a>
+                  <a href={% url 'delete_plan' list.id %} onclick="return confirm('Are you sure you want to delete plan {{ list.name }}?')"  class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Delete Plan Record</a>
                 </div>
               </div>
             </td>

@@ -7,7 +7,7 @@
    <div class="w-full max-w-2xl p-4 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
       <form method="POST" class="space-y-6">
          <h1 class="text-xl font-extrabold text-gray-900 uppercase dark:text-white">User Management</h1><br>
-         <a href="{% url 'create' %}" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><i class=" fa-solid fa-user-plus"></i><span class="ms-3">Create New User</span></a>
+         <a href="{% url 'create-user' %}" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><i class=" fa-solid fa-user-plus"></i><span class="ms-3">Create New User</span></a>
          <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-300">
             {% for userData in userData %}
                {% if userData.username != user.username %}
@@ -29,8 +29,8 @@
                      <p>{{ userData.email }}</p>
                   </td>
                   <td class="text-center">
-                     <a href={% url 'update' userData.id %} class="w-full p-2 m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><i class="fa-solid fa-pen-to-square"></i></a><br><br>
-                     <a href={% url 'delete' userData.id %} onclick="return confirm('Are you sure you want to delete {{ userData.username }}?')" class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"><i class="fa-solid fa-trash"></i></a>
+                     <a href={% url 'update-user' userData.id %} class="w-full p-2 m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><i class="fa-solid fa-pen-to-square"></i></a><br><br>
+                     <a href={% url 'delete-user' userData.id %} onclick="return confirm('Are you sure you want to delete {{ userData.username }}?')" class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"><i class="fa-solid fa-trash"></i></a>
                   </td>
                </tr>
                {% endif %}
