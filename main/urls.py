@@ -1,5 +1,6 @@
 from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import logout
 from .import views
 
 urlpatterns = [
@@ -11,7 +12,7 @@ urlpatterns = [
     # User Authentication URLs
     path('register/', views.register,name="register"),
     path('login/', LoginView.as_view(template_name="main/login.html"),name="login"),
-    path('logout', views.logout, name='logout'),
+    path('logout', logout(), name='logout'),
     path('edit-profile/<id>/',views.edit_profile,name='edit-profile'),
     
     # User Management URLs
