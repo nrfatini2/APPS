@@ -198,7 +198,7 @@ def view_plan_detail(request, plan_ID, num_months):  # Define a function to view
             fig3Dark = go.Figure(data=[go.Scatter(x=months, y=worker_numbers, mode='lines+markers', name="Number of Temporary Workers")])  # Create a line chart for number of temporary workers in dark mode.
             fig3Dark.update_layout(title='Net Number of Temporary Workers per Month', yaxis_title='Net Number of Temporary Workers', template='plotly_dark')  # Update layout of the line chart for dark mode.
 
-        return render(request, "main/viewDetail.html", {  # Render the viewDetail template with the plan details and figures.
+        return render(request, "main/optimize.html", {  # Render the optimize template with the plan details and figures.
             'detail': detail, 
             'demands': demands, 
             'holding_costs': holding_costs,

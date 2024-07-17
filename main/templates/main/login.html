@@ -18,13 +18,13 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
         <link rel="icon" href="https://i.ibb.co/8gpyyg9/logo-App-Dev.png" type="image/x-icon">
-        <title>Sign In to APPS</title>
+        <title>Login to APPS</title>
     </head>
     <body class="bg-white dark:bg-gray-900">
         <div class="flex items-center justify-center h-screen">
             <div class="w-4/12 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <form method="POST" class="space-y-4">
-                    <h1 class="text-2xl font-extrabold text-center text-gray-900 uppercase dark:text-white">Sign In to APPS</h1>
+                    <h1 class="text-2xl font-extrabold text-center text-gray-900 uppercase dark:text-white">Login to APPS</h1>
                     <hr>
                     {% csrf_token %}
                     <div>
@@ -42,10 +42,10 @@
                             </button>
                         </div>
                     </div>
-                    <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">Sign In</button>
+                    <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">Login</button>
                     <hr>
                     <div class="flex justify-center w-full">
-                        <a href="/register" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Newly Appointed? Sign Up Now!</a>
+                        <a href="/register" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Newly Appointed? Register Now!</a>
                     </div>
                 </form>
             </div>
