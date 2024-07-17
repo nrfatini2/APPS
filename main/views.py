@@ -54,9 +54,9 @@ def get_plan_list(request):
 def about(request):
     return render(request, "main/about.html")  # Render the about page.
 
-def logout(request):
+def logout_view(request):
     logout(request)  # Log the user out.
-    return redirect('login')  # Redirect to the login page.
+    return redirect('home')  # Redirect to the login page.
 
 @login_required(login_url='/login/')  # Require login to access this view.
 def delete_plan(request, plan_ID):
@@ -121,7 +121,7 @@ def input_plan_variables(request, plan_ID):
         return redirect('get-plan-list')  # Redirect to the plan list page.
     else:
         plan = ProductionPlan.objects.filter(id=plan_ID).values()  # Get the plan details.
-    return render(request, 'main/inputVariables.html', {'plan': plan})  # Render the input variables page with the plan details.
+    return render(request, 'main/input_variables.html', {'plan': plan})  # Render the input variables page with the plan details.
 
 def view_plan_detail(request, plan_ID, num_months):  # Define a function to view plan details.
     status = optimize_plan(plan_ID, num_months)  # Optimize the plan and get the status.
@@ -734,18 +734,7 @@ def generate_report(request,plan_ID):
 
     return response
 
-@login_required(login_url='/login/')
-def send_feedback(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            subject=form.cleaned_data['subject']
-            content=form.cleaned_data['content']
-            send_mail(subject, content , settings.EMAIL_HOST_USER, [settings.RECIPIENT_ADDRESS], True)
-            return redirect ("home")
-    form = ContactForm()
-    context = {'form': form}
-    return render(request, 'main/feedback.html', context)
+
 
 @login_required(login_url='/login/')
 def create_user(request):
