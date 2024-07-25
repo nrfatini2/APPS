@@ -4,42 +4,16 @@ Advanced Production Planning System (APPS) is an application for manufacturing c
 
 
 ## HOW TO RUN THIS PROJECT
-- Install Python(3.7.6) (Dont Forget to Tick Add to Path while installing Python)
-
+- Install Python https://www.python.org/downloads/
 - Download This Project Zip Folder and Extract it
 - Move to project folder in Terminal. Then run following Commands :
 
-## Install Widget Tweaks
+## Install Required Libraries in requirements.txt
 ```
-pip install django-widget-tweaks
-```
-
-## Install Django Compressor
-```
-pip install django_compressor
+pip install -r requirements.txt
 ```
 
-## Install python XLWT library
-```
-pip install xlwt
-```
-
-## Install PuLp library
-```
-pip install pulp
-```
-
-## Install django-environ 0.9.0
-```
-pip install django-environ
-```
-
-## Install plotly
-```
-pip install plotly
-```
-
-## Run Server
+## Run Development Server
 
 ```
 python manage.py makemigrations
