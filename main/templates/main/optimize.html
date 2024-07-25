@@ -1,22 +1,35 @@
 {% extends 'main/navbar_footer.html' %}
+<!-- Extends the base template 'navbar_footer.html' which contains the navbar and footer. -->
 {% block title %}Plan Optimization Details{% endblock  %}
+<!-- Sets the title of the HTML page to "Plan Optimization Details". -->
 {% block content %}
-
+<!-- Begins the content block where the main content of the page will be placed. -->
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+<!-- Links to the Google Fonts stylesheet for the Poppins font. -->
 <script src="http://cdn.tailwindcss.com"></script>
+<!-- Links to the Tailwind CSS CDN for styling. -->
 <body>
+<!-- Begins the body of the HTML document. -->
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <!-- Container div with responsive overflow, shadow, and rounded corners. -->
             <div class="w-full p-2 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-4 md:p-6 dark:bg-gray-800 dark:border-gray-700">
+            <!-- Nested container with padding, centered alignment, white background, border, rounded corners, and shadow. Dark mode support included. -->
                   {% for x in detail %}
+                  <!-- Begins a loop over the 'detail' list. Each item in 'detail' is referred to as 'x'. -->
                   <h1 class="mb-6 text-xl font-extrabold text-black uppercase dark:text-white">
                         Plan Name: {{x.name}}
                   </h1>
+                  <!-- Displays the plan name with extra bold, uppercase text. Dark mode support included. -->
                   <div class="relative overflow-x-auto">
+                  <!-- Container div for table with responsive overflow. -->
                         <table class="w-full text-sm text-center text-black border border-gray-200 rtl:text-right dark:text-white dark:border-gray-700">
+                        <!-- Table with full width, small text, centered text, black text, border, and dark mode support. -->
                               <thead class="text-xs font-medium text-black uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
+                              <!-- Table header with extra small, bold, uppercase text. Light gray background for light mode and dark gray background for dark mode. -->
                                     <tr>
                                           <td colspan="6" scope="col" class="p-2 text-sm font-extrabold border dark:border-gray-700">Your Inputs</td>
                                     </tr> 
+                                    <!-- Table row with a single cell spanning 6 columns, displaying "Your Inputs" with bold text and border. -->
                                     <tr>
                                           <td scope="col" class="p-2">Holding Fee</td>
                                           <td scope="col" class="p-2">Hiring Fee</td>
@@ -25,23 +38,30 @@
                                           <td scope="col" class="p-2">Permanent Worker Production Rate</td>
                                           <td scope="col" class="p-2">Temporary Worker Production Rate</td>
                                     </tr> 
+                                    <!-- Table row defining the headers for the user inputs. -->
                               </thead> 
                               <tbody>
+                              <!-- Table body containing the data rows. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.costHoldingUnit }}</td>
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.costHiring }}</td>
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.costFiring }}</td>
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numPermanent }}</td>
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.prodPermanent }}</td>
                                           <td class="p-2">{{ x.prodTemporary }}</td>
+                                          <!-- Table cells displaying user input values with padding and borders. -->
                                     </tr>
                               </tbody>
                         </table>
                         <table class="w-full mt-2 text-sm text-center text-black border border-gray-200 rtl:text-right dark:text-white dark:border-gray-700">
+                        <!-- Second table with full width, margin-top, small text, centered text, black text, border, and dark mode support. -->
                               <thead class="text-xs font-medium text-black uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
+                              <!-- Table header with extra small, bold, uppercase text. Light gray background for light mode and dark gray background for dark mode. -->
                                     <tr>
                                           <td colspan="10" scope="col" class="p-2 text-sm font-extrabold border dark:border-gray-700">Optimization Results</td>
                                     </tr> 
+                                    <!-- Table row with a single cell spanning 10 columns, displaying "Optimization Results" with bold text and border. -->
                                     <tr>
                                           <td scope="col" class="p-2">Month</td>
                                           <td scope="col" class="p-2">Demand</td>
@@ -54,10 +74,14 @@
                                           <td scope="col" class="p-2">Firing Cost</td>
                                           <td scope="col" class="p-2">Inventory Holding Cost</td>
                                     </tr> 
+                                    <!-- Table row defining the headers for the optimization results. -->
                               </thead> 
                               <tbody>
+                              <!-- Table body containing the data rows. -->
                                     {% if x.length >= 1 %}
+                                    <!-- Condition to check if the length of 'x' is at least 1. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">1</th>
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand1 }}</td>
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.0 }}</td>
@@ -76,10 +100,14 @@
                                           {% else %}
                                           <td class="p-2 text-right"> - </td>
                                           {% endif %}
+                                          <!-- Table cells displaying optimization results for month 1 with conditional checks and dark mode support. -->
                                     </tr>
                                     {% endif %}
+                                    <!-- End of condition to check if the length of 'x' is at least 1. -->
                                     {% if x.length >= 2 %}
+                                    <!-- Condition to check if the length of 'x' is at least 2. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">2</th>
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand2 }}</td>
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.1 }}</td>
@@ -88,303 +116,581 @@
                                           {% else %}
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
                                           {% endif %}
+                                          <!-- Table cells displaying optimization results for month 2 with conditional checks and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary2 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers hired in the second month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary2 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers fired in the second month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary2 }}</td>
+                                          <!-- Table cell displaying the net number of temporary workers in the second month, with padding and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.1 }}</td>
+                                          <!-- Table cell displaying the hiring cost for the second month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.1 }}</td>
+                                          <!-- Table cell displaying the firing cost for the second month, with right-aligned text, padding, and border. -->
                                           {% if x.length > 2 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 2. -->
                                           <td class="p-2 text-right">{{ holding_costs.1 }}</td>
+                                          <!-- Table cell displaying the holding cost for the second month, with right-aligned text and padding. -->
                                           {% else %}
                                           <td class="p-2 text-right"> - </td>
+                                          <!-- Table cell displaying a dash if there is no holding cost data for the second month, with right-aligned text and padding. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 2. -->
                                     </tr>
+                                    <!-- End of table row for the second month. -->
                                     {% endif %}
+                                    <!-- End of condition to check if the length of 'x' is at least 2. -->
                                     {% if x.length >= 3 %}
+                                    <!-- Condition to check if the length of 'x' is at least 3. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">3</th>
+                                          <!-- Table cell displaying "3" for the third month, with padding, bold text, uppercase, border, and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand3 }}</td>
+                                          <!-- Table cell displaying the demand for the third month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.2 }}</td>
+                                          <!-- Table cell displaying the remaining demand for the third month, with padding and border. -->
                                           {% if x.length > 3 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 3. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth3 }}</td>
+                                          <!-- Table cell displaying the inventory for the third month, with padding and border. -->
                                           {% else %}
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          <!-- Table cell displaying the final inventory if there is no data for the third month, with padding and border. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 3. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary3 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers hired in the third month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary3 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers fired in the third month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary3 }}</td>
+                                          <!-- Table cell displaying the net number of temporary workers in the third month, with padding and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.2 }}</td>
+                                          <!-- Table cell displaying the hiring cost for the third month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.2 }}</td>
+                                          <!-- Table cell displaying the firing cost for the third month, with right-aligned text, padding, and border. -->
                                           {% if x.length > 3 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 3. -->
                                           <td class="p-2 text-right">{{ holding_costs.2 }}</td>
+                                          <!-- Table cell displaying the holding cost for the third month, with right-aligned text and padding. -->
                                           {% else %}
                                           <td class="p-2 text-right"> - </td>
+                                          <!-- Table cell displaying a dash if there is no holding cost data for the third month, with right-aligned text and padding. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 3. -->
                                     </tr>
+                                    <!-- End of table row for the third month. -->
                                     {% endif %}
+                                    <!-- End of condition to check if the length of 'x' is at least 3. -->
                                     {% if x.length >= 4 %}
+                                    <!-- Condition to check if the length of 'x' is at least 4. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">4</th>
+                                          <!-- Table cell displaying "4" for the fourth month, with padding, bold text, uppercase, border, and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand4 }}</td>
+                                          <!-- Table cell displaying the demand for the fourth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.3 }}</td>
+                                          <!-- Table cell displaying the remaining demand for the fourth month, with padding and border. -->
                                           {% if x.length > 4 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 4. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth4 }}</td>
+                                          <!-- Table cell displaying the inventory for the fourth month, with padding and border. -->
                                           {% else %}
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          <!-- Table cell displaying the final inventory if there is no data for the fourth month, with padding and border. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 4. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary4 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers hired in the fourth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary4 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers fired in the fourth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary4 }}</td>
+                                          <!-- Table cell displaying the net number of temporary workers in the fourth month, with padding and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.3 }}</td>
+                                          <!-- Table cell displaying the hiring cost for the fourth month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.3 }}</td>
+                                          <!-- Table cell displaying the firing cost for the fourth month, with right-aligned text, padding, and border. -->
                                           {% if x.length > 4 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 4. -->
                                           <td class="p-2 text-right">{{ holding_costs.3 }}</td>
+                                          <!-- Table cell displaying the holding cost for the fourth month, with right-aligned text and padding. -->
                                           {% else %}
                                           <td class="p-2 text-right"> - </td>
+                                          <!-- Table cell displaying a dash if there is no holding cost data for the fourth month, with right-aligned text and padding. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 4. -->
                                     </tr>
+                                    <!-- End of table row for the fourth month. -->
                                     {% endif %}
+                                    <!-- End of condition to check if the length of 'x' is at least 4. -->
                                     {% if x.length >= 5 %}
+                                    <!-- Condition to check if the length of 'x' is at least 5. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">5</th>
+                                          <!-- Table cell displaying "5" for the fifth month, with padding, bold text, uppercase, border, and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand5 }}</td>
+                                          <!-- Table cell displaying the demand for the fifth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.4 }}</td>
+                                          <!-- Table cell displaying the remaining demand for the fifth month, with padding and border. -->
                                           {% if x.length > 5 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 5. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth5 }}</td>
+                                          <!-- Table cell displaying the inventory for the fifth month, with padding and border. -->
                                           {% else %}
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          <!-- Table cell displaying the final inventory if there is no data for the fifth month, with padding and border. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 5. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary5 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers hired in the fifth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary5 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers fired in the fifth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary5 }}</td>
+                                          <!-- Table cell displaying the net number of temporary workers in the fifth month, with padding and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.4 }}</td>
+                                          <!-- Table cell displaying the hiring cost for the fifth month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.4 }}</td>
+                                          <!-- Table cell displaying the firing cost for the fifth month, with right-aligned text, padding, and border. -->
                                           {% if x.length > 5 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 5. -->
                                           <td class="p-2 text-right">{{ holding_costs.4 }}</td>
+                                          <!-- Table cell displaying the holding cost for the fifth month, with right-aligned text and padding. -->
                                           {% else %}
                                           <td class="p-2 text-right"> - </td>
+                                          <!-- Table cell displaying a dash if there is no holding cost data for the fifth month, with right-aligned text and padding. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 5. -->
                                     </tr>
+                                    <!-- End of table row for the fifth month. -->
                                     {% endif %}
+                                    <!-- End of condition to check if the length of 'x' is at least 5. -->
                                     {% if x.length >= 6 %}
+                                    <!-- Condition to check if the length of 'x' is at least 6. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">6</th>
+                                          <!-- Table cell displaying "6" for the sixth month, with padding, bold text, uppercase, border, and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand6 }}</td>
+                                          <!-- Table cell displaying the demand for the sixth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.5 }}</td>
+                                          <!-- Table cell displaying the remaining demand for the sixth month, with padding and border. -->
                                           {% if x.length > 6 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 6. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth6 }}</td>
+                                          <!-- Table cell displaying the inventory for the sixth month, with padding and border. -->
                                           {% else %}
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          <!-- Table cell displaying the final inventory if there is no data for the sixth month, with padding and border. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 6. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary6 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers hired in the sixth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary6 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers fired in the sixth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary6 }}</td>
+                                          <!-- Table cell displaying the net number of temporary workers in the sixth month, with padding and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.5 }}</td>
+                                          <!-- Table cell displaying the hiring cost for the sixth month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.5 }}</td>
+                                          <!-- Table cell displaying the firing cost for the sixth month, with right-aligned text, padding, and border. -->
                                           {% if x.length > 6 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 6. -->
                                           <td class="p-2 text-right">{{ holding_costs.5 }}</td>
+                                          <!-- Table cell displaying the holding cost for the sixth month, with right-aligned text and padding. -->
                                           {% else %}
                                           <td class="p-2 text-right"> - </td>
+                                          <!-- Table cell displaying a dash if there is no holding cost data for the sixth month, with right-aligned text and padding. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 6. -->
                                     </tr>
+                                    <!-- End of table row for the sixth month. -->
                                     {% endif %}
+                                    <!-- End of condition to check if the length of 'x' is at least 6. -->
                                     {% if x.length >= 7 %}
+                                    <!-- Condition to check if the length of 'x' is at least 7. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">7</th>
+                                          <!-- Table cell displaying "7" for the seventh month, with padding, bold text, uppercase, border, and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand7 }}</td>
+                                          <!-- Table cell displaying the demand for the seventh month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.6 }}</td>
+                                          <!-- Table cell displaying the remaining demand for the seventh month, with padding and border. -->
                                           {% if x.length > 7 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 7. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth7 }}</td>
+                                          <!-- Table cell displaying the inventory for the seventh month, with padding and border. -->
                                           {% else %}
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          <!-- Table cell displaying the final inventory if there is no data for the seventh month, with padding and border. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 7. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary7 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers hired in the seventh month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary7 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers fired in the seventh month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary7 }}</td>
+                                          <!-- Table cell displaying the net number of temporary workers in the seventh month, with padding and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.6 }}</td>
+                                          <!-- Table cell displaying the hiring cost for the seventh month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.6 }}</td>
+                                          <!-- Table cell displaying the firing cost for the seventh month, with right-aligned text, padding, and border. -->
                                           {% if x.length > 7 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 7. -->
                                           <td class="p-2 text-right">{{ holding_costs.6 }}</td>
+                                          <!-- Table cell displaying the holding cost for the seventh month, with right-aligned text and padding. -->
                                           {% else %}
                                           <td class="p-2 text-right"> - </td>
+                                          <!-- Table cell displaying a dash if there is no holding cost data for the seventh month, with right-aligned text and padding. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 7. -->
                                     </tr>
+                                    <!-- End of table row for the seventh month. -->
                                     {% endif %}
+                                    <!-- End of condition to check if the length of 'x' is at least 7. -->
                                     {% if x.length >= 8 %}
+                                    <!-- Condition to check if the length of 'x' is at least 8. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">8</th>
+                                          <!-- Table cell displaying "8" for the eighth month, with padding, bold text, uppercase, border, and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand8 }}</td>
+                                          <!-- Table cell displaying the demand for the eighth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.7 }}</td>
+                                          <!-- Table cell displaying the remaining demand for the eighth month, with padding and border. -->
                                           {% if x.length > 8 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 8. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth8 }}</td>
+                                          <!-- Table cell displaying the inventory for the eighth month, with padding and border. -->
                                           {% else %}
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          <!-- Table cell displaying the final inventory if there is no data for the eighth month, with padding and border. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 8. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary8 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers hired in the eighth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary8 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers fired in the eighth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary8 }}</td>
+                                          <!-- Table cell displaying the net number of temporary workers in the eighth month, with padding and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.7 }}</td>
+                                          <!-- Table cell displaying the hiring cost for the eighth month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.7 }}</td>
+                                          <!-- Table cell displaying the firing cost for the eighth month, with right-aligned text, padding, and border. -->
                                           {% if x.length > 8 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 8. -->
                                           <td class="p-2 text-right">{{ holding_costs.7 }}</td>
+                                          <!-- Table cell displaying the holding cost for the eighth month, with right-aligned text and padding. -->
                                           {% else %}
                                           <td class="p-2 text-right"> - </td>
+                                          <!-- Table cell displaying a dash if there is no holding cost data for the eighth month, with right-aligned text and padding. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 8. -->
                                     </tr>
+                                    <!-- End of table row for the eighth month. -->
                                     {% endif %}
+                                    <!-- End of condition to check if the length of 'x' is at least 8. -->
                                     {% if x.length >= 9 %}
+                                    <!-- Condition to check if the length of 'x' is at least 9. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">9</th>
+                                          <!-- Table cell displaying "9" for the ninth month, with padding, bold text, uppercase, border, and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand9 }}</td>
+                                          <!-- Table cell displaying the demand for the ninth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.8 }}</td>
+                                          <!-- Table cell displaying the remaining demand for the ninth month, with padding and border. -->
                                           {% if x.length > 9 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 9. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth9 }}</td>
+                                          <!-- Table cell displaying the inventory for the ninth month, with padding and border. -->
                                           {% else %}
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          <!-- Table cell displaying the final inventory if there is no data for the ninth month, with padding and border. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 9. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary9 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers hired in the ninth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary9 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers fired in the ninth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary9 }}</td>
+                                          <!-- Table cell displaying the net number of temporary workers in the ninth month, with padding and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.8 }}</td>
+                                          <!-- Table cell displaying the hiring cost for the ninth month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.8 }}</td>
+                                          <!-- Table cell displaying the firing cost for the ninth month, with right-aligned text, padding, and border. -->
                                           {% if x.length > 9 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 9. -->
                                           <td class="p-2 text-right">{{ holding_costs.8 }}</td>
+                                          <!-- Table cell displaying the holding cost for the ninth month, with right-aligned text and padding. -->
                                           {% else %}
                                           <td class="p-2 text-right"> - </td>
+                                          <!-- Table cell displaying a dash if there is no holding cost data for the ninth month, with right-aligned text and padding. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 9. -->
                                     </tr>
+                                    <!-- End of table row for the ninth month. -->
                                     {% endif %}
+                                    <!-- End of condition to check if the length of 'x' is at least 9. -->
                                     {% if x.length >= 10 %}
+                                    <!-- Condition to check if the length of 'x' is at least 10. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">10</th>
+                                          <!-- Table cell displaying "10" for the tenth month, with padding, bold text, uppercase, border, and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand10 }}</td>
+                                          <!-- Table cell displaying the demand for the tenth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.9 }}</td>
+                                          <!-- Table cell displaying the remaining demand for the tenth month, with padding and border. -->
                                           {% if x.length > 10 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 10. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth10 }}</td>
+                                          <!-- Table cell displaying the inventory for the tenth month, with padding and border. -->
                                           {% else %}
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          <!-- Table cell displaying the final inventory if there is no data for the tenth month, with padding and border. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 10. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary10 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers hired in the tenth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary10 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers fired in the tenth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary10 }}</td>
+                                          <!-- Table cell displaying the net number of temporary workers in the tenth month, with padding and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.9 }}</td>
+                                          <!-- Table cell displaying the hiring cost for the tenth month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.9 }}</td>
+                                          <!-- Table cell displaying the firing cost for the tenth month, with right-aligned text, padding, and border. -->
                                           {% if x.length > 10 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 10. -->
                                           <td class="p-2 text-right">{{ holding_costs.9 }}</td>
+                                          <!-- Table cell displaying the holding cost for the tenth month, with right-aligned text and padding. -->
                                           {% else %}
                                           <td class="p-2 text-right"> - </td>
+                                          <!-- Table cell displaying a dash if there is no holding cost data for the tenth month, with right-aligned text and padding. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 10. -->
                                     </tr>
+                                    <!-- End of table row for the tenth month. -->
                                     {% endif %}
+                                    <!-- End of condition to check if the length of 'x' is at least 10. -->
                                     {% if x.length >= 11 %}
+                                    <!-- Condition to check if the length of 'x' is at least 11. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">11</th>
+                                          <!-- Table cell displaying "11" for the eleventh month, with padding, bold text, uppercase, border, and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand11 }}</td>
+                                          <!-- Table cell displaying the demand for the eleventh month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.10 }}</td>
+                                          <!-- Table cell displaying the remaining demand for the eleventh month, with padding and border. -->
                                           {% if x.length > 11 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 11. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryMonth11 }}</td>
+                                          <!-- Table cell displaying the inventory for the eleventh month, with padding and border. -->
                                           {% else %}
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          <!-- Table cell displaying the final inventory if there is no data for the eleventh month, with padding and border. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 11. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary11 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers hired in the eleventh month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary11 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers fired in the eleventh month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary11 }}</td>
+                                          <!-- Table cell displaying the net number of temporary workers in the eleventh month, with padding and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.10 }}</td>
+                                          <!-- Table cell displaying the hiring cost for the eleventh month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.10 }}</td>
+                                          <!-- Table cell displaying the firing cost for the eleventh month, with right-aligned text, padding, and border. -->
                                           {% if x.length > 11 %}
+                                          <!-- Condition to check if the length of 'x' is greater than 11. -->
                                           <td class="p-2 text-right">{{ holding_costs.10 }}</td>
+                                          <!-- Table cell displaying the holding cost for the eleventh month, with right-aligned text and padding. -->
                                           {% else %}
                                           <td class="p-2 text-right"> - </td>
+                                          <!-- Table cell displaying a dash if there is no holding cost data for the eleventh month, with right-aligned text and padding. -->
                                           {% endif %}
+                                          <!-- End of condition to check if the length of 'x' is greater than 11. -->
                                     </tr>
+                                    <!-- End of table row for the eleventh month. -->
                                     {% endif %}
+                                    <!-- End of condition to check if the length of 'x' is at least 11. -->
                                     {% if x.length >= 12 %}
+                                    <!-- Condition to check if the length of 'x' is at least 12. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-medium text-black uppercase border border-gray-200 whitespace-nowrap dark:text-white dark:border-gray-700">12</th>
+                                          <!-- Table cell displaying "12" for the twelfth month, with padding, bold text, uppercase, border, and dark mode support. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.demand12 }}</td>
+                                          <!-- Table cell displaying the demand for the twelfth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ demands.11 }}</td>
+                                          <!-- Table cell displaying the remaining demand for the twelfth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.inventoryFinal }}</td>
+                                          <!-- Table cell displaying the final inventory if there is no data for the twelfth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.hiredTemporary12 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers hired in the twelfth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.firedTemporary12 }}</td>
+                                          <!-- Table cell displaying the number of temporary workers fired in the twelfth month, with padding and border. -->
                                           <td class="p-2 border border-gray-200 dark:border-gray-700">{{ x.numberTemporary12 }}</td>
+                                          <!-- Table cell displaying the net number of temporary workers in the twelfth month, with padding and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ hiring_costs.11 }}</td>
+                                          <!-- Table cell displaying the hiring cost for the twelfth month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right border border-gray-200 dark:border-gray-700">{{ firing_costs.11 }}</td>
-                                          {% if x.length > 12 %}
-                                          <td class="p-2 text-right">{{ holding_costs.11 }}</td>
-                                          {% else %}
+                                          <!-- Table cell displaying the firing cost for the twelfth month, with right-aligned text, padding, and border. -->
                                           <td class="p-2 text-right"> - </td>
-                                          {% endif %}
+                                          <!-- Table cell displaying a dash if there is no holding cost data for the twelfth month, with right-aligned text and padding. -->
                                     </tr>
+                                    <!-- End of table row for the twelfth month. -->
                                     {% endif %}
-
+                                    <!-- End of condition to check if the length of 'x' is at least 12. -->
                                     <tr class="border odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, and dark mode support. -->
                                           <th scope="row" class="p-2 font-bold text-black uppercase whitespace-nowrap dark:text-white" colspan="7">Total Individual Costs</th>
+                                          <!-- Table header cell displaying "Total Individual Costs" spanning 7 columns, with bold text, uppercase, and dark mode support. -->
                                           <td class="p-2 font-bold text-right border border-gray-200 whitespace-nowrap dark:border-gray-700">{{ total_hiring_cost }}</td>
+                                          <!-- Table cell displaying the total hiring cost, with bold text, right-aligned text, padding, and border. -->
                                           <td class="p-2 font-bold text-right border border-gray-200 whitespace-nowrap dark:border-gray-700">{{ total_firing_cost }}</td>
+                                          <!-- Table cell displaying the total firing cost, with bold text, right-aligned text, padding, and border. -->
                                           <td class="p-2 font-bold text-right border border-gray-200 whitespace-nowrap dark:border-gray-700">{{ total_holding_cost }}</td>
+                                          <!-- Table cell displaying the total holding cost, with bold text, right-aligned text, padding, and border. -->
                                     </tr>
+                                    <!-- End of table row for total individual costs. -->
                               </tbody>
+                              <!-- End of table body. -->
                               <tfoot>
+                              <!-- Start of table footer. -->
                                     <tr class="font-extrabold uppercase border even:bg-white even:dark:bg-gray-900 odd:bg-gray-50 odd:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, bold text, uppercase, and dark mode support. -->
                                           <th scope="row" class="p-2 text-base" colspan="7">Optimized Final Cost for Multi-Period Planning</th>
+                                          <!-- Table header cell displaying "Optimized Final Cost for Multi-Period Planning" spanning 7 columns, with base text size and padding. -->
                                           <td class="p-2" colspan="3">{{ x.optimalCost }}</td>
+                                          <!-- Table cell displaying the optimal cost for multi-period planning, spanning 3 columns, with padding. -->
                                     </tr>
+                                    <!-- End of table row for optimized final cost. -->
                                     <tr class="font-extrabold uppercase border even:bg-white even:dark:bg-gray-900 odd:bg-gray-50 odd:dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- Table row with alternating background colors for odd and even rows, bold text, uppercase, and dark mode support. -->
                                           <th scope="row" class="p-2 text-base" colspan="13">
+                                          <!-- Table header cell spanning 13 columns, with base text size and padding. -->
                                                 <div class="flex items-center justify-center rounded">
-                                                      <a href="{% url 'initiate_sensitivity_analysis' x.id %}" class="content-center w-full rounded-lg h-full p-2 m-1 text-sm font-medium text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:ring-[#3b5998]/50 dark:focus:ring-[#3b5998]/55">Start Sensitivity Analysis on Demand Variables</a>
-                                                </div>                                           
+                                                <!-- Div for styling and centering the content inside, with rounded corners. -->
+                                                      <a href="{% url 'initiate_sensitivity_analysis' x.id %}" class="content-center w-full rounded-lg h-full p-2 m-1 text-sm font-medium text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:ring-[#3b5998]/50 dark:focus:ring-[#3b5998]/55">
+                                                      <!-- Anchor link for initiating sensitivity analysis, styled with padding, margin, text size, font, color, background color, hover effect, and focus ring. -->
+                                                      Start Sensitivity Analysis on Demand Variables
+                                                      <!-- Text displayed on the button/link. -->
+                                                      </a>
+                                                      <!-- End of anchor link for initiating sensitivity analysis. -->
+                                                </div>
+                                                <!-- End of div for styling and centering the content inside. -->
                                                 <div class="flex items-center justify-center rounded">
-                                                      <a href={% url 'generate_report' x.id %} class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Download Optimization.xls (Microsoft Excel)</a>
-                                                </div>                                           
+                                                <!-- Div for styling and centering the content inside, with rounded corners. -->
+                                                      <a href={% url 'generate_report' x.id %} class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                      <!-- Anchor link for downloading the optimization report, styled with padding, margin, text size, font, color, background color, hover effect, and focus ring. -->
+                                                      Download Optimization.xls (Microsoft Excel)
+                                                      <!-- Text displayed on the button/link. -->
+                                                      </a>
+                                                      <!-- End of anchor link for downloading the optimization report. -->
+                                                </div>
+                                                <!-- End of div for styling and centering the content inside. -->
                                           </th>
+                                          <!-- End of table header cell spanning 13 columns. -->
                                     </tr>
+                                    <!-- End of table row for action links. -->
                               </tfoot>
+                              <!-- End of table footer. -->
                         </table>
+                        <!-- End of table. -->
                   </div>
+                  <!-- End of div for table container. -->
                   {% endfor %}
+                  <!-- End of for loop iterating over 'x'. -->
                   <div class="flex dark:hidden">
+                  <!-- Div for flexbox layout, hidden in dark mode. -->
                         {% autoescape off %}
+                        <!-- Disable auto-escaping within this block. -->
                         <div style="width: 40%;">
+                        <!-- Div styled to take up 40% width. -->
                               <div>
+                              <!-- Div for containing the light mode figure 1. -->
                                     {{ fig1Light }}
+                                    <!-- Placeholder for light mode figure 1. -->
                               </div>
+                              <!-- End of div for containing the light mode figure 1. -->
                         </div>
+                        <!-- End of div styled to take up 40% width. -->
                         <div style="width: 60%;">
+                        <!-- Div styled to take up 60% width. -->
                               <div >
+                              <!-- Div for containing the light mode figure 2. -->
                                     {{ fig2Light }}
+                                    <!-- Placeholder for light mode figure 2. -->
                               </div>
+                              <!-- End of div for containing the light mode figure 2. -->
                         </div>
+                        <!-- End of div styled to take up 60% width. -->
                         {% endautoescape %}
+                        <!-- End of auto-escaping block. -->
                   </div>
+                  <!-- End of div for flexbox layout, hidden in dark mode. -->
                   <div class="hidden dark:flex">
+                  <!-- Div for flexbox layout, visible only in dark mode. -->
                         {% autoescape off %}
+                        <!-- Disable auto-escaping within this block. -->
                         <div style="width: 40%;">
+                        <!-- Div styled to take up 40% width. -->
                               <div>
+                              <!-- Div for containing the dark mode figure 1. -->
                                     {{ fig1Dark }}
+                                    <!-- Placeholder for dark mode figure 1. -->
                               </div>
+                              <!-- End of div for containing the dark mode figure 1. -->
                         </div>
+                        <!-- End of div styled to take up 40% width. -->
                         <div style="width: 60%;">
+                        <!-- Div styled to take up 60% width. -->
                               <div>
+                              <!-- Div for containing the dark mode figure 2. -->
                                     {{ fig2Dark }}
+                                    <!-- Placeholder for dark mode figure 2. -->
                               </div>
+                              <!-- End of div for containing the dark mode figure 2. -->
                         </div>
+                        <!-- End of div styled to take up 60% width. -->
                         {% endautoescape %}
+                        <!-- End of auto-escaping block. -->
                   </div>
+                  <!-- End of div for flexbox layout, visible only in dark mode. -->
                   <div class="flex">
+                  <!-- Div for flexbox layout. -->
                         {% autoescape off %}
+                        <!-- Disable auto-escaping within this block. -->
                         <div style="width: 100%;">
+                        <!-- Div styled to take up 100% width. -->
                               <div class="block dark:hidden">
+                              <!-- Div visible only in light mode. -->
                                     {{ fig3Light }}
+                                    <!-- Placeholder for light mode figure 3. -->
                               </div>
+                              <!-- End of div visible only in light mode. -->
                               <div class="hidden dark:block">
+                              <!-- Div visible only in dark mode. -->
                                     {{ fig3Dark }}
+                                    <!-- Placeholder for dark mode figure 3. -->
                               </div>
+                              <!-- End of div visible only in dark mode. -->
                         </div>
+                        <!-- End of div styled to take up 100% width. -->
                         {% endautoescape %}
+                        <!-- End of auto-escaping block. -->
                   </div>
+                  <!-- End of div for flexbox layout. -->
             </div>
+            <!-- End of div for the entire content section. -->
       </div>
+      <!-- End of main div container. -->
 </body>
-
-{% endblock  %} 
+<!-- End of body section. -->
+{% endblock  %}
+<!-- End of block template. -->

@@ -10,150 +10,141 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+# Import the Path class from pathlib module to handle file paths
 from pathlib import Path
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Define the base directory of the project, typically the parent directory of the current file
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# The secret key used for cryptographic signing in Django. Should be kept confidential
 SECRET_KEY = 'django-insecure-w+=$3jv^w5dx(4rvr9pbjwec_n8n@sc!$r_u9v&avt64$d=e#^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# Enables debug mode, which should be turned off in production for security reasons
 DEBUG = True
 
+# List of host/domain names that this Django site can serve
+# Ensure that this includes the host where the app is deployed
 ALLOWED_HOSTS = ["127.0.0.1","muhammadiqbalhabibie.pythonanywhere.com"]
-
 
 # Application definition
 
+# List of installed apps for this Django project, including default apps and custom apps
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'main.apps.MainConfig',
-    'widget_tweaks',
-    'compressor',
+    'django.contrib.admin',           # Admin site functionality
+    'django.contrib.auth',            # Authentication framework
+    'django.contrib.contenttypes',    # Content type framework
+    'django.contrib.sessions',        # Session framework
+    'django.contrib.messages',        # Messaging framework
+    'django.contrib.staticfiles',     # Static file handling
+    'main.apps.MainConfig',           # Custom application
+    'widget_tweaks',                  # Third-party app for tweaking form widgets
+    'compressor',                     # Third-party app for compressing static files
 ]
 
+# List of middleware used by Django to process requests and responses
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',     # Provides security enhancements
+    'django.contrib.sessions.middleware.SessionMiddleware', # Manages sessions
+    'django.middleware.common.CommonMiddleware',         # Adds various common middleware features
+    'django.middleware.csrf.CsrfViewMiddleware',          # Provides Cross Site Request Forgery protection
+    'django.contrib.auth.middleware.AuthenticationMiddleware', # Handles authentication
+    'django.contrib.messages.middleware.MessageMiddleware', # Manages user messages
+    'django.middleware.clickjacking.XFrameOptionsMiddleware', # Prevents clickjacking attacks
 ]
 
+# The URL configuration for this project
 ROOT_URLCONF = 'mysite.urls'
 
+# Template settings
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates', # Specifies the backend to use for templates
+        'DIRS': [], # List of directories to search for templates (empty list means using app directories)
+        'APP_DIRS': True, # Enable template loading from app directories
         'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+            'context_processors': [  # List of context processors to add context to templates
+                'django.template.context_processors.debug', # Adds debug information
+                'django.template.context_processors.request', # Adds request object to context
+                'django.contrib.auth.context_processors.auth', # Adds user authentication context
+                'django.contrib.messages.context_processors.messages', # Adds message framework context
             ],
         },
     },
 ]
 
+# The WSGI application used by Django's runserver and any WSGI-compatible web server
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+# Database configuration
+# Using SQLite for the default database backend
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # Database engine to use
+        'NAME': BASE_DIR / 'db.sqlite3',         # Path to the database file
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
-
+# Password validation settings
+# List of validators used to validate user passwords
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', # Ensures password similarity with user attributes
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', # Ensures minimum length for passwords
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', # Prevents use of common passwords
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', # Ensures password contains digits
     },
 ]
 
+# Internationalization settings
+# Settings related to language and time zone
+LANGUAGE_CODE = 'en-us'  # Default language code
+TIME_ZONE = 'UTC'        # Default time zone
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
+USE_I18N = True          # Enable Django’s translation system
+USE_TZ = True            # Enable timezone support
 
-LANGUAGE_CODE = 'en-us'
+# Static files settings
+# Configuration for serving static files (CSS, JavaScript, images)
+STATIC_URL = 'static/'  # URL for static files
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind" # Allowed template packs for crispy forms
+CRISPY_TEMPLATE_PACK = "tailwind"          # Template pack to use for crispy forms
 
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
-
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-STATIC_URL = 'static/'
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-
-CRISPY_TEMPLATE_PACK = "tailwind"
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
+# Default primary key field type for models
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-COMPRESS_ROOT = BASE_DIR / 'static/'
+# Configuration for compressing static files
+COMPRESS_ROOT = BASE_DIR / 'static/'  # Root directory for compressed static files
+COMPRESS_ENABLED = True              # Enable compression of static files
 
-COMPRESS_ENABLED = True
-
+# Static file finders for locating and serving static files
 STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',   # Finds static files in the filesystem
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder', # Finds static files in app directories
+    'compressor.finders.CompressorFinder',  # Finds compressed static files
 ]
 
-# # import environ
-# # env=environ.Env()
-# # environ.Env.read_env()
+# Email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Backend to use for sending emails
+EMAIL_HOST = 'localhost'  # Email server host
+EMAIL_PORT = 1025          # Email server port
+EMAIL_USE_TLS = True      # Enable TLS for email
+EMAIL_HOST_USER = 'multiperiodps@gmail.com'  # Email host user
+EMAIL_HOST_PASSWORD = 'rfmkjumulahafrhg'       # Email host password
+RECIPIENT_ADDRESS = 'multiperiodps@gmail.com' # Recipient email address
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'multiperiodps@gmail.com'
-EMAIL_HOST_PASSWORD = 'rfmkjumulahafrhg'
-RECIPIENT_ADDRESS = 'multiperiodps@gmail.com'
-
-LOGIN_URL='login'
-
-LOGOUT_URL='logout'
-
-LOGIN_REDIRECT_URL='home'
-
-LOGOUT_REDIRECT_URL = 'lgin'
-# super user: punyakita, punyakita@gmail.com, punyakita132
+# Authentication URL settings
+LOGIN_URL = 'login'                 # URL to redirect to for login
+LOGOUT_URL = 'logout'               # URL to redirect to for logout
+LOGIN_REDIRECT_URL = 'home'         # URL to redirect to after successful login
+LOGOUT_REDIRECT_URL = 'login'       # URL to redirect to after logout

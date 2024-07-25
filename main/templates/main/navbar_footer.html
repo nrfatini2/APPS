@@ -1,61 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Specifies the character encoding for the document -->
   <meta charset="UTF-8">
+  <!-- Ensures compatibility with IE browsers -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Sets the viewport to control the layout on mobile browsers -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Title of the page, which can be overridden by child templates -->
   <title>{% block title %}My Server{% endblock  %}</title>
+  <!-- Font Awesome stylesheet for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Flowbite CSS for components -->
   <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+  <!-- Tailwind CSS script for utility-first CSS framework -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Load Django template tags for additional functionality -->
   {% load widget_tweaks %}
   {% load compress %}
   {% load static %}
+  <!-- Compress CSS files -->
   {% compress css %}
+  <!-- Link to the project's compiled CSS file -->
   <link rel="stylesheet" href="{% static 'src/output.css' %}">
   {% endcompress %}
+  <!-- Favicon for the website -->
   <link rel="icon" href="https://i.ibb.co/8gpyyg9/logo-App-Dev.png" type="image/x-icon">
 </head>
 <body class="bg-white dark:bg-gray-900">
 
+<!-- Navigation bar -->
 <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
+      <!-- Logo and sidebar toggle button -->
       <div class="flex items-center justify-start rtl:justify-end">
+        <!-- Sidebar toggle button for small screens -->
         <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
             <span class="sr-only">Open sidebar</span>
+            <!-- Icon for the sidebar toggle button -->
             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
             </svg>
          </button>
+        <!-- Logo and site name -->
         <a href="{% url 'home' %}" class="flex ms-2 md:me-24">
+          <!-- Light mode logo -->
           <img src="{% static 'img/logo_light.png' %}" class="h-8 me-3 dark:hidden" alt="APPS Logo" />
+          <!-- Dark mode logo -->
           <img src="{% static 'img/logo_dark.png' %}" class="hidden h-8 me-3 dark:block" alt="APPS Logo" />
+          <!-- Site name -->
           <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">APPS</span>
         </a>
       </div>
+      <!-- User menu and other items -->
       <div class="flex items-center">
         <div class="flex items-center ms-3">
+          <!-- Check if user is authenticated -->
           {% if user.is_authenticated %}
           <div>
+            <!-- User menu button -->
             <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
               <span class="sr-only">Open user menu</span>
+              <!-- User avatar -->
               <img class="w-8 h-8 rounded-full" src="{% static 'img/avatar.png' %}" alt="user photo">
             </button>
           </div>
+          <!-- User menu dropdown -->
           <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
             <div class="px-4 py-3" role="none">
+              <!-- Display user's name -->
               <p class="text-sm text-gray-900 dark:text-white" role="none">
                 {{ user.first_name }}&nbsp;{{ user.last_name }}
               </p>
+              <!-- Display user's email -->
               <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                 {{ user.email }}
               </p>
             </div>
             <ul class="py-1" role="none">
+              <!-- Link to edit profile -->
               <li>
                 <a href="{% url 'edit-profile' user.id %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Edit Profile</a>
               </li>
+              <!-- Link to logout -->
               <li>
                 <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Logout</a>
               </li>
@@ -69,12 +97,15 @@
   </div>
 </nav>
 {% if user.is_authenticated %}
+<!-- Start of sidebar section for authenticated users -->
 <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 w-60 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
    <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
       <ul class="space-y-2 font-medium">
         {% if user.is_superuser %}  
+        <!-- Display the following item only if the user is a superuser -->
          <li>
             <a id="userListLink" href="{% url 'read-user' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <!-- Icon for managing users -->
               <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 640 512">
                 <path d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z"/>
               </svg>
@@ -82,24 +113,30 @@
             </a>
          </li>
         {% endif %} 
+         <!-- Link to home page -->
          <li>
             <a id="homeLink" href="{% url 'home' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <!-- Icon for home -->
               <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 576 512">
                 <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384v38.6C310.1 219.5 256 287.4 256 368c0 59.1 29.1 111.3 73.7 143.3c-3.2 .5-6.4 .7-9.7 .7H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zm48 96a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm16 80c0-8.8-7.2-16-16-16s-16 7.2-16 16v48H368c-8.8 0-16 7.2-16 16s7.2 16 16 16h48v48c0 8.8 7.2 16 16 16s16-7.2 16-16V384h48c8.8 0 16-7.2 16-16s-7.2-16-16-16H448V304z"/>
               </svg>
                <span class="ms-3">Create New Plan</span>
             </a>
          </li>
+         <!-- Link to plan list -->
          <li>
             <a id="planListLink" href="{% url 'get-plan-list' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <!-- Icon for plan list -->
               <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512">
                 <path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm64 0v64h64V96H64zm384 0H192v64H448V96zM64 224v64h64V224H64zm384 0H192v64H448V224zM64 352v64h64V352H64zm384 0H192v64H448V352z"/>
               </svg>
               <span class="ms-3">Plan List</span>
             </a>
          </li>
+         <!-- Link to about page -->
          <li>
             <a id="aboutLink" href="{% url 'about' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <!-- Icon for about page -->
               <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512">
                 <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
               </svg>
@@ -112,42 +149,64 @@
 {% endif %}
 
 {% if user.is_authenticated %}
+<!-- Main content for authenticated users -->
 <div class="p-4 mt-14 sm:ml-60">
   {% block content %}
   {% endblock content %}
 </div>
 {% else %}
 <section class="bg-cover bg-no-repeat bg-[url('https://www.wsw.de/wp-content/uploads/bilder/headerbilder/prozesse/istock-1352428734-1024x576.jpg')] bg-gray-700 bg-blend-multiply mt-14">
+  <!-- Section with a background image, gray overlay, and margin top for spacing -->
   <div class="max-w-screen-xl px-4 py-24 mx-auto text-center lg:py-56">
+    <!-- Container with max width, padding, centered text, and different padding for large screens -->
     <img src="{% static 'img/logo_light.png' %}" class="h-24 m-auto dark:hidden" alt="APPS Logo"/>
+    <!-- Light logo image for non-dark mode, centered with specific height -->
     <img src="{% static 'img/logo_dark.png' %}" class="hidden h-24 m-auto dark:block" alt="APPS Logo" />
+    <!-- Dark logo image for dark mode, centered with specific height -->
     <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">Welcome to APPS! </h1>
-      <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">Advanced Production Planning System is a system to assist with production planning and resource management over a certain month period. The primary goal of the system is to minimize costs and meet production needs effectively, which will require careful consideration of hiring and firing decisions, as well as the ability to forecast demand and optimize production schedules.</p>
-      <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-          <a href="{% url 'login' %}" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
-              Login to APPS
-              <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-              </svg>
-          </a>
-      </div>
+    <!-- Main heading with margin bottom, large font size, bold weight, white text, and responsive font sizes -->
+    <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">
+      <!-- Paragraph with margin bottom, large text size, normal font weight, gray text, and responsive padding -->
+      Advanced Production Planning System is a system to assist with production planning and resource management over a certain month period. The primary goal of the system is to minimize costs and meet production needs effectively, which will require careful consideration of hiring and firing decisions, as well as the ability to forecast demand and optimize production schedules.
+    </p>
+    <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
+      <!-- Flex container with vertical spacing between items for small screens and horizontal layout for larger screens -->
+      <a href="{% url 'login' %}" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+        <!-- Button with padding, centered text, white text on blue background, rounded corners, hover and focus styles -->
+        Login to APPS
+        <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <!-- Arrow icon inside the button -->
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
 {% endif %}
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-  if (window.location.pathname == "/")
-  document.getElementById('homeLink').classList.add("bg-gray-100","dark:bg-gray-700","text-gray-900","dark:text-white");
-  if (window.location.href.includes("/plan-list"))
-  document.getElementById('planListLink').classList.add("bg-gray-100","dark:bg-gray-700","text-gray-900","dark:text-white");
-  if (window.location.href.includes("/read-user"))
-  document.getElementById('userListLink').classList.add("bg-gray-100","dark:bg-gray-700","text-gray-900","dark:text-white");
-  if (window.location.href.includes("/about"))
-  document.getElementById('aboutLink').classList.add("bg-gray-100","dark:bg-gray-700","text-gray-900","dark:text-white");
-});
+    // Add event listener to run the function once the DOM is fully loaded
+    if (window.location.pathname == "/")
+      // Check if the current path is the home page
+      document.getElementById('homeLink').classList.add("bg-gray-100","dark:bg-gray-700","text-gray-900","dark:text-white");
+      // Add active styles to home link
+    if (window.location.href.includes("/plan-list"))
+      // Check if the current URL includes "/plan-list"
+      document.getElementById('planListLink').classList.add("bg-gray-100","dark:bg-gray-700","text-gray-900","dark:text-white");
+      // Add active styles to plan list link
+    if (window.location.href.includes("/read-user"))
+      // Check if the current URL includes "/read-user"
+      document.getElementById('userListLink').classList.add("bg-gray-100","dark:bg-gray-700","text-gray-900","dark:text-white");
+      // Add active styles to user list link
+    if (window.location.href.includes("/about"))
+      // Check if the current URL includes "/about"
+      document.getElementById('aboutLink').classList.add("bg-gray-100","dark:bg-gray-700","text-gray-900","dark:text-white");
+      // Add active styles to about link
+  });
 </script>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+<!-- Include Flowbite JavaScript library for additional UI components -->
 </html>

@@ -1,45 +1,79 @@
-{% extends 'main/navbar_footer.html' %} {% block title %}Update User{% endblock %}
+{% extends 'main/navbar_footer.html' %}
+<!-- Extends a base template that includes the navigation bar and footer -->
+{% block title %}
+Update User
+{% endblock %}
+<!-- Defines the title block for the page, which will be inserted into the base template -->
 {% block content %}
+<!-- Starts the content block where the page-specific content will be inserted -->
 {% load widget_tweaks %}
 {% load compress %}
 {% load static %}
+<!-- Loads Django template tags for widget tweaks, CSS compression, and static file handling -->
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+<!-- Links to the Poppins font from Google Fonts for styling -->
 <script src="http://cdn.tailwindcss.com"></script>
+<!-- Links to the Tailwind CSS CDN for styling -->
 <body>
+    <!-- Starts the body section of the HTML document -->
     <div class="w-1/2 p-4 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <!-- Defines a container with half-width, padding, centered alignment, text center, background color, border, rounded corners, shadow, and dark mode styling -->
         <h1 class="text-xl font-extrabold text-gray-900 uppercase dark:text-white">Update User ID 0{{ userData.id }}</h1><br>
+        <!-- Displays a heading with extra-large, bold, uppercase text for the page title, including the user ID -->
         <form method="POST" class="space-y-6">
+            <!-- Defines a form with POST method and vertical spacing between elements -->
             {% csrf_token %}
+            <!-- Inserts a CSRF token for security in form submission -->
             <div class="grid grid-cols-2 gap-2">
+                <!-- Defines a grid layout with two columns and a gap between grid items -->
                 <label class="block m-auto text-sm font-medium text-gray-900 dark:text-white">First Name:</label>
+                <!-- Label for the first name input field with medium font size and dark mode styling -->
                 <input required type="text" name="first_name" id="fname" value="{{ userData.first_name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
-        
+                <!-- Input field for first name with required validation, pre-filled value from `userData`, and various styling for background, border, text color, focus ring, and dark mode -->
                 <label class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Last Name:</label>
+                <!-- Label for the last name input field with medium font size and dark mode styling -->
                 <input required type="text" name="last_name" id="lname" value="{{ userData.last_name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
-        
+                <!-- Input field for last name with required validation, pre-filled value from `userData`, and various styling for background, border, text color, focus ring, and dark mode -->
                 <label class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Username:</label>
+                <!-- Label for the username input field with medium font size and dark mode styling -->
                 <input required type="text" name="username" id="username" value="{{ userData.username }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
-                
+                <!-- Input field for username with required validation, pre-filled value from `userData`, and various styling for background, border, text color, focus ring, and dark mode -->
                 <label class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Email:</label>
+                <!-- Label for the email input field with medium font size and dark mode styling -->
                 <input required type="email" name="email" id="email" value="{{ userData.email }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                <!-- Input field for email with required validation, pre-filled value from `userData`, and various styling for background, border, text color, focus ring, and dark mode -->
             </div>
             <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <!-- Defines a list for user status options with full width, medium font size, background color, border, rounded corners, and dark mode styling -->
                 <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                    <!-- Defines a list item with full width, bottom border, and rounded top corners -->
                     <div class="flex items-center ps-3">
+                        <!-- Defines a flex container for aligning items and adding padding -->
                         <input type="checkbox" id="is_active" name="is_active" {% if userData.is_active %}checked{% endif %} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <!-- Checkbox for active status with conditional checked state, and various styling for size, color, focus ring, and dark mode -->
                         <label for="is_active" class="w-full py-3 text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">Active?</label>
+                        <!-- Label for the active status checkbox with padding, medium font size, and dark mode styling -->
                     </div>
                 </li>
                 <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                    <!-- Defines another list item with full width, bottom border, and rounded top corners -->
                     <div class="flex items-center ps-3">
+                        <!-- Defines a flex container for aligning items and adding padding -->
                         <input type="checkbox" id="is_superuser" name="is_superuser" {% if userData.is_superuser %}checked{% endif %} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <!-- Checkbox for superuser status with conditional checked state, and various styling for size, color, focus ring, and dark mode -->
                         <label for="is_superuser" class="w-full py-3 text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">Admin Status?</label>
+                        <!-- Label for the superuser checkbox with padding, medium font size, and dark mode styling -->
                     </div>
                 </li>
             </ul>
-            <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
+            <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <!-- Submit button with full width, white text, blue background, hover effects, and various styling for focus and dark mode -->
+                Update
+            </button>
         </form>
+        <!-- Ends the form -->
     </div>
+    <!-- Ends the container -->
 </body>
-
 {% endblock %}
+<!-- Ends the content block -->

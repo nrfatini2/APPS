@@ -1,76 +1,124 @@
 <!DOCTYPE html>
+<!-- Declares the document type and version of HTML being used (HTML5 in this case) -->
 
 {% load widget_tweaks %}
 {% load compress %}
 {% load static %}
+<!-- Django template tags to load custom template filters and static files -->
 
 <html lang="en">
+    <!-- Opens the HTML document and specifies the language as English -->
     <head>
+        <!-- Opens the head section of the HTML document -->
         <meta charset="UTF-8">
+        <!-- Sets the character encoding for the document to UTF-8 -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Ensures compatibility with Internet Explorer and uses the latest rendering engine -->
         <meta name="viewport" content="width=device-width, inital-scale=1.0">
+        <!-- Sets the viewport to the device's width and initial scale to 1.0 for responsive design -->
         {% compress css %}
+        <!-- Django template tag to compress CSS files -->
         <link rel="stylesheet" href="{% static 'src/output.css' %}">
+        <!-- Links to the CSS file for styling the page, loaded via Django's static file handling -->
         {% endcompress %}
+        <!-- Ends the CSS compression block -->
         <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
+        <!-- Includes the Flowbite library for UI components and interactivity -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- Links to Font Awesome for icon fonts, with security features (integrity, crossorigin, referrerpolicy) -->
         <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Includes Tailwind CSS for utility-first CSS framework -->
         <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+        <!-- Links to Google Fonts to include the Poppins font family -->
         <link rel="icon" href="https://i.ibb.co/8gpyyg9/logo-App-Dev.png" type="image/x-icon">
+        <!-- Sets the favicon (icon displayed in the browser tab) for the website -->
         <title>Register Account</title>
+        <!-- Sets the title of the webpage, which appears in the browser tab -->
     </head>
     <body class="bg-white dark:bg-gray-900">
+        <!-- Opens the body section of the document and sets background colors for light and dark modes -->
         <div class="flex items-center justify-center h-screen">
+            <!-- Centers the content both horizontally and vertically on the screen -->
             <div class="w-1/2 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+                <!-- Defines the main container with styling for light and dark modes -->
                 <form method="POST" class="space-y-4">
+                    <!-- Opens a form for user input with spacing between elements -->
                     <h1 class="text-2xl font-extrabold text-center text-gray-900 uppercase dark:text-white">Register Account</h1>
+                    <!-- Displays the main heading for the form -->
                     <hr>
+                    <!-- Adds a horizontal rule for visual separation -->
                     {% csrf_token %}
+                    <!-- Django template tag for including a CSRF token for form security -->
                     <div class="grid grid-cols-2 gap-2">
+                        <!-- Creates a grid layout with two columns and spacing between items -->
                         <div>
                             <label for="first_name" class="block m-auto mb-2 text-sm font-bold text-center text-gray-900 uppercase dark:text-white">First Name</label>
+                            <!-- Label for the first name input field -->
                             <input required type="text" name="first_name" placeholder="First Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" minlength="1">
+                            <!-- Input field for first name with validation and styling -->
                         </div>
                         <div>
                             <label for="last_name" class="block m-auto mb-2 text-sm font-bold text-center text-gray-900 uppercase dark:text-white">Last Name</label>
+                            <!-- Label for the last name input field -->
                             <input required type="text" name="last_name" placeholder="Last Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" minlength="1">
+                            <!-- Input field for last name with validation and styling -->
                         </div>
                         <div>
                             <label for="username" class="block m-auto mb-2 text-sm font-bold text-center text-gray-900 uppercase dark:text-white">Username</label>
+                            <!-- Label for the username input field -->
                             <input required type="text" name="username" placeholder="Username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" minlength="6">
+                            <!-- Input field for username with validation and styling -->
                         </div>
                         <div>
                             <label for="email" class="block m-auto mb-2 text-sm font-bold text-center text-gray-900 uppercase dark:text-white">Email</label>
+                            <!-- Label for the email input field -->
                             <input required type="email" name="email" placeholder="Email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" pattern="^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$">
+                            <!-- Input field for email with validation pattern and styling -->
                         </div>
                     </div>
                     <div class="relative">
+                        <!-- Container for the password field and toggle button -->
                         <label for="password" class="block m-auto mb-2 text-sm font-bold text-center text-gray-900 uppercase dark:text-white">Password</label>
+                        <!-- Label for the password input field -->
                         <div class="flex">
+                            <!-- Flex container for the password input and toggle button -->
                             <input required type='password' id="password" name="password" placeholder="Password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center" minlength="6">
+                            <!-- Input field for password with validation and styling -->
                             <button type="button" id="togglePassword" class="-ml-8 focus:outline-none">
                                 <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 576 512">
+                                    <!-- Defines an SVG element with classes for width, height, color, transitions, and dark mode. Sets aria-hidden to true for accessibility and defines the XML namespace for SVG. -->
                                     <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
+                                    <!-- Defines the path for the SVG graphic, which describes the shape and details of the icon used for toggling password visibility -->
                                 </svg>
+                                <!-- Closes the SVG element -->
                             </button>
+                            <!-- Closes the button element that toggles password visibility -->
                         </div>
+                        <!-- Closes the flex container for password input and toggle button -->
                     </div>
+                    <!-- Closes the container with grid layout for form fields -->
                     <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">Register</button>
+                    <!-- Defines the submit button for the form with various classes for styling, hover effects, and focus ring for accessibility -->
                 </form>
+                <!-- Closes the form element -->
             </div>
+            <!-- Closes the main container with background and border styling -->
         </div>
+        <!-- Closes the flex container centering the main container -->
     </body>
-    
+    <!-- Closes the body section of the document -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-        const passIn = document.getElementById('password');
-        const btn = document.getElementById('togglePassword');
-        btn.addEventListener('click', function () {
-            const type =
-                passIn.getAttribute('type') ===
-                    'password' ? 'text' : 'password';
-            passIn.setAttribute('type', type);
+            const passIn = document.getElementById('password');
+            const btn = document.getElementById('togglePassword');
+            btn.addEventListener('click', function () {
+                const type =
+                    passIn.getAttribute('type') ===
+                        'password' ? 'text' : 'password';
+                passIn.setAttribute('type', type);
+            });
         });
-    });
     </script>
+    <!-- JavaScript to toggle password visibility. It listens for the DOMContentLoaded event, sets up an event listener on the toggle button, and changes the password input type between 'password' and 'text' when clicked -->
 </html>
+<!-- Closes the HTML document -->

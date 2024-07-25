@@ -1,161 +1,255 @@
-{% extends 'main/navbar_footer.html' %} {% block title %}Demand Input{% endblock %}
+{% extends 'main/navbar_footer.html' %}
+<!-- Extends the 'navbar_footer.html' template, which likely includes the site-wide layout with a navigation bar and footer. -->
+{% block title %}Demand Input{% endblock %}
+<!-- Sets the title of the page to "Demand Input". -->
 {% block content %}
+<!-- Begins the content block where page-specific content will be added. -->
 {% load widget_tweaks %}
 {% load compress %}
 {% load static %}
+<!-- Loads template tags for widget tweaks, CSS/JS compression, and static file handling. -->
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+<!-- Includes the Poppins font from Google Fonts for styling text. -->
 <script src="http://cdn.tailwindcss.com"></script>
+<!-- Includes Tailwind CSS from a CDN for styling. -->
 <body>
    <div class="w-full p-4 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+   <!-- Container with full width, padding, centered text, background color, border, rounded corners, shadow, and responsive padding. Dark mode styling included. -->
       <form method="POST" class="space-y-6">
+      <!-- Form element with POST method and spacing between elements. -->
          <h1 class="text-xl font-extrabold text-gray-900 uppercase dark:text-white">Input Demand for Each Month</h1>
+         <!-- Main heading of the form, styled with extra-bold text, uppercase letters, and conditional dark mode styling. -->
          {% csrf_token %}
+         <!-- Includes a CSRF token for secure form submissions. -->
          <div class="p-0">
+         <!-- Container with no padding. -->
             {% for x in plan %}
+            <!-- Loop through the 'plan' context variable. -->
             {% if x.length > 1 %}
             <div class="grid grid-cols-2 gap-2 mb-6">
+            <!-- If 'x.length' is greater than 1, create a grid with 2 columns, gap of 2, and bottom margin. -->
             {% else %}
             <div class="grid grid-cols-1 gap-2 mb-6">
+            <!-- Otherwise, create a grid with 1 column, gap of 2, and bottom margin. -->
             {% endif %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- Creates a grid with 2 columns and a gap of 2 for the first set of input fields. -->
                   {% if x.length > 1 %}
                   <label for="demand1" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 1:</label>
+                  <!-- If 'x.length' is greater than 1, display the label for "Demand for Month 1". -->
                   {% else %}
                   <label for="demand1" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand:</label>
+                  <!-- Otherwise, display a generic label "Demand". -->
                   {% endif %}
                   <input required min="0" type="number" step="1" value={{x.demand1}} name="demand1" id="demand1" placeholder="Demand for Month 1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 1, with required attribute, minimum value of 0, number type, and various styling for focus and dark mode. -->
                </div>
                {% if x.length >= 2 %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- If 'x.length' is 2 or more, create a grid with 2 columns. -->
                {% else %}
                <div class="hidden grid-cols-2 gap-2">
+               <!-- Otherwise, hide the grid with 2 columns. -->
                {% endif %}
                   <label for="demand2" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 2:</label>
+                  <!-- Label for the second month's demand input field. -->
                   <input required min="0" type="number" step="1" value={{x.demand2}} name="demand2" id="demand2" placeholder="Demand for Month 2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 2, similar styling as above. -->
                </div>
                {% if x.length >= 3 %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- If 'x.length' is 3 or more, create a grid with 2 columns. -->
                {% else %}
                <div class="hidden grid-cols-2 gap-2">
+               <!-- Otherwise, hide the grid with 2 columns. -->
                {% endif %}
                   <label for="demand3" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 3:</label>
+                  <!-- Label for the third month's demand input field. -->
                   <input required min="0" type="number" step="1" value={{x.demand3}} name="demand3" id="demand3" placeholder="Demand for Month 3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 3, similar styling as above. -->
                </div>
                {% if x.length >= 4 %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- If 'x.length' is 4 or more, create a grid with 2 columns. -->
                {% else %}
                <div class="hidden grid-cols-2 gap-2">
+               <!-- Otherwise, hide the grid with 2 columns. -->
                {% endif %}
                   <label for="demand4" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 4:</label>
+                  <!-- Label for the fourth month's demand input field. -->
                   <input required min="0" type="number" step="1" value={{x.demand4}} name="demand4" id="demand4" placeholder="Demand for Month 4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 4, similar styling as above. -->
                </div>
                {% if x.length >= 5 %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- If 'x.length' is 5 or more, create a grid with 2 columns. -->
                {% else %}
                <div class="hidden grid-cols-2 gap-2">
+               <!-- Otherwise, hide the grid with 2 columns. -->
                {% endif %}
                   <label for="demand5" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 5:</label>
+                  <!-- Label for the fifth month's demand input field. -->
                   <input required min="0" type="number" step="1" value={{x.demand5}} name="demand5" id="demand5" placeholder="Demand for Month 5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 5, similar styling as above. -->
                </div>
                {% if x.length >= 6 %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- If 'x.length' is 6 or more, create a grid with 2 columns. -->
                {% else %}
                <div class="hidden grid-cols-2 gap-2">
+               <!-- Otherwise, hide the grid with 2 columns. -->
                {% endif %}
                   <label for="demand6" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 6:</label>
+                  <!-- Label for the sixth month's demand input field. -->
                   <input required min="0" type="number" step="1" value={{x.demand6}} name="demand6" id="demand6" placeholder="Demand for Month 6" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 6, similar styling as above. -->
                </div>
                {% if x.length >= 7 %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- If 'x.length' is 7 or more, create a grid with 2 columns. -->
                {% else %}
                <div class="hidden grid-cols-2 gap-2">
+               <!-- Otherwise, hide the grid with 2 columns. -->
                {% endif %}
                   <label for="demand7" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 7:</label>
+                  <!-- Label for the seventh month's demand input field. -->
                   <input required min="0" type="number" step="1" value={{x.demand7}} name="demand7" id="demand7" placeholder="Demand for Month 7" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 7, similar styling as above. -->
                </div>
                {% if x.length >= 8 %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- If 'x.length' is 8 or more, create a grid with 2 columns. -->
                {% else %}
                <div class="hidden grid-cols-2 gap-2">
+               <!-- Otherwise, hide the grid with 2 columns. -->
                {% endif %}
                   <label for="demand8" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 8:</label>
+                  <!-- Label for the eighth month's demand input field. -->
                   <input required min="0" type="number" step="1" value={{x.demand8}} name="demand8" id="demand8" placeholder="Demand for Month 8" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 8, similar styling as above. -->
                </div>
                {% if x.length >= 9 %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- If 'x.length' is 9 or more, create a grid with 2 columns. -->
                {% else %}
                <div class="hidden grid-cols-2 gap-2">
+               <!-- Otherwise, hide the grid with 2 columns. -->
                {% endif %}
                   <label for="demand9" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 9:</label>
+                  <!-- Label for the ninth month's demand input field. -->
                   <input required min="0" type="number" step="1" value={{x.demand9}} name="demand9" id="demand9" placeholder="Demand for Month 9" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 9, similar styling as above. -->
                </div>
                {% if x.length >= 10 %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- If 'x.length' is 10 or more, create a grid with 2 columns. -->
                {% else %}
                <div class="hidden grid-cols-2 gap-2">
+               <!-- Otherwise, hide the grid with 2 columns. -->
                {% endif %}
                   <label for="demand10" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 10:</label>
+                  <!-- Label for the tenth month's demand input field. -->
                   <input required min="0" type="number" step="1" value={{x.demand10}} name="demand10" id="demand10" placeholder="Demand for Month 10" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 10, similar styling as above. -->
                </div>
                {% if x.length >= 11 %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- If 'x.length' is 11 or more, create a grid with 2 columns. -->
                {% else %}
                <div class="hidden grid-cols-2 gap-2">
+               <!-- Otherwise, hide the grid with 2 columns. -->
                {% endif %}
                   <label for="demand11" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 11:</label>
+                  <!-- Label for the eleventh month's demand input field. -->
                   <input required min="0" type="number" step="1" value={{x.demand11}} name="demand11" id="demand11" placeholder="Demand for Month 11" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 11, similar styling as above. -->
                </div>
                {% if x.length == 12 %}
                <div class="grid grid-cols-2 gap-2">
+               <!-- If 'x.length' is exactly 12, create a grid with 2 columns. -->
                {% else %}
                <div class="hidden grid-cols-2 gap-2">
+               <!-- Otherwise, hide the grid with 2 columns. -->
                {% endif %}
                   <label for="demand12" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Demand for Month 12:</label>
+                  <!-- Label for the twelfth month's demand input field. -->
                   <input required min="0" type="number" step="1" value={{x.demand12}} name="demand12" id="demand12" placeholder="Demand for Month 12" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for demand of month 12, similar styling as above. -->
                </div>
             </div>
             <hr class="my-6">
+            <!-- Horizontal line with top and bottom margin for separation. -->
             <div class="grid grid-cols-2 gap-2 lg:grid-cols-4">
+            <!-- Grid container for additional input fields with a different column layout for large screens. -->
                <div class="grid grid-cols-2 gap-2">
+               <!-- Grid container with 2 columns for the starting inventory level. -->
                   <label for="inventoryInitial" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Starting Inventory Level:</label>
+                  <!-- Label for the starting inventory input field. -->
                   <input required min="0" type="number" step="1" value={{x.inventoryInitial}} name="inventoryInitial" id="inventoryInitial" placeholder="Starting Inventory Level" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for the starting inventory level with similar styling as above. -->
                </div>
                <div class="grid grid-cols-2 gap-2">
+               <!-- Grid container with 2 columns for the ending inventory level. -->
                   <label for="inventoryFinal" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Ending Inventory Level:</label>
+                  <!-- Label for the ending inventory input field. -->
                   <input required min="0" type="number" step="1" value={{x.inventoryFinal}} name="inventoryFinal" id="inventoryFinal" placeholder="Ending Inventory Level" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for the ending inventory level with similar styling as above. -->
                </div>
                <div class="grid grid-cols-2 gap-2">
+               <!-- Grid container with 2 columns for the temporary worker hiring cost. -->
                   <label for="costHiring" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Temporary Worker Hiring Cost:</label>
+                  <!-- Label for the temporary worker hiring cost input field. -->
                   <input required min="0.00" type="number" step="0.01" value={{x.costHiring}} name="costHiring" id="costHiring" placeholder="Temporary Worker Hiring Cost" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for the temporary worker hiring cost with similar styling as above. -->
                </div>
                <div class="grid grid-cols-2 gap-2">
+               <!-- Grid container with 2 columns for the temporary worker firing cost. -->
                   <label for="costFiring" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Temporary Worker Firing Cost:</label>
+                  <!-- Label for the temporary worker firing cost input field. -->
                   <input required min="0.00" type="number" step="0.01" value={{x.costFiring}} name="costFiring" id="costFiring" placeholder="Temporary Worker Firing Cost" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for the temporary worker firing cost with similar styling as above. -->
                </div>
                <div class="grid grid-cols-2 gap-2">
+               <!-- Grid container with 2 columns for the number of permanent workers. -->
                   <label for="numPermanent" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Number of Permanent Workers:</label>
+                  <!-- Label for the number of permanent workers input field. -->
                   <input required min="0" type="number" step="1" value={{x.numPermanent}} name="numPermanent" id="numPermanent" placeholder="Number of Permanent Workers" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for the number of permanent workers with similar styling as above. -->
                </div>
                <div class="grid grid-cols-2 gap-2">
+               <!-- Grid container with 2 columns for the permanent worker production rate. -->
                   <label for="prodPermanent" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Permanent Worker Production Rate:</label>
+                  <!-- Label for the permanent worker production rate input field. -->
                   <input required min="0" type="number" step="1" value={{x.prodPermanent}} name="prodPermanent" id="prodPermanent" placeholder="Permanent Worker Production Rate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for the permanent worker production rate with similar styling as above. -->
                </div>
                <div class="grid grid-cols-2 gap-2">
+               <!-- Grid container with 2 columns for the temporary worker production rate. -->
                   <label for="prodTemporary" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Temporary Worker Production Rate:</label>
+                  <!-- Label for the temporary worker production rate input field. -->
                   <input required min="0" type="number" step="1" value={{x.prodTemporary}} name="prodTemporary" id="prodTemporary" placeholder="Temporary Worker Production Rate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for the temporary worker production rate with similar styling as above. -->
                </div>
                <div class="grid grid-cols-2 gap-2">
+               <!-- Grid container with 2 columns for the holding cost per unit. -->
                   <label for="costHoldingUnit" class="block m-auto text-sm font-medium text-gray-900 dark:text-white">Holding Cost per Unit:</label>
+                  <!-- Label for the holding cost per unit input field. -->
                   <input required min="0.00" type="number" step="0.01" value={{x.costHoldingUnit}} name="costHoldingUnit" id="costHoldingUnit" placeholder="Holding Cost per Unit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-center">
+                  <!-- Input field for the holding cost per unit with similar styling as above. -->
                </div>
             </div>
             {% endfor %}
+            <!-- End of the loop over 'plan'. -->
             <div class="flex justify-center pt-3 space-x-2">
-               <button type="submit" name="Submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Confirm</button>
+            <!-- Container for the submit button with center alignment and spacing. -->
+               <button type="submit" name="Submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+               <!-- Submit button with styling and dark mode support. -->
+                  Confirm
+                  <!-- Text inside the submit button. -->
+               </button>
             </div>
          </div>
       </form>
    </div>
 </body>
-
 {% endblock %}

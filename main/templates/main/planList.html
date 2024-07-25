@@ -1,117 +1,178 @@
 {% extends 'main/navbar_footer.html' %}
-{% block title %}Plan List Page{% endblock  %}
+<!-- Extends the base template that includes the navigation bar and footer -->
+{% block title %}
+Plan List Page
+{% endblock %}
+<!-- Defines the title block for the page as "Plan List Page" which will be inserted into the base template -->
 {% block content %}
-
+<!-- Starts the content block where the page-specific content will be inserted -->
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+<!-- Links to the Poppins font from Google Fonts for styling -->
 <script src="http://cdn.tailwindcss.com"></script>
+<!-- Links to the Tailwind CSS CDN for styling -->
 {% if messages %}
     {% for message in messages %}
     <script>alert('{{ message }}');</script>
     {% endfor %}
 {% endif %}
+<!-- Displays any messages from the server as JavaScript alerts -->
 <body>
+  <!-- Starts the body section of the HTML document -->
   <div class="w-full p-4 mx-auto space-y-6 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <!-- Defines a container with full width, padding, centered alignment, vertical spacing between elements, text center, background color, border, rounded corners, shadow, and dark mode styling -->
     <h1 class="text-xl font-extrabold text-gray-900 uppercase dark:text-white">Production Plan List</h1>
+    <!-- Displays a heading with extra-large, bold, uppercase text for the page title -->
     <div>
+      <!-- Starts a container for the search form -->
       <form method="get">
+        <!-- Defines a form with GET method for searching -->
         <div class="flex pb-4">
+          <!-- Defines a container with flexbox layout and bottom padding -->
           <select id="column" name="column" class="px-5 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+            <!-- Dropdown menu for selecting search column with various styling for background, border, text color, focus ring, and dark mode -->
             <option value="" selected>Choose a column</option>
+            <!-- Placeholder option with no value to prompt user to select a column -->
             <option value="name">Plan Name</option>
+            <!-- Option to filter by plan name -->
             <option value="length">Month</option>
+            <!-- Option to filter by month -->
           </select>
           <label for="search" class="sr-only">Search</label>
+          <!-- Hidden label for accessibility -->
           <div class="relative mx-4">
+              <!-- Container for the search input field with relative positioning -->
               <div class="absolute inset-y-0 flex items-center pointer-events-none rtl:inset-r-0 start-0 ps-3">
+                  <!-- Container for the search icon with absolute positioning -->
                   <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                      <!-- SVG icon for search -->
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                   </svg>
               </div>
               <input type="text" id="search" name="search" class="block px-5 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items" required>
+              <!-- Input field for search with various styling for background, border, text color, focus ring, and dark mode -->
           </div>
-          <button type="submit" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+          <button type="submit" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <!-- Submit button with white text, blue background, hover effects, focus ring, and dark mode styling -->
+            Search
+          </button>
         </div>
       </form>
       <table class="w-full text-sm text-center text-gray-500 rtl:text-right dark:text-gray-300">
+        <!-- Table with full width, small text size, center-aligned text, and dark mode styling -->
         {% if page_obj %}
+        <!-- Checks if there are page objects to display -->
         <thead class="text-xs font-semibold text-black uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
+          <!-- Table header with extra-small, bold, uppercase text and background color for light and dark modes -->
           <tr>
             <td scope="col" class="px-6 py-3">Plan Name</td>
+            <!-- Table header cell for Plan Name -->
             <td scope="col" class="px-6 py-3">Months</td>
+            <!-- Table header cell for Months -->
             <td scope="col" class="px-6 py-3">Action</td>
+            <!-- Table header cell for Action -->
           </tr>
         </thead>
         {% endif %}
+        <!-- Ends the conditional block for page objects -->
         <tbody>
+          <!-- Table body -->
           {% for list in page_obj %}
+          <!-- Loops through each item in page_obj -->
           {% if forloop.last %}
           <tr class="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+          <!-- Table row with alternating background colors and border styling for the last item in the loop -->
           {% else %}
           <tr class="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+          <!-- Table row with alternating background colors and border styling -->
           {% endif %}
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{list.name}}</th>
+            <!-- Table cell for Plan Name with font medium styling -->
             <td class="px-6 py-4">{{ list.length }}</td>
+            <!-- Table cell for Months -->
             <td class="px-6 py-4">
+              <!-- Table cell for actions -->
               <div class="grid grid-cols-3 gap-1">
+                <!-- Grid container for action buttons -->
                 <div class="flex items-center justify-center rounded">
                   <a href={% url 'input_plan_variables' list.id %} class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Change Plan Input Variables</a>
+                  <!-- Link to change plan input variables with various styling for text, background, hover effects, and dark mode -->
                 </div>
                 <div class="flex items-center justify-center rounded">
                   {% if list.filled %}
-                  <a data-tooltip-placement="bottom" href={% url 'initiate_plan_optimize' list.id %} class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Start Plan Optimization</a><br><br>                  
+                  <!-- Checks if the plan is filled -->
+                  <a data-tooltip-placement="bottom" href={% url 'initiate_plan_optimize' list.id %} class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Start Plan Optimization</a><br><br>
+                  <!-- Link to start plan optimization with various styling for text, background, hover effects, and dark mode -->
                   {% else %}
-                  <button data-tooltip-target="tooltip-default" data-tooltip-placement="bottom" class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-gray-900 rounded-lg cursor-not-allowed dark:bg-gray-700" disabled>Start Plan Optimization</button><br><br>                  
+                  <button data-tooltip-target="tooltip-default" data-tooltip-placement="bottom" class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-gray-900 rounded-lg cursor-not-allowed dark:bg-gray-700" disabled>Start Plan Optimization</button><br><br>
+                  <!-- Disabled button with styling for text, background, and dark mode -->
                   <div id="tooltip-default" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip dark:bg-white dark:text-black">
                     You must change plan optimization variables first!
-                    <div class="tooltip-arrow" data-popper-arrow>
-                    </div>
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                    <!-- Tooltip explaining why the button is disabled -->
                   </div>
                   {% endif %}
                 </div>
                 <div class="flex items-center justify-center rounded">
-                  <a href={% url 'delete_plan' list.id %} onclick="return confirm('Are you sure you want to delete plan {{ list.name }}?')"  class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Delete Plan Record</a>
+                  <a href={% url 'delete_plan' list.id %} onclick="return confirm('Are you sure you want to delete plan {{ list.name }}?')" class="content-center w-full h-full p-2 m-1 text-sm font-medium text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Delete Plan Record</a>
+                  <!-- Link to delete the plan with confirmation dialog and various styling for text, background, hover effects, and dark mode -->
                 </div>
               </div>
             </td>
           </tr> 
           {% empty %}
+          <!-- Content to display if no plans are available -->
           <tr class="bg-white dark:bg-gray-800">
             <td colspan="3" class="px-4 py-4">
+              <!-- Table cell spanning all columns -->
               <div class="flex flex-wrap justify-center">
+                <!-- Container for centered content -->
                 <h1 class="block w-full text-xl font-extrabold text-gray-900 uppercase dark:text-white">No Plans Made Yet!</h1>
+                <!-- Heading indicating no plans are available -->
                 <a href={% url 'home' %} class="content-center p-2 m-1 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm dark:focus:ring-[#3b5998]/55">Create a New Production Plan</a>
+                <!-- Link to create a new production plan with styling for text, background, hover effects, and dark mode -->
               </div>
             </td>
           </tr>
           {% endfor %}
         </tbody>
-        <!--end of table-->
+        <!-- End of table body -->
       </table>
       <nav class="flex flex-wrap items-center justify-between pt-4 flex-column md:flex-row" aria-label="Table navigation">
+        <!-- Navigation for paginated table with flexbox layout -->
         <span class="block w-full mb-4 text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:inline md:w-auto">Showing <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.start_index }} - {{ page_obj.end_index }}</span> of <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.paginator.count }}</span></span>
+        <!-- Displays the range of displayed items and the total count -->
         <ul class="inline-flex h-10 -space-x-px text-sm rtl:space-x-reverse">
+          <!-- Unordered list for pagination controls -->
           {% if page_obj.has_previous %}
+          <!-- Checks if there is a previous page -->
               <li>
                 <a href="?page=1" class="flex items-center justify-center h-10 px-3 leading-tight text-gray-500 bg-white border border-gray-300 ms-0 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">First</a>
+                <!-- Link to the first page with various styling -->
               </li>
               <li>
                 <a href="?page={{ page_obj.previous_page_number }}" class="flex items-center justify-center h-10 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                <!-- Link to the previous page with various styling -->
               </li>
           {% endif %}
           <li>
             <a href="#" class="flex items-center justify-center h-10 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white {% if not page_obj.has_previous %}rounded-s-lg{% endif %}{% if not page_obj.has_next %}rounded-e-lg{% endif %}">{{page_obj.number}} of {{page_obj.paginator.num_pages}}</a>
+            <!-- Displays the current page number and total number of pages with various styling -->
           </li>
           {% if page_obj.has_next %}
+          <!-- Checks if there is a next page -->
               <li>
                 <a href="?page={{ page_obj.next_page_number }}" class="flex items-center justify-center h-10 px-3 leading-tight text-gray-500 bg-white border border-gray-300 ms-0 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                <!-- Link to the next page with various styling -->
               </li>
               <li>
                 <a href="?page={{ page_obj.paginator.num_pages }}" class="flex items-center justify-center h-10 px-3 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">Last</a>
+                <!-- Link to the last page with various styling -->
               </li>
-          {% endif%}
+          {% endif %}
         </ul>
       </nav>
     </div>
   </div>
 </body>
-{% endblock  %} 
+{% endblock %}
+<!-- Ends the content block -->

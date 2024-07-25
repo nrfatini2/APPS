@@ -1,43 +1,93 @@
-{% extends 'main/navbar_footer.html' %} {% block title %}Manage User{% endblock %}
+{% extends 'main/navbar_footer.html' %}
+<!-- Extends a base template that includes the navigation bar and footer -->
+{% block title %}
+Manage User
+{% endblock %}
+<!-- Defines the title block for the page, which will be inserted into the base template -->
 {% block content %}
+<!-- Starts the content block where the page-specific content will be inserted -->
 {% load widget_tweaks %}
 {% load compress %}
 {% load static %}
+<!-- Loads Django template tags for widget tweaks, CSS compression, and static file handling -->
 <body>
+   <!-- Starts the body section of the HTML document -->
    <div class="w-full max-w-2xl p-4 mx-auto text-center bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <!-- Defines a container with full width, maximum width, padding, centered alignment, and various styling for background, border, and shadow -->
       <form method="POST" class="space-y-6">
+         <!-- Defines a form with POST method and vertical spacing between elements -->
          <h1 class="text-xl font-extrabold text-gray-900 uppercase dark:text-white">User Management</h1><br>
-         <a href="{% url 'create-user' %}" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><i class=" fa-solid fa-user-plus"></i><span class="ms-3">Create New User</span></a>
+         <!-- Displays a heading with large, bold, uppercase text for the page title -->
+         <a href="{% url 'create-user' %}" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <!-- Link to the user creation page with full width, white text, blue background, hover effects, and various styling for focus and dark mode -->
+            <i class=" fa-solid fa-user-plus"></i>
+            <!-- Icon representing user addition -->
+            <span class="ms-3">Create New User</span>
+            <!-- Text next to the icon -->
+         </a>
          <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-300">
+            <!-- Defines a table with full width and various styling for text alignment, color, and dark mode -->
             {% for userData in userData %}
+            <!-- Loops through each `userData` item in the `userData` list -->
                {% if userData.username != user.username %}
+               <!-- Checks if the username of `userData` is not the same as the current user's username -->
                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 dark:border-gray-700">
+                  <!-- Defines a table row with alternating background colors for odd and even rows, and dark mode styling -->
                   <th scope="row" class="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
+                     <!-- Defines a table header cell with padding, medium font weight, centered text, and dark mode styling -->
                      <p>UID</p>
+                     <!-- Displays a label for User ID -->
                      <p>0{{ userData.id }}</p>
+                     <!-- Displays the User ID with a leading zero -->
                   </th>
                   <td class="px-6 py-4">
+                     <!-- Defines a table data cell with padding -->
                      <p>First Name</p>
+                     <!-- Displays a label for First Name -->
                      <p>Last Name</p>
+                     <!-- Displays a label for Last Name -->
                      <p>Username</p>
+                     <!-- Displays a label for Username -->
                      <p>Email</p>
+                     <!-- Displays a label for Email -->
                   </td>
                   <td class="px-6 py-4">
+                     <!-- Defines a table data cell with padding -->
                      <p>{{ userData.first_name }}</p>
+                     <!-- Displays the First Name from `userData` -->
                      <p>{{ userData.last_name }}</p>
+                     <!-- Displays the Last Name from `userData` -->
                      <p>{{ userData.username }}</p>
+                     <!-- Displays the Username from `userData` -->
                      <p>{{ userData.email }}</p>
+                     <!-- Displays the Email from `userData` -->
                   </td>
                   <td class="text-center">
-                     <a href={% url 'update-user' userData.id %} class="w-full p-2 m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><i class="fa-solid fa-pen-to-square"></i></a><br><br>
-                     <a href={% url 'delete-user' userData.id %} onclick="return confirm('Are you sure you want to delete {{ userData.username }}?')" class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"><i class="fa-solid fa-trash"></i></a>
+                     <!-- Defines a table data cell with centered text -->
+                     <a href={% url 'update-user' userData.id %} class="w-full p-2 m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <!-- Link to the user update page with full width, padding, white text, blue background, hover effects, and various styling for focus and dark mode -->
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <!-- Icon representing edit functionality -->
+                     </a><br><br>
+                     <!-- Line break for spacing -->
+                     <a href={% url 'delete-user' userData.id %} onclick="return confirm('Are you sure you want to delete {{ userData.username }}?')" class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                        <!-- Link to the user deletion page with full width, white text, red background, hover effects, and various styling for focus and dark mode, with a confirmation dialog -->
+                        <i class="fa-solid fa-trash"></i>
+                        <!-- Icon representing delete functionality -->
+                     </a>
                   </td>
                </tr>
                {% endif %}
+               <!-- Ends the conditional block for excluding the current user -->
             {% endfor %}
+            <!-- Ends the loop through `userData` items -->
          </table>
+         <!-- Ends the table -->
       </form>
+      <!-- Ends the form -->
    </div>
+   <!-- Ends the container -->
 </body>
-
+<!-- Ends the body section of the HTML document -->
 {% endblock %}
+<!-- Ends the content block -->
